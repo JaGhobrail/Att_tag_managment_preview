@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\InvestigationSummary;
+use App\Models\PageUrlList;
 use App\Models\Tag;
 use Carbon\Carbon;
 use Illuminate\Database\Seeder;
@@ -16,7 +17,37 @@ class TagSeeder extends Seeder
      * @return void
      */
     public function run()
-    {
+    {    
+        $idata1 = [
+            [
+                'ver'=>2,
+                'as_of_date' =>'2018-03-12',
+                'num_scans'=>3,
+                'business_unit'=>'ggggg',
+                'scan_domain'=>'hhhh',
+                'scan_year'=>1999,
+                'scan_month'=>12,
+                'vendor_parent'=>'att',
+                'vendor_name'=>'att',
+                'tracker_name'=>'att',
+                'tracker_domain'=>'att',
+                'page_section'=>'ffphp artisan migrate',
+                'result'=>'f',
+                'notes'=>'f',
+                'tracker_category'=>'f',
+                'tracker_url'=>'f',
+                'tracker_query'=>'df',
+                'page_url'=>'f',
+                'scan_date'=>'2018-12-03',
+                'tot_tags'=>2,
+                'tot_scripts'=>3,
+                'tot_beacons'=>1,
+                'tot_others'=>2,
+                'tot_cookies'=>3,
+                'tot_pages'=>4
+            ],
+        ];
+        PageUrlList::insert($idata1);
             $idata = [
             [
                 'id'=>528,
