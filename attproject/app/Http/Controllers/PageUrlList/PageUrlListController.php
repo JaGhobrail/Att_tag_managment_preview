@@ -1,13 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\PageUrlList;
-
+namespace App\Http\Controllers\InvestigationSummary;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\PageUrlListRequest;
+use App\Http\Requests\InvestigationSummaryRequest;
 
-use App\Repositories\PageUrlListRepository;
+use App\Repositories\InvestigationSummaryRepository;
 use App\Traits\ResponseTrait;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
@@ -27,7 +26,7 @@ use Illuminate\Http\Response;
  * )
  */
 
-class PageUrlListController extends Controller
+class InvestigationSummaryController extends Controller
 {
     /**
      * Response trait to handle return responses.
@@ -37,11 +36,11 @@ class PageUrlListController extends Controller
     /**
      * Tag Repository class.
      *
-     * @var PageUrlListRequest
+     * @var InvestigationSummaryRepository
      */
     public $tagsRepository;
 
-    public function __construct(PageUrlListRequest $tagsRepository)
+    public function __construct(InvestigationSummaryRepository $tagsRepository)
     {
         $this->middleware('auth:api', ['except' => ['indexAll']]);
         $this->tagsRepository = $tagsRepository;
@@ -66,7 +65,7 @@ class PageUrlListController extends Controller
             $data = $this->tagsRepository->getAll();
             return $this->responseSuccess($data, 'Tag List Fetch Successfully !');
         } catch (\Exception $e) {
-            // return $this->responseError(null, $e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
+            return $this->responseError(null, $e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 
