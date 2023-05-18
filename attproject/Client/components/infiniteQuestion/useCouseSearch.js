@@ -1,0 +1,36 @@
+
+import Axios from 'axios'
+import {useEffect, useState} from 'react'
+
+export default function useCourseSearch(query, pageNumber) {
+    const [loading, setLoading] = useState(true)
+    const [error, setError] = useState(false)
+    const [articles, setArticles] = useState([])
+    const [hasMore, setHasMore] = useState(false)
+
+    useEffect(() => {
+        setArticles([])
+    },[])
+    useEffect(() => {
+        setLoading(true)
+        setError(false)
+        let cancel
+        Axios({
+            method: 'GET',
+            headers : { "Content-Type": "application/json" , "Accept" : "application/json" },
+            url: `http://localhost:8000/api/tags/view/all?page=${pageNumber}`,
+          
+            cancelToken: new Axios.CancelToken(c => cancel = c)
+        }).then(res => {
+             console.log(res.data.data);
+             setArticles((prevArticles) => [...new Set([...prevArticles, ...res.data.data.data])] );
+             setHasMore(res.data.length > 0)
+             setLoading(false)
+        }).catch(e => {
+            if (Axios.isCancel(e)) return;
+            setError(true)
+        })
+        return () => cancel();
+    }, [query, pageNumber])
+    return {loading, error, articles,hasMore}
+}
