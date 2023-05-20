@@ -5,6 +5,7 @@ use App\Http\Controllers\Products\ProductsController;
 use App\Http\Controllers\tags\TagsController;
 use App\Http\Controllers\InvestigationSummary\InvestigationSummaryController;
 use App\Http\Controllers\PageUrlList\PageUrlListController;
+use App\Http\Controllers\PageSectList\PageSectListController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -49,6 +50,10 @@ Route::group([
     Route::resource('page-url-list', PageUrlListController::class);
     Route::get('page-url-list/view/all', [PageUrlListController::class, 'indexAll']);
     Route::get('page-url-list/view/search', [PageUrlListController::class, 'search']);
+
+    Route::resource('page-sect-list', PageSectListController::class);
+    Route::get('page-sect-list/view/all', [PageSectListController::class, 'indexAll']);
+    Route::get('page-sect-list/view/search', [PageSectListController::class, 'search']);
 
 });
 

@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\PageUrlList;
+namespace App\Http\Controllers\PageSectList;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\PageUrlListRequest;
+use App\Http\Requests\PageSectListRequest;
 
-use App\Repositories\PageUrlListRepository;
+use App\Repositories\PageSectListRepository;
 use App\Traits\ResponseTrait;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
@@ -26,7 +26,7 @@ use Illuminate\Http\Response;
  * )
  */
 
-class PageUrlListController extends Controller
+class PageSectListController extends Controller
 {
     /**
      * Response trait to handle return responses.
@@ -36,11 +36,11 @@ class PageUrlListController extends Controller
     /**
      * Tag Repository class.
      *
-     * @var PageUrlListRepository
+     * @var PageSectListRepository
      */
     public $tagsRepository;
 
-    public function __construct(PageUrlListRepository $tagsRepository)
+    public function __construct(PageSectListRepository $tagsRepository)
     {
         $this->middleware('auth:api', ['except' => ['indexAll']]);
         $this->tagsRepository = $tagsRepository;
