@@ -118,6 +118,7 @@ const Sidebar = ({ mobileNavsidebar }) => {
                     </svg>
                     <span>Investigation Summary</span>
                 </Link>
+
                 <Link
                     href="/page_url_list"
                     className={
@@ -142,6 +143,32 @@ const Sidebar = ({ mobileNavsidebar }) => {
                     </svg>
                     <span>Page Url List</span>
                 </Link>
+
+                <Link
+                    href="/page_sect_list"
+                    className={
+                        router.pathname == "/page_sect_list"
+                            ? "flex items-center space-x-2 py-1 dark:text-white pr-20 border-r-4 border-r-red-600 font-semibold"
+                            : "flex items-center space-x-2 py-1 dark:text-white hover:border-r-4 hover:border-r-red-600 hover:font-semibold pr-20"
+                    }
+                >
+                    <svg
+                        className={
+                            router.pathname == "/page_sect_list"
+                                ? "h-5 w-5 fill-red-600"
+                                : "h-5 w-5 group-hover:fill-red-600"
+                        }
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                    >
+                        <g>
+                            <path d="M19 2H9c-1.11 0-2 .89-2 2v5.586l-4.707 4.7v0c-.4.39-.4 1.02 0 1.41 .18.18.44.29.7.29v5 0c0 .55.44 1 1 1h16v0c.55 0 1-.45 1-1v-17c0-1.11-.9-2-2-2Zm-8 18H5v-5.586l3-3 3 3V20Zm8 0h-6v-4 0c.55 0 .99-.45 1-1 0-.27-.11-.53-.3-.72L8.99 9.57V3.984h10v16Z"></path>
+                            <path d="M11 6h2v2h-2Zm4 0h2v2h-2Zm0 4.03h2v1.96h-2Zm0 3.96h2v2h-2Zm-8 1h2v2H7Z"></path>
+                        </g>
+                    </svg>
+                    <span>Page Sect List</span>
+                </Link>
+
                 <div className="mt-8 text-gray-400/70  font-medium uppercase">
                     General
                 </div>
