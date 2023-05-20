@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\InvestigationSummary;
+namespace App\Http\Controllers\PageUrlList;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\InvestigationSummaryRequest;
+use App\Http\Requests\PageUrlListRequest;
 
-use App\Repositories\InvestigationSummaryRepository;
+use App\Repositories\PageUrlListRepository;
 use App\Traits\ResponseTrait;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
@@ -26,7 +26,7 @@ use Illuminate\Http\Response;
  * )
  */
 
-class InvestigationSummaryController extends Controller
+class PageUrlListController extends Controller
 {
     /**
      * Response trait to handle return responses.
@@ -36,11 +36,11 @@ class InvestigationSummaryController extends Controller
     /**
      * Tag Repository class.
      *
-     * @var InvestigationSummaryRepository
+     * @var PageUrlListRepository
      */
     public $tagsRepository;
 
-    public function __construct(InvestigationSummaryRepository $tagsRepository)
+    public function __construct(PageUrlListRepository $tagsRepository)
     {
         $this->middleware('auth:api', ['except' => ['indexAll']]);
         $this->tagsRepository = $tagsRepository;
