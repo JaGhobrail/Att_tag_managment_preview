@@ -1,16 +1,16 @@
 <?php
 
-namespace App\Repositories;
+namespace App\Repositories\AdTech;
 
 use Illuminate\Support\Str;
 use App\Helpers\UploadHelper;
 use App\Interfaces\CrudInterface;
-use App\Models\PageSectList;
+use App\Models\AdTech\InvestigationSummary;
 use App\Models\User;
 use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Support\Facades\Auth;
 
-class PageSectListRepository implements CrudInterface
+class InvestigationSummaryRepository implements CrudInterface
 {
     /**
      * Authenticated User Instance.
@@ -34,7 +34,7 @@ class PageSectListRepository implements CrudInterface
      */
     public function getAll(): Paginator
     {
-        return PageSectList::
+        return InvestigationSummary::
             orderBy('id', 'desc')
             ->paginate(10);
     }
@@ -48,7 +48,7 @@ class PageSectListRepository implements CrudInterface
     public function getPaginatedData($perPage): Paginator
     {
         $perPage = isset($perPage) ? intval($perPage) : 12;
-        return PageSectList::orderBy('id', 'desc')
+        return InvestigationSummary::orderBy('id', 'desc')
             ->paginate($perPage);
     }
 
@@ -62,7 +62,7 @@ class PageSectListRepository implements CrudInterface
     {
         $perPage = isset($perPage) ? intval($perPage) : 10;
 
-        return PageSectList::where('name', 'like', '%' . $keyword . '%')
+        return InvestigationSummary::where('name', 'like', '%' . $keyword . '%')
             ->orWhere('description', 'like', '%' . $keyword . '%')
             ->orWhere('rate', 'like', '%' . $keyword . '%')
             ->orderBy('id', 'desc')
@@ -77,7 +77,7 @@ class PageSectListRepository implements CrudInterface
      */
     public function create(array $data): Tag
     {
-        return PageSectList::create($data);
+        return InvestigationSummary::create($data);
     }
 
     /**
@@ -88,7 +88,7 @@ class PageSectListRepository implements CrudInterface
      */
     public function delete(int $id): bool
     {
-        $tag = PageSectList::find($id);
+        $tag = InvestigationSummary::find($id);
         if (empty($tag)) {
             return false;
         }
@@ -115,9 +115,9 @@ class PageSectListRepository implements CrudInterface
      * @param array $data
      * @return object Updated tag Object
      */
-    public function update(int $id, array $data): PageSectList|null
+    public function update(int $id, array $data): InvestigationSummary|null
     {
-        $tag = PageSectList::find($id);
+        $tag = InvestigationSummary::find($id);
 
 
         if (is_null($tag)) {

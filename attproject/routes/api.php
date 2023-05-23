@@ -1,11 +1,10 @@
 <?php
 
 use App\Http\Controllers\Auth\AuthController;
-use App\Http\Controllers\Products\ProductsController;
-use App\Http\Controllers\tags\TagsController;
-use App\Http\Controllers\InvestigationSummary\InvestigationSummaryController;
-use App\Http\Controllers\PageUrlList\PageUrlListController;
-use App\Http\Controllers\PageSectList\PageSectListController;
+use App\Http\Controllers\AdTech\tags\TagsController;
+use App\Http\Controllers\AdTech\InvestigationSummary\InvestigationSummaryController;
+use App\Http\Controllers\AdTech\PageUrlList\PageUrlListController;
+use App\Http\Controllers\AdTech\PageSectList\PageSectListController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 

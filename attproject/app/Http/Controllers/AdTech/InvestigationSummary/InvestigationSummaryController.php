@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\InvestigationSummary;
+namespace App\Http\Controllers\AdTech\InvestigationSummary;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\InvestigationSummaryRequest;
+use App\Http\Requests\AdTech\InvestigationSummaryRequest;
 
-use App\Repositories\InvestigationSummaryRepository;
+use App\Repositories\AdTech\InvestigationSummaryRepository;
 use App\Traits\ResponseTrait;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;

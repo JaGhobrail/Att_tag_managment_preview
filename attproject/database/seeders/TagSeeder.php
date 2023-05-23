@@ -2,9 +2,9 @@
 
 namespace Database\Seeders;
 
-use App\Models\InvestigationSummary;
-use App\Models\PageUrlList;
-use App\Models\Tag;
+use App\Models\AdTech\InvestigationSummary;
+use App\Models\AdTech\PageUrlList;
+use App\Models\AdTech\Tag;
 use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -17,7 +17,7 @@ class TagSeeder extends Seeder
      * @return void
      */
     public function run()
-    {    
+    {
         $idata1 = [
             [
                 'ver'=>2,

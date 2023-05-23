@@ -1,16 +1,16 @@
 <?php
 
-namespace App\Repositories;
+namespace App\Repositories\AdTech;
 
 use Illuminate\Support\Str;
 use App\Helpers\UploadHelper;
 use App\Interfaces\CrudInterface;
-use App\Models\Tag;
+use App\Models\AdTech\PageSectList;
 use App\Models\User;
 use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Support\Facades\Auth;
 
-class TagRepository implements CrudInterface
+class PageSectListRepository implements CrudInterface
 {
     /**
      * Authenticated User Instance.
@@ -34,7 +34,7 @@ class TagRepository implements CrudInterface
      */
     public function getAll(): Paginator
     {
-        return Tag::
+        return PageSectList::
             orderBy('id', 'desc')
             ->paginate(10);
     }
@@ -48,7 +48,7 @@ class TagRepository implements CrudInterface
     public function getPaginatedData($perPage): Paginator
     {
         $perPage = isset($perPage) ? intval($perPage) : 12;
-        return Tag::orderBy('id', 'desc')
+        return PageSectList::orderBy('id', 'desc')
             ->paginate($perPage);
     }
 
@@ -62,7 +62,7 @@ class TagRepository implements CrudInterface
     {
         $perPage = isset($perPage) ? intval($perPage) : 10;
 
-        return Tag::where('name', 'like', '%' . $keyword . '%')
+        return PageSectList::where('name', 'like', '%' . $keyword . '%')
             ->orWhere('description', 'like', '%' . $keyword . '%')
             ->orWhere('rate', 'like', '%' . $keyword . '%')
             ->orderBy('id', 'desc')
@@ -77,7 +77,7 @@ class TagRepository implements CrudInterface
      */
     public function create(array $data): Tag
     {
-        return Tag::create($data);
+        return PageSectList::create($data);
     }
 
     /**
@@ -88,7 +88,7 @@ class TagRepository implements CrudInterface
      */
     public function delete(int $id): bool
     {
-        $tag = Tag::find($id);
+        $tag = PageSectList::find($id);
         if (empty($tag)) {
             return false;
         }
@@ -115,10 +115,10 @@ class TagRepository implements CrudInterface
      * @param array $data
      * @return object Updated tag Object
      */
-    public function update(int $id, array $data): Tag|null
+    public function update(int $id, array $data): PageSectList|null
     {
-        $tag = Tag::find($id);
-        
+        $tag = PageSectList::find($id);
+
 
         if (is_null($tag)) {
             return null;

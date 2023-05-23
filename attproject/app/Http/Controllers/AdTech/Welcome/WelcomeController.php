@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Welcome;
+namespace App\Http\Controllers\AdTech\Welcome;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Contracts\Support\Renderable;

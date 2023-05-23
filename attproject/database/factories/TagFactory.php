@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Models\Tag;
+use App\Models\AdTech\Tag;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class TagFactory extends Factory
@@ -27,7 +27,7 @@ class TagFactory extends Factory
             'rank' => $this->faker->randomDigit,
             'rate' => $this->faker->randomDigit,
             'description' => $this->faker->text,
-            
+
         ];
     }
 }

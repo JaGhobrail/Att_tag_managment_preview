@@ -1,16 +1,16 @@
 <?php
 
-namespace App\Repositories;
+namespace App\Repositories\AdTech;
 
 use Illuminate\Support\Str;
 use App\Helpers\UploadHelper;
 use App\Interfaces\CrudInterface;
-use App\Models\InvestigationSummary;
+use App\Models\AdTech\Tag;
 use App\Models\User;
 use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Support\Facades\Auth;
 
-class InvestigationSummaryRepository implements CrudInterface
+class TagRepository implements CrudInterface
 {
     /**
      * Authenticated User Instance.
@@ -34,7 +34,7 @@ class InvestigationSummaryRepository implements CrudInterface
      */
     public function getAll(): Paginator
     {
-        return InvestigationSummary::
+        return Tag::
             orderBy('id', 'desc')
             ->paginate(10);
     }
@@ -48,7 +48,7 @@ class InvestigationSummaryRepository implements CrudInterface
     public function getPaginatedData($perPage): Paginator
     {
         $perPage = isset($perPage) ? intval($perPage) : 12;
-        return InvestigationSummary::orderBy('id', 'desc')
+        return Tag::orderBy('id', 'desc')
             ->paginate($perPage);
     }
 
@@ -62,7 +62,7 @@ class InvestigationSummaryRepository implements CrudInterface
     {
         $perPage = isset($perPage) ? intval($perPage) : 10;
 
-        return InvestigationSummary::where('name', 'like', '%' . $keyword . '%')
+        return Tag::where('name', 'like', '%' . $keyword . '%')
             ->orWhere('description', 'like', '%' . $keyword . '%')
             ->orWhere('rate', 'like', '%' . $keyword . '%')
             ->orderBy('id', 'desc')
@@ -77,7 +77,7 @@ class InvestigationSummaryRepository implements CrudInterface
      */
     public function create(array $data): Tag
     {
-        return InvestigationSummary::create($data);
+        return Tag::create($data);
     }
 
     /**
@@ -88,7 +88,7 @@ class InvestigationSummaryRepository implements CrudInterface
      */
     public function delete(int $id): bool
     {
-        $tag = InvestigationSummary::find($id);
+        $tag = Tag::find($id);
         if (empty($tag)) {
             return false;
         }
@@ -115,10 +115,10 @@ class InvestigationSummaryRepository implements CrudInterface
      * @param array $data
      * @return object Updated tag Object
      */
-    public function update(int $id, array $data): InvestigationSummary|null
+    public function update(int $id, array $data): Tag|null
     {
-        $tag = InvestigationSummary::find($id);
-        
+        $tag = Tag::find($id);
+
 
         if (is_null($tag)) {
             return null;
