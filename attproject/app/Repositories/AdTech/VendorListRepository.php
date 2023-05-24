@@ -5,12 +5,12 @@ namespace App\Repositories\AdTech;
 use Illuminate\Support\Str;
 use App\Helpers\UploadHelper;
 use App\Interfaces\CrudInterface;
-use App\Models\AdTech\TrackerList;
+use App\Models\AdTech\VendorList;
 use App\Models\User;
 use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Support\Facades\Auth;
 
-class TrackerListRepository implements CrudInterface
+class VendorListRepository implements CrudInterface
 {
     /**
      * Authenticated User Instance.
@@ -34,7 +34,7 @@ class TrackerListRepository implements CrudInterface
      */
     public function getAll(): Paginator
     {
-        return TrackerList::
+        return VendorList::
             orderBy('id', 'desc')
             ->paginate(10);
     }
@@ -48,7 +48,7 @@ class TrackerListRepository implements CrudInterface
     public function getPaginatedData($perPage): Paginator
     {
         $perPage = isset($perPage) ? intval($perPage) : 12;
-        return TrackerList::orderBy('id', 'desc')
+        return VendorList::orderBy('id', 'desc')
             ->paginate($perPage);
     }
 
@@ -62,7 +62,7 @@ class TrackerListRepository implements CrudInterface
     {
         $perPage = isset($perPage) ? intval($perPage) : 10;
 
-        return TrackerList::where('name', 'like', '%' . $keyword . '%')
+        return VendorList::where('name', 'like', '%' . $keyword . '%')
             ->orWhere('description', 'like', '%' . $keyword . '%')
             ->orWhere('rate', 'like', '%' . $keyword . '%')
             ->orderBy('id', 'desc')
@@ -77,7 +77,7 @@ class TrackerListRepository implements CrudInterface
      */
     public function create(array $data): Tag
     {
-        return TrackerList::create($data);
+        return VendorList::create($data);
     }
 
     /**
@@ -88,7 +88,7 @@ class TrackerListRepository implements CrudInterface
      */
     public function delete(int $id): bool
     {
-        $tag = TrackerList::find($id);
+        $tag = VendorList::find($id);
         if (empty($tag)) {
             return false;
         }
@@ -115,9 +115,9 @@ class TrackerListRepository implements CrudInterface
      * @param array $data
      * @return object Updated tag Object
      */
-    public function update(int $id, array $data): TrackerList|null
+    public function update(int $id, array $data): VendorList|null
     {
-        $tag = TrackerList::find($id);
+        $tag = VendorList::find($id);
 
 
         if (is_null($tag)) {

@@ -5,10 +5,10 @@ namespace App\Models\AdTech;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class TrackerList extends Model
+class VendorList extends Model
 {
     use HasFactory;
-    protected $table = "tracker_lists";
+    protected $table = "vendor_lists";
     protected $fillable = [
     "as_of_date,
     ver,
@@ -19,8 +19,6 @@ class TrackerList extends Model
     scan_month,
     vendor_parent,
     vendor_name,
-    tracker_name,
-    tracker_domain,
     result,
     notes,
     tot_tags,

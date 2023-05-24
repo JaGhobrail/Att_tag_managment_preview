@@ -5,6 +5,8 @@ use App\Http\Controllers\AdTech\tags\TagsController;
 use App\Http\Controllers\AdTech\InvestigationSummary\InvestigationSummaryController;
 use App\Http\Controllers\AdTech\PageUrlList\PageUrlListController;
 use App\Http\Controllers\AdTech\PageSectList\PageSectListController;
+use App\Http\Controllers\AdTech\TrackerList\TrackerListController;
+use App\Http\Controllers\AdTech\VendorList\VendorListController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -53,6 +55,14 @@ Route::group([
     Route::resource('page-sect-list', PageSectListController::class);
     Route::get('page-sect-list/view/all', [PageSectListController::class, 'indexAll']);
     Route::get('page-sect-list/view/search', [PageSectListController::class, 'search']);
+
+    Route::resource('tracker-list', TrackerListController::class);
+    Route::get('tracker-list/view/all', [TrackerListController::class, 'indexAll']);
+    Route::get('tracker-list/view/search', [TrackerListController::class, 'search']);
+
+    Route::resource('vendor-list', VendorListController::class);
+    Route::get('vendor-list/view/all', [VendorListController::class, 'indexAll']);
+    Route::get('vendor-list/view/search', [VendorListController::class, 'search']);
 
 });
 
