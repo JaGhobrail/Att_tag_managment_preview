@@ -5,6 +5,7 @@ import questionReducer from './questionSlice';
 
 import investigationReducer from './investigationSlice';
 import pageSectListReducer from './pageSectListSlice';
+import trackerListReducer from './trackerListSlice';
 
 
 import authReducer from "./auth/reducers";
@@ -16,7 +17,8 @@ const store = configureStore({
         question: questionReducer,
         investigation: investigationReducer,
         auth: authReducer,
-        pageSectList: pageSectListReducer
+        pageSectList: pageSectListReducer,
+        trackerList: trackerListReducer
     },
     middleware: [thunk],
 });
