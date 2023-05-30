@@ -2,29 +2,39 @@
 const defaultTheme = require('tailwindcss/defaultTheme')
 
 module.exports = {
-  content: [
-    "./pages/**/*.{js,ts,jsx,tsx}",
-    "./components/**/*.{js,ts,jsx,tsx}",
-  ],
-  theme: {
-    screens:{
-      'xs': '350px',
-      ...defaultTheme.screens,
+    content: [
+        "./pages/**/*.{js,ts,jsx,tsx}",
+        "./components/**/*.{js,ts,jsx,tsx}",
+    ],
+    theme: {
+        screens: {
+            'xs': '350px',
+            ...defaultTheme.screens,
+        },
+        extend: {
+            colors: {
+                accent: '#0057b8'
+            },
+            fontFamily: {
+                'montserrat': ['Montserrat', 'sans-serif'],
+                'poppins': ['Poppins', 'sans-serif'],
+
+            },
+            fontSize: {
+                'xxs': '.65rem'
+            },
+
+        }
     },
-    extend: {
-      colors: {
-       
-      },
-      fontFamily: {
-        'montserrat': ['Montserrat','sans-serif'],
-        'poppins': ['Poppins','sans-serif'],
-       
-      },
-      fontSize: {
-        'xxs': '.65rem'
-      },
-      
-    }
-  },
-  plugins: [],
+    plugins: [require("daisyui")],
+    daisyui: {
+        themes: [
+            {
+                light: {
+                    ...require("daisyui/src/colors/themes")["[data-theme=light]"],
+                    primary: "#0057b8",
+                },
+            },
+        ],
+    },
 }
