@@ -20,12 +20,12 @@ const Layout = ({ children, title = "Sample Title" }) => {
 
     return (
         <>
-
+            {/*
             <Head>
                 <title>{title}</title>
                 <meta name="description" content="Interview Helper" />
                 <link rel="icon" href="/favicon.ico" />
-            </Head>
+            </Head> */}
 
             <div className="font-montserrat text-sm bg-white">
                 <div className="flex min-h-screen  2xl:max-w-screen-2xl 2xl:mx-auto 2xl:border-x-2 2xl:border-gray-200">
