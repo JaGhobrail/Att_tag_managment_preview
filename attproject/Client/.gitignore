@@ -1,31 +1,36 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+# See https://help.github.com/ignore-files/ for more about ignoring files.
 
 # dependencies
 /node_modules
-/.pnp
-.pnp.js
+/.yarn
 
 # testing
 /coverage
-
-# next.js
-/.next/
-/out/
 
 # production
 /build
 
 # misc
 .DS_Store
-*.pem
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.eslintcache
 
-# debug
+/.idea
+/.vscode
+
+/src/styles/tailwind.css
+
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-.pnpm-debug.log*
 
-
-
-# vercel
-.vercel
+.yarn/*
+!.yarn/patches
+!.yarn/releases
+!.yarn/plugins
+!.yarn/sdks
+!.yarn/versions
+.pnp.*
