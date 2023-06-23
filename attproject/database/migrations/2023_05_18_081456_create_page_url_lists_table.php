@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('page_url_lists', function (Blueprint $table) {
             $table->id();
-            // $table->timestamps();
+            $table->timestamps();
             $table->date('as_of_date');
             $table->integer('ver')->default(0);
             $table->integer('num_scans')->default(0);

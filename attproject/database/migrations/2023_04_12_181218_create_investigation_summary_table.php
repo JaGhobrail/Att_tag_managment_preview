@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('investigate_summary', function (Blueprint $table) {
             $table->id();
-            //$table->integer('invest_snap_id')->default(0);
+            // $table->integer('invest_snap_id')->default(0);
             $table->integer('invest_level')->default(0);
             $table->integer('invest_version')->default(0);
             $table->integer('investigate_count')->default(0);
@@ -30,13 +30,12 @@ return new class extends Migration
             $table->string('title');
             $table->string('scan_domain');
             $table->string('business_unit');
-
-            //$table->timestamps();
+            $table->timestamps();
         });
 
-        
 
-    
+
+
     }
 
     /**
@@ -47,7 +46,7 @@ return new class extends Migration
     public function down()
     {
         Schema::dropIfExists('investigate_summary');
-   
+
     }
 };
 
