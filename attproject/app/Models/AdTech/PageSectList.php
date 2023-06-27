@@ -9,7 +9,7 @@ class PageSectList extends Model
 {
     use HasFactory;
     protected $table = "page_sect_lists";
-    protected $guarded = ['id'];
+    protected $guarded = [];
     // protected $fillable = ["as_of_date,
     // ver,
     // num_scans,

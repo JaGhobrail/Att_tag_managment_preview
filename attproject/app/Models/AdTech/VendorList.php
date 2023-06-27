@@ -9,7 +9,7 @@ class VendorList extends Model
 {
     use HasFactory;
     protected $table = "vendor_lists";
-    protected $guarded = ['id'];
+    protected $guarded = [];
     // protected $fillable = [
     //     "as_of_date,
     //     ver,
@@ -28,4 +28,25 @@ class VendorList extends Model
     //     tot_others,
     //     tot_cookies,
     //     tot_pages"];
+
+    public function drafts(){
+        return $this->morphMany(Draft::class ,'draftable');
+    }
+    // public function note_list(){
+    //     return $this->morphMany(Note::class ,'noteable');
+    //     //     return $this->morphToMany(
+    //     //     Note::class ,
+    //     //     'noteable',
+    //     //     'noteable_type',
+    //     //     'noteable_id',
+    //     //     'id'
+    //     // );
+    // }
+
+    public function note_list()
+    {
+        return $this->morphMany(Note::class, 'noteable');
+    }
+
+
 }

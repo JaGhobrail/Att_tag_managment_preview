@@ -1,14 +1,15 @@
 {
   "openapi": "3.0.0",
+
   "info": {
     "title": "Mock API",
     "version": "1.0.0",
     "contact": {
       "url": "http://CommonTheme.com/",
       "email": "themes@withinpixels.com",
-      "name": "My Admin "
+      "name": "Att Tag Managment "
     },
-    "description": "My Admin Family Mock API Open API Definitions",
+    "description": "Att Tag Managment Family Mock API Open API Definitions",
     "license": {
       "name": "private",
       "url": "https://themeforest.net/licenses/terms/regular"
@@ -32663,7 +32664,7 @@
             "data": {
               "displayName": "Arnold Matlock",
               "photoURL": "assets/images/avatars/Arnold.jpg",
-              "email": "staff@myadmintheme.com",
+              "email": "grahamjermalli@att.com",
               "settings": {
                 "layout": {
                   "style": "layout2",

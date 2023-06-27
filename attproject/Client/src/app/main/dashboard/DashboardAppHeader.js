@@ -1,50 +1,23 @@
 import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-import CommonSvgIcon from '@common/core/CommonSvgIcon';
-import { Chip, MenuItem, Select } from '@mui/material';
-import ChangeAccount from './widgets/ChangeAccount';
+import ChangeAccount from 'app/theme-layouts/shared-components/ChangeAccount';
 function DashboardAppHeader(props) {
   return (
 
-    <div className="flex w-full container">
-
-      <div className="flex flex-col sm:flex-row flex-auto sm:items-center min-w-0 p-24 md:p-32 pb-0 md:pb-0">
-        <div className="flex flex-col flex-auto">
-          <Typography className="text-3xl font-semibold tracking-tight leading-8">
+    <div className="flex w-auto container bg-hbg py-16">
+      <div className="flex flex-col sm:flex-row  flex-auto sm:items-center justify-between min-w-0 p-24 md:p-32 pb-0 md:pb-0">
+        <div className="flex flex-col">
+          <Typography className="text-3xl font-semibold tracking-tight leading-8 text-white">
             AdTech Dashboard for
           </Typography>
-          <Typography className="font-medium tracking-tight" color="text.secondary">
+          <Typography className="text-xl font-medium tracking-tight text-grey-400">
             Consumer on  att.com
           </Typography>
         </div>
-        <ChangeAccount />
-        {/* </div> */}
-        {/* <div className="flex items-center mt-24 sm:mt-0 sm:mx-8 space-x-12">
-          <Button
-            className="whitespace-nowrap"
-            startIcon={<CommonSvgIcon size={20}>heroicons-solid:document-report</CommonSvgIcon>}
-          >
-            Reports
-          </Button>
-          <Button
-            className="whitespace-nowrap"
-            startIcon={<CommonSvgIcon size={20}>heroicons-solid:cog</CommonSvgIcon>}
-          >
-            Settings
-          </Button>
-          <Button
-            className="whitespace-nowrap"
-            variant="contained"
-            color="secondary"
-            startIcon={<CommonSvgIcon size={20}>heroicons-solid:save</CommonSvgIcon>}
-          >
-            Export
-          </Button>
-        </div> */}
+        <div className='absolute top-8 right-8'>
+          <ChangeAccount />
+        </div>
 
-        {/* <img className='absolute w-full -z-50' src="assets/images/bg/header-bg.svg" /> */}
       </div>
-
     </div>
   );
 }

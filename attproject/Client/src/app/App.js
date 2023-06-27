@@ -1,4 +1,4 @@
-import '@mock-api';
+// import '@mock-api';
 import BrowserRouter from 'src/@common/core/BrowserRouter';
 import CommonLayout from '@common/core/CommonLayout';
 import CommonTheme from '@common/core/CommonTheme';
@@ -15,14 +15,15 @@ import Authorization from '@common/core/Authorization';
 import settingsConfig from 'app/configs/settingsConfig';
 import withAppProviders from './withAppProviders';
 import { AuthProvider } from './auth/AuthContext';
+import { useEffect } from 'react';
 
-// import axios from 'axios';
+import axios from 'axios';
 /**
  * Axios HTTP Request defaults
  */
-// axios.defaults.baseURL = "";
-// axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
-// axios.defaults.headers.common['Content-Type'] = 'application/x-www-form-urlencoded';
+axios.defaults.baseURL = "http://localhost";
+axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
+axios.defaults.headers.common['Content-Type'] = 'application/x-www-form-urlencoded';
 
 const emotionCacheOptions = {
   rtl: {

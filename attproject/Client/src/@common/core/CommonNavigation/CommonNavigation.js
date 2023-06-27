@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { memo } from 'react';
 import _ from '@lodash';
 import GlobalStyles from '@mui/material/GlobalStyles';
-import CommonNavHorizontalLayout1 from './horizontal/CommonNavHorizontalLayout1';
-import CommonNavVerticalLayout1 from './vertical/CommonNavVerticalLayout1';
+import CommonNavHorizontalLayout from './horizontal/CommonNavHorizontalLayout';
+import CommonNavVerticalLayout from './vertical/CommonNavVerticalLayout';
 import CommonNavVerticalLayout2 from './vertical/CommonNavVerticalLayout2';
 import CommonNavHorizontalCollapse from './horizontal/types/CommonNavHorizontalCollapse';
 import CommonNavHorizontalGroup from './horizontal/types/CommonNavHorizontalGroup';
@@ -71,8 +71,8 @@ function CommonNavigation(props) {
     return (
       <>
         {inputGlobalStyles}
-        {props.layout === 'horizontal' && <CommonNavHorizontalLayout1 {...options} />}
-        {props.layout === 'vertical' && <CommonNavVerticalLayout1 {...options} />}
+        {props.layout === 'horizontal' && <CommonNavHorizontalLayout {...options} />}
+        {props.layout === 'vertical' && <CommonNavVerticalLayout {...options} />}
         {props.layout === 'vertical-2' && <CommonNavVerticalLayout2 {...options} />}
       </>
     );

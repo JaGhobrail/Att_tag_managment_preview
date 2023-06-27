@@ -14,20 +14,20 @@ return new class extends Migration
         Schema::create('page_sect_lists', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->date('as_of_date');
+            $table->date('as_of_date')->nullable();
             $table->integer('ver')->default(0);
             $table->integer('num_scans')->default(0);
-            $table->string('business_unit');
-            $table->string('scan_domain');
+            $table->string('business_unit')->nullable();
+            $table->string('scan_domain')->nullable();
             $table->integer('scan_year')->index('idx_ri1p_scan_year')->default(0);
             $table->integer('scan_month')->index('idx_ri1p_scan_month')->default(0);
-            $table->string('vendor_parent');
+            $table->string('vendor_parent')->nullable();
             $table->string('vendor_name')->index('idx_ri1p_vendor_name');
-            $table->string('tracker_name');
+            $table->string('tracker_name')->nullable();
             $table->string('tracker_domain')->index('idx_ri1p_tracker_domain');
             $table->string('page_section')->index('idx_ri1p_page_section');
-            $table->string('result');
-            $table->string('notes');
+            $table->string('result')->nullable();
+            $table->text('notes')->nullable();
             $table->integer('tot_tags')->default(0);
             $table->integer('tot_scripts')->default(0);
             $table->integer('tot_beacons')->default(0);

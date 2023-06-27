@@ -1425,7 +1425,7 @@ module.exports = {
     extend: {
       // @tailwindcss/typography
       backgroundImage: {
-        'header-background': "url(/assets/images/background/headerBakcground.svg)"
+        'hbg': "url(headerbg.svg)"
       },
       typography: ({ theme }) => ({
         DEFAULT: {

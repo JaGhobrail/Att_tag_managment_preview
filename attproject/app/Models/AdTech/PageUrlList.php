@@ -9,7 +9,7 @@ class PageUrlList extends Model
 {
     use HasFactory;
     protected $table = "page_url_lists";
-    protected $guarded = ['id'];
+    protected $guarded = [];
     // protected $fillable = ["as_of_date,
     // ver,
     // num_scans,

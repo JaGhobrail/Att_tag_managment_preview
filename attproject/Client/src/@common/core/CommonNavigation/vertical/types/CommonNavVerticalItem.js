@@ -7,6 +7,7 @@ import PropTypes from 'prop-types';
 import { useMemo } from 'react';
 import CommonNavBadge from '../../CommonNavBadge';
 import CommonSvgIcon from '../../../CommonSvgIcon';
+import { ArrowRight } from '@mui/icons-material';
 
 const Root = styled(ListItem)(({ theme, ...props }) => ({
   minHeight: 44,
@@ -24,10 +25,10 @@ const Root = styled(ListItem)(({ theme, ...props }) => ({
     color: theme.palette.text.primary,
   },
   '&.active': {
-    color: theme.palette.text.primary,
+    color: '#fff',
     backgroundColor:
       theme.palette.mode === 'light'
-        ? 'rgba(0, 0, 0, .05)!important'
+        ? 'rgb(0, 87, 184)!important'
         : 'rgba(255, 255, 255, .1)!important',
     pointerEvents: 'none',
     transition: 'border-radius .15s cubic-bezier(0.4,0.0,0.2,1)',
@@ -83,6 +84,7 @@ function CommonNavVerticalItem(props) {
             secondary: 'text-11 font-medium common-list-item-text-secondary leading-normal truncate',
           }}
         />
+        <ArrowRight />
         {item.badge && <CommonNavBadge badge={item.badge} />}
       </Root>
     ),

@@ -32,11 +32,13 @@ function UserNavbarHeader(props) {
     <Root className="user relative flex flex-col items-center justify-center p-16 pb-14 shadow-0">
       <div className="flex items-center justify-center mb-24">
         <Avatar
-          sx={{
-            backgroundColor: 'background.paper',
-            color: 'text.secondary',
-          }}
-        >{user.data.displayName[0]}</Avatar>
+          // sx={{
+          //   backgroundColor: 'background.paper',
+          //   color: 'text.secondary',
+          // }}
+          sx={{ bgcolor: '#FFEB3B' }}
+          className="md:mx-4 text-black"
+        >{user.data.name[0]}</Avatar>
         {/* <Avatar
           sx={{
             backgroundColor: 'background.paper',
@@ -44,17 +46,18 @@ function UserNavbarHeader(props) {
           }}
           className="avatar text-32 font-bold w-96 h-96"
           src={user.data.photoURL}
-          alt={user.data.displayName}
+          alt={user.data.name}
         >
-          {user.data.displayName.charAt(0)}
+          {user.data.name.charAt(0)}
         </Avatar> */}
       </div>
       <Typography className="username text-14 whitespace-nowrap font-medium">
-        {user.data.displayName}
+        {user.data.name}
       </Typography>
       <Typography className="email text-13 whitespace-nowrap font-medium" color="text.secondary">
         {user.data.email}
       </Typography>
+
     </Root>
   );
 }

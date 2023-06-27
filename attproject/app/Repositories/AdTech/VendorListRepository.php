@@ -6,6 +6,7 @@ use Illuminate\Support\Str;
 use App\Helpers\UploadHelper;
 use App\Interfaces\CrudInterface;
 use App\Models\AdTech\VendorList;
+use App\Models\AdTech\Note;
 use App\Models\User;
 use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Support\Facades\Auth;
@@ -75,7 +76,7 @@ class VendorListRepository implements CrudInterface
      * @param array $data
      * @return object tag Object
      */
-    public function create(array $data): Tag
+    public function create(array $data): VendorList
     {
         return VendorList::create($data);
     }
@@ -103,9 +104,13 @@ class VendorListRepository implements CrudInterface
      * @param int $id
      * @return void
      */
-    public function getByID(int $id): Tag|null
+    public function getByID(int $id): Note|null
     {
-        return Tag::find($id);
+        $tag = VendorList::find($id);
+        if (is_null($tag)) {
+            return null;
+        }
+        return VendorList::find($id)->note_list;
     }
 
     /**

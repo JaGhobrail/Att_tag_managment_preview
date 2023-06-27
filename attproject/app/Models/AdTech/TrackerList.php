@@ -9,7 +9,7 @@ class TrackerList extends Model
 {
     use HasFactory;
     protected $table = "tracker_lists";
-    protected $guarded = ['id'];
+    protected $guarded = [];
     // protected $fillable = [
     //     "as_of_date,
     //     ver,

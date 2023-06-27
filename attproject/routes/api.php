@@ -7,6 +7,7 @@ use App\Http\Controllers\AdTech\PageUrlList\PageUrlListController;
 use App\Http\Controllers\AdTech\PageSectList\PageSectListController;
 use App\Http\Controllers\AdTech\TrackerList\TrackerListController;
 use App\Http\Controllers\AdTech\VendorList\VendorListController;
+use App\Http\Controllers\AdTech\Note\NoteController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -48,21 +49,25 @@ Route::group([
     Route::get('investigation-summary/view/all', [InvestigationSummaryController::class, 'indexAll']);
     Route::get('investigation-summary/view/search', [InvestigationSummaryController::class, 'search']);
 
-    Route::resource('page-url-list', PageUrlListController::class);
-    Route::get('page-url-list/view/all', [PageUrlListController::class, 'indexAll']);
-    Route::get('page-url-list/view/search', [PageUrlListController::class, 'search']);
+    Route::resource('page-urls', PageUrlListController::class);
+    Route::get('page-urls/view/all', [PageUrlListController::class, 'indexAll']);
+    Route::get('page-urls/view/search', [PageUrlListController::class, 'search']);
 
-    Route::resource('page-sect-list', PageSectListController::class);
-    Route::get('page-sect-list/view/all', [PageSectListController::class, 'indexAll']);
-    Route::get('page-sect-list/view/search', [PageSectListController::class, 'search']);
+    Route::resource('page-sections', PageSectListController::class);
+    Route::get('page-sections/view/all', [PageSectListController::class, 'indexAll']);
+    Route::get('page-sections/view/search', [PageSectListController::class, 'search']);
 
-    Route::resource('tracker-list', TrackerListController::class);
-    Route::get('tracker-list/view/all', [TrackerListController::class, 'indexAll']);
-    Route::get('tracker-list/view/search', [TrackerListController::class, 'search']);
+    Route::resource('trackers', TrackerListController::class);
+    Route::get('trackers/view/all', [TrackerListController::class, 'indexAll']);
+    Route::get('trackers/view/search', [TrackerListController::class, 'search']);
 
-    Route::resource('vendor-list', VendorListController::class);
-    Route::get('vendor-list/view/all', [VendorListController::class, 'indexAll']);
-    Route::get('vendor-list/view/search', [VendorListController::class, 'search']);
+    Route::resource('vendors', VendorListController::class);
+    Route::get('vendors/view/all', [VendorListController::class, 'indexAll']);
+    Route::get('vendors/view/search', [VendorListController::class, 'search']);
+
+    Route::resource('notes', NoteController::class);
+    Route::get('notes/view/all', [NoteController::class, 'indexAll']);
+    Route::get('notes/view/search', [NoteController::class, 'search']);
 
 });
 

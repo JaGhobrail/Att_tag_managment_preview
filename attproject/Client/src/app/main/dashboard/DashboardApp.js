@@ -5,21 +5,23 @@ import _ from '@lodash';
 import CommonPageSimple from '@common/core/CommonPageSimple';
 import { motion } from 'framer-motion';
 import reducer from './store';
-import { getWidgets, selectWidgets } from './store/widgetsSlice';
+import { getOverview, getWeekly, selectOverview, selectWeekly } from './store/Slice';
 import DashboardAppHeader from './DashboardAppHeader';
-import PreviousStatementWidget from './widgets/PreviousStatementWidget';
-import CurrentStatementWidget from './widgets/CurrentStatementWidget';
-import AccountBalanceWidget from './widgets/AccountBalanceWidget';
-import RecentTransactionsWidget from './widgets/RecentTransactionsWidget';
-import BudgetWidget from './widgets/BudgetWidget';
-import GithubIssuesWidget from './widgets/GithubIssuesWidget';
+// import PreviousStatementWidget from './widgets/PreviousStatementWidget';
+// import CurrentStatementWidget from './widgets/CurrentStatementWidget';
+// import AccountBalanceWidget from './widgets/AccountBalanceWidget';
+import OverViewInvestigateWidget from './components/OverViewInvestigate';
+import WeeklyScansWidget from './components/WeeklyScans';
+import Badge from './components/Badge';
 
 function DashboardApp() {
   const dispatch = useDispatch();
-  const widgets = useSelector(selectWidgets);
+  const overview = useSelector(selectOverview);
+  const weekly = useSelector(selectWeekly);
 
   useEffect(() => {
-    dispatch(getWidgets());
+    dispatch(getOverview());
+    dispatch(getWeekly());
   }, [dispatch]);
 
   return (
@@ -42,37 +44,23 @@ function DashboardApp() {
             };
 
             return (
-              !_.isEmpty(widgets) && (
+              !_.isEmpty(overview) && !_.isEmpty(weekly) && (
                 <motion.div className="w-full" variants={container} initial="hidden" animate="show">
-                  {/* <div className="grid grid-cols-1 xl:grid-cols-2 gap-32 w-full mt-32">
-                    <div className="grid gap-32 sm:grid-flow-col xl:grid-flow-row">
-                      <motion.div variants={item} className="flex flex-col flex-auto">
-                        <PreviousStatementWidget />
-                      </motion.div>
-
-                      <motion.div variants={item} className="flex flex-col flex-auto">
-                        <CurrentStatementWidget />
-                      </motion.div>
-                    </div>
-                    <motion.div variants={item} className="flex flex-col flex-auto">
-                      <AccountBalanceWidget />
+                  <div className="grid grid-cols-1 gap-y-32 w-full mt-32">
+                    <motion.div variants={item}>
+                      <Badge />
                     </motion.div>
-                  </div> */}
-                  <div className="grid grid-cols-1 xl:grid-cols-3 gap-32 w-full mt-32">
-                    <motion.div variants={item} className="xl:col-span-2 flex flex-col flex-auto">
-                      <RecentTransactionsWidget />
+                    <motion.div variants={item}>
+                      <OverViewInvestigateWidget />
                     </motion.div>
-                    <motion.div variants={item} className="sm:col-span-2 md:col-span-4">
-                      {/* <GithubIssuesWidget /> */}
-                    </motion.div>
-                    <motion.div variants={item} className="flex flex-col flex-auto">
-                      <BudgetWidget />
+                    <motion.div variants={item}>
+                      <WeeklyScansWidget />
                     </motion.div>
                   </div>
                 </motion.div>
               )
             );
-          }, [widgets])}
+          }, [overview, weekly])}
         </div>
       }
     />

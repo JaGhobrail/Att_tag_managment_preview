@@ -7,10 +7,12 @@ import SignUpConfig from '../main/sign-up/SignUpConfig';
 import SignOutConfig from '../main/sign-out/SignOutConfig';
 import Error404Page from '../main/404/Error404Page';
 import DashboardAppConfig from '../main/dashboard/DashboardAppConfig';
+import VendorsAppConfigTemp from '../main/vendorsTemp/VendorsAppConfig';
+import VendorsAppConfig from '../main/vendors/AppConfig';
+import TrackersAppConfig from '../main/trackers/AppConfig';
+import PageSectionsAppConfig from '../main/page-sections/AppConfig';
+import PageUrlsAppConfig from '../main/page-url/AppConfig';
 
-import ExampleConfig from '../main/example/ExampleConfig';
-import CryptoDashboardAppConfig from '../main/dashboards/crypto/CryptoDashboardAppConfig';
-import FinanceDashboardAppConfig from '../main/dashboards/finance/FinanceDashboardAppConfig';
 
 
 const routeConfigs = [
@@ -18,11 +20,11 @@ const routeConfigs = [
   SignInConfig,
   SignUpConfig,
   DashboardAppConfig,
-
-  ExampleConfig,
-  CryptoDashboardAppConfig,
-  FinanceDashboardAppConfig,
-
+  VendorsAppConfig,
+  TrackersAppConfig,
+  PageSectionsAppConfig,
+  PageUrlsAppConfig,
+  VendorsAppConfigTemp
 ];
 
 const routes = [

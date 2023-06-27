@@ -64,20 +64,22 @@ class JwtService extends CommonUtils.EventEmitter {
   signInWithEmailAndPassword = (email, password) => {
     return new Promise((resolve, reject) => {
       axios
-        .get(jwtServiceConfig.signIn, {
-          data: {
-            email,
-            password,
-          },
+        .post(jwtServiceConfig.signIn, {
+          // data: {
+          email,
+          password,
+          // },
         })
         .then((response) => {
-          if (response.data.user) {
-            this.setSession(response.data.access_token);
-            resolve(response.data.user);
-            this.emit('onLogin', response.data.user);
+          if (response.data.data) {
+            this.setSession(response.data.data.access_token);
+            resolve(response.data.data.user);
+            this.emit('onLogin', response.data.data.user);
           } else {
             reject(response.data.error);
           }
+        }).catch((e) => {
+
         });
     });
   };
@@ -85,15 +87,11 @@ class JwtService extends CommonUtils.EventEmitter {
   signInWithToken = () => {
     return new Promise((resolve, reject) => {
       axios
-        .get(jwtServiceConfig.accessToken, {
-          data: {
-            access_token: this.getAccessToken(),
-          },
-        })
+        .get(jwtServiceConfig.accessToken)
         .then((response) => {
-          if (response.data.user) {
-            this.setSession(response.data.access_token);
-            resolve(response.data.user);
+          if (response.data.data) {
+            this.setSession(this.getAccessToken());
+            resolve(response.data.data);
           } else {
             this.logout();
             reject(new Error('Failed to login with token.'));

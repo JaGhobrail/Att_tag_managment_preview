@@ -15,7 +15,7 @@ export const setUser = createAsyncThunk('user/setUser', async (user, { dispatch,
     settingsConfig.loginRedirectUrl = user.loginRedirectUrl; // for example 'apps/academy'
   }
 
-  return user;
+  return { data: user, role: 'admin' };
 });
 
 export const updateUserSettings = createAsyncThunk(

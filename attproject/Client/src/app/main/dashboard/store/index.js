@@ -1,8 +1,8 @@
 import { combineReducers } from '@reduxjs/toolkit';
-import widgets from './widgetsSlice';
+import dashboardApp from './Slice';
 
 const reducer = combineReducers({
-  widgets,
+  dashboardApp,
 });
 
 export default reducer;

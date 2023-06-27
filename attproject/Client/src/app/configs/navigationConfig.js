@@ -1,11 +1,4 @@
-// import i18next from 'i18next';
-// import ar from './navigation-i18n/ar';
-// import en from './navigation-i18n/en';
-// import tr from './navigation-i18n/tr';
-
-// i18next.addResourceBundle('en', 'navigation', en);
-// i18next.addResourceBundle('tr', 'navigation', tr);
-// i18next.addResourceBundle('ar', 'navigation', ar);
+import { authRoles } from "../auth";
 
 const navigationConfig = [
   {
@@ -20,24 +13,30 @@ const navigationConfig = [
     title: 'Vendors',
     type: 'item',
     icon: 'material-solid:store_mall_directory',
-    url: '/dashboard',
-    // url: '/vendors',
+    url: '/vendors',
+    auth: authRoles.staff
   },
+
   {
     id: 'trackers',
     title: 'Trackers',
     type: 'item',
     icon: 'material-solid:my_location',
-    url: '/dashboard',
-    // url: '/trackers',
+    url: '/trackers',
   },
   {
-    id: 'page-section',
+    id: 'page-sections',
     title: 'Page Sections',
     type: 'item',
     icon: 'material-solid:pie_chart',
-    url: '/dashboard',
-    // url: '/page-section',
+    url: '/page-sections',
+  },
+  {
+    id: 'page-urls',
+    title: 'Page URLs',
+    type: 'item',
+    icon: 'heroicons-solid:external-link',
+    url: '/page-urls',
   },
   {
     id: 'db-admin',
@@ -57,44 +56,13 @@ const navigationConfig = [
   },
 
   {
-    id: 'example-component',
-    title: 'Example',
-    translate: 'EXAMPLE',
+    id: 'vendorsTemp',
+    title: 'VendorsTemp',
     type: 'item',
-    icon: 'heroicons-outline:star',
-    url: 'example',
+    icon: 'material-solid:store_mall_directory',
+    url: '/vendorsTemp',
+    auth: authRoles.staff
   },
-  // {
-  //   id: 'dashboards',
-  //   title: 'Dashboards',
-  //   subtitle: 'Unique dashboard designs',
-  //   type: 'group',
-  //   icon: 'heroicons-outline:home',
-  //   translate: 'DASHBOARDS',
-  //   children: [
-  //     {
-  //       id: 'dashboards.project',
-  //       title: 'Project',
-  //       type: 'item',
-  //       icon: 'heroicons-outline:clipboard-check',
-  //       url: '/dashboards/project',
-  //     },
-  //     {
-  //       id: 'dashboards.analytics',
-  //       title: 'Analytics',
-  //       type: 'item',
-  //       icon: 'heroicons-outline:chart-pie',
-  //       url: '/dashboards/analytics',
-  //     },
-  //     {
-  //       id: 'dashboards.crypto',
-  //       title: 'Crypto',
-  //       type: 'item',
-  //       icon: 'heroicons-outline:currency-dollar',
-  //       url: '/dashboards/crypto',
-  //     },
-  //   ],
-  // },
 ];
 
 export default navigationConfig;

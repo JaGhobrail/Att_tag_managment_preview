@@ -1,3 +1,6 @@
+import './api/dashboards/vendors-api';
+import './api/dashboards/trackers-api';
+
 import './api/dashboards/analytics-api';
 import './api/dashboards/project-api';
 import './api/dashboards/crypto-api';

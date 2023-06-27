@@ -14,7 +14,7 @@ export const darkPaletteText = {
 };
 
 const themesConfig = {
-  default: {
+  light7: {
     palette: {
       mode: 'light',
       divider: '#e2e8f0',
@@ -305,22 +305,22 @@ const themesConfig = {
       danger: 'orange',
     },
   },
-  light7: {
+  default: {
     palette: {
       mode: 'light',
       divider: '#e2e8f0',
       text: lightPaletteText,
       primary: {
-        light: '#BFC4E6',
-        main: '#2A3BAB',
-        dark: '#0F1980',
+        light: '#00a8e0',
+        main: '#00a8e0',
+        dark: '#00a8e0',
         contrastText: darkPaletteText.primary,
       },
       secondary: {
-        light: '#C2ECF0',
-        main: '#33C1CD',
-        dark: '#149EAE',
-        contrastText: lightPaletteText.primary,
+        light: '#0057B8',
+        main: '#0057B8',
+        dark: '#0057B8',
+        contrastText: darkPaletteText.primary,
       },
       background: {
         paper: '#FFFFFF',

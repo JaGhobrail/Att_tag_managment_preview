@@ -32,7 +32,7 @@ export const changeCommonTheme = (theme) => (dispatch, getState) => {
 
 function getInitialSettings() {
   const defaultLayoutStyle =
-    settingsConfig.layout && settingsConfig.layout.style ? settingsConfig.layout.style : 'layout1';
+    settingsConfig.layout && settingsConfig.layout.style ? settingsConfig.layout.style : 'Layout';
   const layout = {
     style: defaultLayoutStyle,
     config: themeLayoutConfigs[defaultLayoutStyle].defaults,
