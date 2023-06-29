@@ -49,6 +49,11 @@ Route::group([
     Route::get('investigation-summary/view/all', [InvestigationSummaryController::class, 'indexAll']);
     Route::get('investigation-summary/view/search', [InvestigationSummaryController::class, 'search']);
 
+    Route::resource('vendors', VendorListController::class);
+    Route::get('vendors/view/all', [VendorListController::class, 'indexAll']);
+    Route::get('vendors/view/search', [VendorListController::class, 'search']);
+    Route::get('vendors-name', [VendorListController::class, 'vendorsName']);
+
     Route::resource('page-urls', PageUrlListController::class);
     Route::get('page-urls/view/all', [PageUrlListController::class, 'indexAll']);
     Route::get('page-urls/view/search', [PageUrlListController::class, 'search']);
@@ -60,10 +65,6 @@ Route::group([
     Route::resource('trackers', TrackerListController::class);
     Route::get('trackers/view/all', [TrackerListController::class, 'indexAll']);
     Route::get('trackers/view/search', [TrackerListController::class, 'search']);
-
-    Route::resource('vendors', VendorListController::class);
-    Route::get('vendors/view/all', [VendorListController::class, 'indexAll']);
-    Route::get('vendors/view/search', [VendorListController::class, 'search']);
 
     Route::resource('notes', NoteController::class);
     Route::get('notes/view/all', [NoteController::class, 'indexAll']);

@@ -33,11 +33,17 @@ class VendorListRepository implements CrudInterface
      *
      * @return collections Array of tag Collection
      */
-    public function getAll(): Paginator
+    public function getAll(array $filters=[]): Paginator
     {
-        return VendorList::
-            orderBy('id', 'desc')
-            ->paginate(10);
+        $query = VendorList::query();
+
+        foreach ($filters as $key => $value) {
+            if ($key === 'dis') {
+                continue;
+            }
+            $query->where($key, $value);
+        }
+        return  $query->orderBy('id', 'desc')->paginate(10);
     }
 
     /**
@@ -134,5 +140,10 @@ class VendorListRepository implements CrudInterface
 
         // Finally return the updated tag.
         return $this->getByID($tag->id);
+    }
+
+    public function getVendorsName()
+    {
+        return VendorList::pluck('vendor_name')->all();
     }
 }

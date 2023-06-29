@@ -59,10 +59,11 @@ class PageUrlListController extends Controller
      *     @OA\Response(response=404, description="Resource Not Found"),
      * )
      */
-    public function index(): JsonResponse
+    public function index(Request $request): JsonResponse
     {
         try {
-            $data = $this->tagsRepository->getAll();
+            $filters = $request->all();
+            $data = $this->tagsRepository->getAll($filters);
             return $this->responseSuccess($data, 'Tag List Fetch Successfully !');
         } catch (\Exception $e) {
             return $this->responseError(null, $e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
@@ -85,6 +86,7 @@ class PageUrlListController extends Controller
     public function indexAll(Request $request): JsonResponse
     {
         try {
+            $filters = $request->all();
             $data = $this->tagsRepository->getPaginatedData($request->perPage);
             return $this->responseSuccess($data, 'Tag List Fetched Successfully !');
         } catch (\Exception $e) {

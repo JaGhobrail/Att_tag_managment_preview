@@ -8,14 +8,14 @@ import TableRow from '@mui/material/TableRow';
 import Typography from '@mui/material/Typography';
 import { memo, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { Button, IconButton, TableContainer, TablePagination, TextField, Tooltip } from '@mui/material';
-import { DateTimePicker } from '@mui/x-date-pickers';
+import { Button, IconButton, TableContainer } from '@mui/material';
 import { Download, Edit, Web, Link, Save, Delete, LocalOfferOutlined, Home } from '@mui/icons-material';
 import NoteCompose from './DarftDialog/NoteCompose'
 import { selectAllItems } from '../store/Slice';
 import { makeStyles } from '@mui/styles';
 import ResultDialog from './DarftDialog/ResultDialog'
 import NotesDialog from './DarftDialog/NotesDialog';
+import PAGEURLDialog from './DarftDialog/UrlDialog';
 import { useNavigate } from 'react-router-dom';
 
 
@@ -42,28 +42,39 @@ function AppList(props) {
                         <TableCell
                             size='small'
                             style={{ minWidth: 120 }}>
-                            VENDOR PARENT
-                        </TableCell>
-                        <TableCell
-                            size='small'
-                            style={{ minWidth: 120 }}>
                             VENDOR NAME
                         </TableCell>
                         <TableCell
                             size='small'
                             style={{ minWidth: 120 }}>
+                            TRACKER NAME
+                        </TableCell>
+
+                        <TableCell
+                            size='small'
+                            style={{ minWidth: 120 }}>
+                            TRACKER DOMAIN
+                        </TableCell>
+
+                        <TableCell
+                            size='small'
+                            style={{ minWidth: 120 }}>
                             RESULT
                         </TableCell>
+
                         <TableCell
                             size='small'
                             style={{ minWidth: 120 }}>
                             PAGE SECTION
                         </TableCell>
+
                         <TableCell
                             size='small'
-                            style={{ minWidth: 150 }}>
-                            NOTES
+                            align='center'
+                            style={{ minWidth: 120 }}>
+                            PAGE URLS
                         </TableCell>
+
                         <TableCell
                             size='small'
                             align='center'
@@ -77,26 +88,26 @@ function AppList(props) {
                         items.map((item, index) => {
                             return (
                                 <TableRow
-                                    onClick={() => { setOpendialog(true) }}
                                     className='even:bg-grey-100'
                                     tabIndex={-1}
                                     key={item.id} >
-                                    <TableCell size='small' style={{ minWidth: 120 }} key={'vendor_parent'}>{item.vendor_parent}</TableCell>
-                                    <TableCell size='small' style={{ minWidth: 120 }} key={'vendor_name'}>{item.vendor_name}</TableCell>
-                                    <TableCell size='small' style={{ maxWidth: 150 }} key={'result'}>
+                                    <TableCell size='small' style={{ minWidth: 120 }} key={'vendor_parent'}>{item.vendor_name}</TableCell>
+                                    <TableCell size='small' style={{ minWidth: 120 }} key={'vendor_name'}>{item.tracker_name}</TableCell>
+                                    <TableCell size='small' style={{ minWidth: 120 }} key={'tracker_domain'}>
+                                        <Button variant='text' size='small'>{item.tracker_domain}</Button>
+                                    </TableCell>
+                                    <TableCell size='small' style={{ maxWidth: 120 }} key={'result'}>
                                         <ResultDialog item={item} />
                                     </TableCell>
-                                    <TableCell size='small' align='center' style={{ minWidth: 120 }} key={'vendor_name'}>
-                                        <Typography>{item.page_section}</Typography>
-                                        <Button variant='text' size='small' color='primary'>Microsite</Button>
-                                    </TableCell>
-                                    <TableCell size='small' style={{ minWidth: 150 }} key={'notes'}>
-                                        <NotesDialog item={item} />
+                                    <TableCell size='small' style={{ minWidth: 120 }} key={'page_section'}>{item.page_section}</TableCell>
+
+                                    <TableCell size='small' align='center' style={{ minWidth: 120 }} key={'tracker_domain'}>
+                                        <PAGEURLDialog item={item} />
                                     </TableCell>
 
                                     <TableCell size='small' style={{ minWidth: 150 }} align='center' key={'action'} >
 
-                                        <IconButton key={'page'} onClick={() => navigate(`/vendors`)}>
+                                        <IconButton key={'link'} onClick={() => navigate(`/vendors`)}>
                                             <Home fontSize='small' />
                                         </IconButton>
 
@@ -104,8 +115,8 @@ function AppList(props) {
                                             <LocalOfferOutlined fontSize='small' />
                                         </IconButton>
 
-                                        <IconButton key={'link'} onClick={() => navigate(`/page-urls`)}>
-                                            <Link fontSize='small' />
+                                        <IconButton key={'Link'} onClick={() => navigate(`/page-sections`)}>
+                                            <Web fontSize='small' />
                                         </IconButton>
 
                                     </TableCell>

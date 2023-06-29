@@ -38,12 +38,12 @@ class VendorListController extends Controller
      *
      * @var VendorListRepository
      */
-    public $tagsRepository;
+    public $repository;
 
-    public function __construct(VendorListRepository $tagsRepository)
+    public function __construct(VendorListRepository $repository)
     {
         $this->middleware('auth:api', ['except' => ['indexAll']]);
-        $this->tagsRepository = $tagsRepository;
+        $this->repository = $repository;
     }
 
     /**
@@ -59,10 +59,11 @@ class VendorListController extends Controller
      *     @OA\Response(response=404, description="Resource Not Found"),
      * )
      */
-    public function index(): JsonResponse
+    public function index(Request $request): JsonResponse
     {
         try {
-            $data = $this->tagsRepository->getAll();
+            $filters = $request->all();
+            $data = $this->repository->getAll($filters);
             return $this->responseSuccess($data, 'Tag List Fetch Successfully !');
         } catch (\Exception $e) {
             return $this->responseError(null, $e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
@@ -85,7 +86,7 @@ class VendorListController extends Controller
     public function indexAll(Request $request): JsonResponse
     {
         try {
-            $data = $this->tagsRepository->getPaginatedData($request->perPage);
+            $data = $this->repository->getPaginatedData($request->perPage);
             return $this->responseSuccess($data, 'Tag List Fetched Successfully !');
         } catch (\Exception $e) {
             return $this->responseError(null, $e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
@@ -109,7 +110,7 @@ class VendorListController extends Controller
     public function search(Request $request): JsonResponse
     {
         try {
-            $data = $this->tagsRepository->searchTag($request->search, $request->perPage);
+            $data = $this->repository->searchTag($request->search, $request->perPage);
             return $this->responseSuccess($data, 'Tag List Fetched Successfully !');
         } catch (\Exception $e) {
             return $this->responseError(null, $e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
@@ -141,7 +142,7 @@ class VendorListController extends Controller
     public function store(TagRequest $request): JsonResponse
     {
         try {
-            $tag = $this->tagsRepository->create($request->all());
+            $tag = $this->repository->create($request->all());
             return $this->responseSuccess($tag, 'New Tag Created Successfully !');
         } catch (\Exception $exception) {
             return $this->responseError(null, $exception->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
@@ -165,7 +166,7 @@ class VendorListController extends Controller
     public function show($id): JsonResponse
     {
         try {
-            $data = $this->tagsRepository->getByID($id);
+            $data = $this->repository->getByID($id);
             if (is_null($data)) {
                 return $this->responseError(null, 'Tag Not Found', Response::HTTP_NOT_FOUND);
             }
@@ -202,7 +203,7 @@ class VendorListController extends Controller
     public function update(TagRequest $request, $id): JsonResponse
     {
         try {
-            $data = $this->tagsRepository->update($id, $request->all());
+            $data = $this->repository->update($id, $request->all());
             if (is_null($data))
                 return $this->responseError(null, 'Tag Not Found', Response::HTTP_NOT_FOUND);
 
@@ -229,17 +230,40 @@ class VendorListController extends Controller
     public function destroy($id): JsonResponse
     {
         try {
-            $tag =  $this->tagsRepository->getByID($id);
+            $tag =  $this->repository->getByID($id);
             if (empty($tag)) {
                 return $this->responseError(null, 'Tag Not Found', Response::HTTP_NOT_FOUND);
             }
 
-            $deleted = $this->tagsRepository->delete($id);
+            $deleted = $this->repository->delete($id);
             if (!$deleted) {
                 return $this->responseError(null, 'Failed to delete the tag.', Response::HTTP_INTERNAL_SERVER_ERROR);
             }
 
             return $this->responseSuccess($tag, 'Tag Deleted Successfully !');
+        } catch (\Exception $e) {
+            return $this->responseError(null, $e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+    }
+
+        /**
+     * @OA\GET(
+     *     path="/api/tags",
+     *     tags={"Tags"},
+     *     summary="Get Tag List",
+     *     description="Get Tag List as Array",
+     *     operationId="index",
+     *     security={{"bearer":{}}},
+     *     @OA\Response(response=200,description="Get Tag List as Array"),
+     *     @OA\Response(response=400, description="Bad request"),
+     *     @OA\Response(response=404, description="Resource Not Found"),
+     * )
+     */
+    public function vendorsName(): JsonResponse
+    {
+        try {
+            $data = $this->repository->getVendorsName();
+            return $this->responseSuccess($data, 'Tag List Fetched Successfully !');
         } catch (\Exception $e) {
             return $this->responseError(null, $e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
         }

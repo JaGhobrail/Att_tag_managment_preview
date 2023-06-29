@@ -7,12 +7,12 @@ function SelectDomain(props) {
     <FormControl
       size='small'
       className="flex w-min-160" variant="outlined">
-      <InputLabel>Domain (s)</InputLabel>
+      <InputLabel>Tracker Domain (s)</InputLabel>
       <Select
         labelId="account-select-label"
         id="Domain-select"
-        label="Domain (s)"
-        title='Domain (s)'
+        label="Tracker Domain (s)"
+        title='Tracker Domain (s)'
         value={selectedDomin}
         onChange={(event) => setSelectedDomin(event.target.value)}
       >

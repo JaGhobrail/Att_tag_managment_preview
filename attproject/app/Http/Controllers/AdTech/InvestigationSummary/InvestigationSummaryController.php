@@ -59,10 +59,11 @@ class InvestigationSummaryController extends Controller
      *     @OA\Response(response=404, description="Resource Not Found"),
      * )
      */
-    public function index(): JsonResponse
+    public function index(Request $request): JsonResponse
     {
         try {
-            $data = $this->tagsRepository->getAll();
+            $filters = $request->all();
+            $data = $this->tagsRepository->getAll($filters);
             return $this->responseSuccess($data, 'Tag List Fetch Successfully !');
         } catch (\Exception $e) {
             return $this->responseError(null, $e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);

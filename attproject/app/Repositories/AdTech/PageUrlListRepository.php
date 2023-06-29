@@ -32,11 +32,17 @@ class PageUrlListRepository implements CrudInterface
      *
      * @return collections Array of tag Collection
      */
-    public function getAll(): Paginator
+    public function getAll(array $filters=[]): Paginator
     {
-        return PageUrlList::
-            orderBy('id', 'desc')
-            ->paginate(10);
+        $query = PageUrlList::query();
+
+        foreach ($filters as $key => $value) {
+            if ($key === 'dis') {
+                continue;
+            }
+            $query->where($key, $value);
+        }
+        return  $query->orderBy('id', 'desc')->paginate(10);
     }
 
     /**
@@ -62,7 +68,7 @@ class PageUrlListRepository implements CrudInterface
     {
         $perPage = isset($perPage) ? intval($perPage) : 10;
 
-        return PageUrlList::where('name', 'like', '%' . $keyword . '%')
+        return PageUrlList::where('vendor-name', 'like', '%' . $keyword . '%')
             ->orWhere('description', 'like', '%' . $keyword . '%')
             ->orWhere('rate', 'like', '%' . $keyword . '%')
             ->orderBy('id', 'desc')

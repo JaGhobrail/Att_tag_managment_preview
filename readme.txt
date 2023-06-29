@@ -10,4 +10,4 @@ DB_DATABASE=default
 DB_USERNAME=default
 DB_PASSWORD=secret
 
-php artisan make:migration 
+php artisan migrate:refresh --seed

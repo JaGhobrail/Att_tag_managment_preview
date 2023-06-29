@@ -2,7 +2,7 @@
 
 namespace App\Interfaces;
 
-interface CrudInterface
+interface RepositoryInterface
 {
     /**
      * Get All Data

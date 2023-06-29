@@ -2,36 +2,28 @@ import { createAsyncThunk, createEntityAdapter, createSlice } from '@reduxjs/too
 import axios from 'axios';
 import { uniqueId } from 'lodash';
 
-export const getItems = createAsyncThunk('vendorsApp/getItems', async (params) => {
-    const response = await axios.get('/api/vendors', { params });
+export const getItems = createAsyncThunk('pageUrlsApp/getItems', async (params) => {
+    const response = await axios.get('/api/page-urls', { params });
     const data = await response.data;
-    return { data: data.data.data, currentPage: 1, totalPage: 100, date: '43343' };
+    return { data: data.data.data, currentPage: 1, totalPage: 10, date: '43343' };
 });
 
-export const insertDraft = createAsyncThunk('vendorsApp/insertDraft', async ({ data, itemId }) => {
-    const response = await axios.get('/api/vendors');
+
+export const insertDraft = createAsyncThunk('pageUrlsApp/insertDraft', async ({ data, itemId }) => {
+    // const response = await axios.get('/api/vendors');
     // const data = await response.data;
 
     // return { data: data, currentPage: 1, totalPage: data?.length / 10, date: '43343' };
     return { itemId, data }
 });
 
-export const insertNote = createAsyncThunk('vendorsApp/insertNote', async ({ data, itemId }) => {
-    console.log('vendorsApp/insertNote', data);
+export const insertNote = createAsyncThunk('pageUrlsApp/insertNote', async ({ data, itemId }) => {
+    console.log('pageUrlsApp/insertNote', data);
     // const response = await axios.get('/api/vendors');
     // const data = await response.data;
 
-    return { data: data, currentPage: 1, totalPage: data?.length / 10, date: '43343' };
-    //return { itemId, data }
-});
-
-export const clearAll = createAsyncThunk('vendorsApp/clearAll', async () => {
-    console.log('rmove all');
-    return { remove: 'all' }
-});
-
-export const saveAll = createAsyncThunk('vendorsApp/saveAll', async () => {
-    return true
+    // return { data: data, currentPage: 1, totalPage: data?.length / 10, date: '43343' };
+    return { itemId, data }
 });
 
 
@@ -50,30 +42,17 @@ const initialState = itemAdapter.getInitialState({
 })
 
 const slice = createSlice({
-    name: 'vendorsApp',
+    name: 'pageUrlsApp',
     initialState: initialState,
     reducers: {},
     extraReducers: {
-        [clearAll.fulfilled]: (state, action) => {
-            state.hasDraftItem = false
-            itemAdapter.removeAll(state)
-        },
-        [saveAll.fulfilled]: (state, action) => {
-            state.ids.map(id => {
-                state.entities[id].changeResult = false
-                state.entities[id].draftList = []
-            })
-        },
-        [getItems.pending]: (state, action) => {
-            itemAdapter.removeAll(state)
-        },
         [getItems.fulfilled]: (state, action) => {
-            const newList = action.payload.data
+            const newList = action.payload.data.map((item, index) => { return { ...item, id: index } })
+            itemAdapter.removeAll(state)
             itemAdapter.addMany(state, newList)
             state.currentPage = action.payload.currentPage
             state.totalPage = action.payload.totalPage
             state.date = action.payload.date
-
         },
         [insertDraft.fulfilled]: (state, action) => {
             state.hasDraftItem = true
@@ -102,19 +81,19 @@ export const {
     selectById: selectItemById,
     selectIds: selectItemIds,
     selectAll: selectAllItems,
-} = itemAdapter.getSelectors((state) => state.vendorsApp.vendorsApp)
+} = itemAdapter.getSelectors((state) => state.pageUrlsApp.pageUrlsApp)
 
-export const selectCurrentPage = ({ vendorsApp }) => {
-    return vendorsApp.vendorsApp.currentPage
+export const selectCurrentPage = ({ pageUrlsApp }) => {
+    return pageUrlsApp.pageUrlsApp.currentPage
 }
-export const selectTotalPage = ({ vendorsApp }) => {
-    return vendorsApp.vendorsApp.totalPage
+export const selectTotalPage = ({ pageUrlsApp }) => {
+    return pageUrlsApp.pageUrlsApp.totalPage
 };
-export const selectPerPage = ({ vendorsApp }) => {
-    return vendorsApp.vendorsApp.totalPage
+export const selectPerPage = ({ pageUrlsApp }) => {
+    return pageUrlsApp.pageUrlsApp.totalPage
 };
-export const selectHasDraftItem = ({ vendorsApp }) => {
-    return vendorsApp.vendorsApp.hasDraftItem
+export const selectHasDraftItem = ({ pageUrlsApp }) => {
+    return pageUrlsApp.pageUrlsApp.hasDraftItem
 };
 
 export default slice.reducer;

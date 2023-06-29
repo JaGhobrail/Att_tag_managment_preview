@@ -32,11 +32,17 @@ class NoteRepository implements CrudInterface
      *
      * @return collections Array of Note Collection
      */
-    public function getAll(): Paginator
+    public function getAll(array $filters=[]): Paginator
     {
-        return Note::
-            orderBy('id', 'desc')
-            ->paginate(10);
+        $query = Note::query();
+
+        foreach ($filters as $key => $value) {
+            if ($key === 'dis') {
+                continue;
+            }
+            $query->where($key, $value);
+        }
+        return  $query->orderBy('id', 'desc')->paginate(10);
     }
 
     /**

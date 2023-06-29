@@ -5,15 +5,15 @@ const App = lazy(() => import('./App'));
 
 const AppConfig = {
     settings: {
-        name: 'Page Sections',
-        store: 'pageSectionsApp',
+        name: 'Page Urls',
+        store: 'pageUrlsApp',
         layout: {
             config: {},
         },
     },
     routes: [
         {
-            path: '/page-sections',
+            path: '/page-urls',
             element: <App />,
         },
     ],

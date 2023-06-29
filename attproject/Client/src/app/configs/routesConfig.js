@@ -11,41 +11,41 @@ import VendorsAppConfigTemp from '../main/vendorsTemp/VendorsAppConfig';
 import VendorsAppConfig from '../main/vendors/AppConfig';
 import TrackersAppConfig from '../main/trackers/AppConfig';
 import PageSectionsAppConfig from '../main/page-sections/AppConfig';
-import PageUrlsAppConfig from '../main/page-url/AppConfig';
+import PageUrlsAppConfig from '../main/page-urls/AppConfig';
 
 
 
 const routeConfigs = [
-  SignOutConfig,
-  SignInConfig,
-  SignUpConfig,
-  DashboardAppConfig,
-  VendorsAppConfig,
-  TrackersAppConfig,
-  PageSectionsAppConfig,
-  PageUrlsAppConfig,
-  VendorsAppConfigTemp
+    SignOutConfig,
+    SignInConfig,
+    SignUpConfig,
+    DashboardAppConfig,
+    VendorsAppConfig,
+    TrackersAppConfig,
+    PageSectionsAppConfig,
+    PageUrlsAppConfig,
+    VendorsAppConfigTemp
 ];
 
 const routes = [
-  ...CommonUtils.generateRoutesFromConfigs(routeConfigs, settingsConfig.defaultAuth),
-  {
-    path: '/',
-    element: <Navigate to="/dashboard" />,
-    auth: settingsConfig.defaultAuth,
-  },
-  {
-    path: 'loading',
-    element: <CommonLoading />,
-  },
-  {
-    path: '404',
-    element: <Error404Page />,
-  },
-  {
-    path: '*',
-    element: <Navigate to="404" />,
-  },
+    ...CommonUtils.generateRoutesFromConfigs(routeConfigs, settingsConfig.defaultAuth),
+    {
+        path: '/',
+        element: <Navigate to="/dashboard" />,
+        auth: settingsConfig.defaultAuth,
+    },
+    {
+        path: 'loading',
+        element: <CommonLoading />,
+    },
+    {
+        path: '404',
+        element: <Error404Page />,
+    },
+    {
+        path: '*',
+        element: <Navigate to="404" />,
+    },
 ];
 
 export default routes;

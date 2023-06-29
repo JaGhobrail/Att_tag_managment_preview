@@ -2,7 +2,7 @@ import { combineReducers } from '@reduxjs/toolkit';
 import pageSectionsApp from './Slice';
 
 const reducer = combineReducers({
-  pageSectionsApp,
+    pageSectionsApp,
 });
 
 export default reducer;
