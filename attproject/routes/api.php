@@ -7,7 +7,9 @@ use App\Http\Controllers\AdTech\PageUrlList\PageUrlListController;
 use App\Http\Controllers\AdTech\PageSectList\PageSectListController;
 use App\Http\Controllers\AdTech\TrackerList\TrackerListController;
 use App\Http\Controllers\AdTech\VendorList\VendorListController;
+use App\Http\Controllers\AdTech\Unit\UnitController;
 use App\Http\Controllers\AdTech\Note\NoteController;
+use App\Http\Controllers\AdTech\User\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -36,6 +38,7 @@ Route::group([
         Route::get('me', [AuthController::class, 'me']);
     });
 
+    Route::resource('users', UserController::class);
 
 
     /**
@@ -46,13 +49,21 @@ Route::group([
     Route::get('tags/view/search', [TagsController::class, 'search']);
 
     Route::resource('investigation-summary', InvestigationSummaryController::class);
+    Route::resource('vendors', VendorListController::class);
+
     Route::get('investigation-summary/view/all', [InvestigationSummaryController::class, 'indexAll']);
     Route::get('investigation-summary/view/search', [InvestigationSummaryController::class, 'search']);
 
+    Route::post('vendors/{itemId}/notes',[NoteController::class,'createOnVendors']);
+    Route::post('trackers/{itemId}/notes',[NoteController::class,'createOnTrackers']);
+    Route::post('page-sections/{itemId}/notes',[NoteController::class,'createOnPageSect']);
+    Route::post('page-urls/{itemId}/notes',[NoteController::class,'createOnPageUrls']);
+
     Route::resource('vendors', VendorListController::class);
-    Route::get('vendors/view/all', [VendorListController::class, 'indexAll']);
-    Route::get('vendors/view/search', [VendorListController::class, 'search']);
-    Route::get('vendors-name', [VendorListController::class, 'vendorsName']);
+    // Route::get('vendors-name', [VendorListController::class, 'vendorsName']);
+
+    // Route::get('vendors/view/all', [VendorListController::class, 'indexAll']);
+    // Route::get('vendors/view/search', [VendorListController::class, 'search']);
 
     Route::resource('page-urls', PageUrlListController::class);
     Route::get('page-urls/view/all', [PageUrlListController::class, 'indexAll']);
@@ -66,9 +77,6 @@ Route::group([
     Route::get('trackers/view/all', [TrackerListController::class, 'indexAll']);
     Route::get('trackers/view/search', [TrackerListController::class, 'search']);
 
-    Route::resource('notes', NoteController::class);
-    Route::get('notes/view/all', [NoteController::class, 'indexAll']);
-    Route::get('notes/view/search', [NoteController::class, 'search']);
-
+    Route::resource('units', UnitController::class);
 });
 

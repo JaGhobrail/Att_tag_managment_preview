@@ -48,21 +48,29 @@ const navigationConfig = [
     },
     {
         id: 'user-admin',
-        title: 'User Admin',
+        title: 'Users',
         type: 'item',
         icon: 'material-solid:security',
-        url: '/dashboard',
+        url: '/users',
         // url: '/user-admin',
     },
-
     {
-        id: 'vendorsTemp',
-        title: 'VendorsTemp',
+        id: 'business units',
+        title: 'Business units',
         type: 'item',
-        icon: 'material-solid:store_mall_directory',
-        url: '/vendorsTemp',
-        auth: authRoles.staff
-    },
+        icon: 'material-solid:security',
+        url: '/business-units',
+        // url: '/user-admin',
+    }
+    // ,
+    // {
+    //     id: 'vendorsTemp',
+    //     title: 'VendorsTemp',
+    //     type: 'item',
+    //     icon: 'material-solid:store_mall_directory',
+    //     url: '/vendorsTemp',
+    //     auth: authRoles.staff
+    // },
 ];
 
 export default navigationConfig;

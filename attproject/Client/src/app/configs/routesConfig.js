@@ -12,6 +12,8 @@ import VendorsAppConfig from '../main/vendors/AppConfig';
 import TrackersAppConfig from '../main/trackers/AppConfig';
 import PageSectionsAppConfig from '../main/page-sections/AppConfig';
 import PageUrlsAppConfig from '../main/page-urls/AppConfig';
+import UsersAppConfig from '../main/contacts/ContactsAppConfig';
+import BusinessUnitsAppConfig from '../main/businessUnits/ContactsAppConfig';
 
 
 
@@ -24,7 +26,9 @@ const routeConfigs = [
     TrackersAppConfig,
     PageSectionsAppConfig,
     PageUrlsAppConfig,
-    VendorsAppConfigTemp
+    UsersAppConfig,
+    VendorsAppConfigTemp,
+    BusinessUnitsAppConfig
 ];
 
 const routes = [

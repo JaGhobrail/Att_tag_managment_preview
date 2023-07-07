@@ -3,12 +3,15 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\File;
 use Illuminate\Database\Seeder;
 use App\Models\AdTech\VendorList;
 use App\Models\AdTech\TrackerList;
 use App\Models\AdTech\PageSectList;
 use App\Models\AdTech\PageUrlList;
+use App\Models\AdTech\Unit;
+use App\Models\User;
 
 class JsonDataSeeder extends Seeder
 {
@@ -19,10 +22,18 @@ class JsonDataSeeder extends Seeder
     {
         $json = File::get(database_path('seeders/data.json'));
         $data = json_decode($json, true);
+
+        $users = $data["users"];
+        $units = $data["units"];
         $vendors = $data["vendors"];
         $trackers = $data["trackers"];
         $pageSctions = $data["pagesecttions"];
         $pageUrlList = $data["pageurls"];
+
+        // foreach ($users as &$item) {
+        //         $item['password'] = Hash::make("12345678");
+        // }
+
         foreach ($vendors as $item) {
             VendorList::create($item);
         }
@@ -34,6 +45,19 @@ class JsonDataSeeder extends Seeder
         }
         foreach ($pageUrlList as $item) {
             PageUrlList::create($item);
+        }
+        foreach ($users as $item) {
+            $user = new User();
+            $user->name = $item['name'];
+            $user->email = $item['email'];
+            $user->color = $item['color'];
+            $user->password = Hash::make($item['password']);
+            $user->save();
+            // User::create($item);
+        }
+        foreach ($units as $item) {
+
+            Unit::create($item);
         }
     }
 }

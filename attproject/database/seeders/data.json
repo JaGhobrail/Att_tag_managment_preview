@@ -25926,5 +25926,45 @@
       "tot_cookies": 0,
       "tot_pages": 216
      }
+    ],
+    "users":[
+        {
+            "name":"john",
+            "email":"john@att.com",
+            "color":"#FFEB3B",
+            "password":"12345678"
+        },
+        {
+            "name":"jermalli",
+            "email":"jermalli@att.com",
+            "color":"#F44336",
+            "password":"12345678"
+        },
+        {
+            "name":"paul",
+            "email":"paul@att.com",
+            "color":"#2196F3",
+            "password":"12345678"
+        }
+
+    ],
+    "units":[
+        {
+            "name":"google",
+            "url":"https://google.com"
+        },
+        {
+            "name":"facebook",
+            "url":"https://facebook.com"
+        },
+        {
+            "name":"att",
+            "url":"https://att.com"
+        },
+        {
+            "name":"instagram",
+            "url":"https://instagram.com"
+        }
+
     ]
 }

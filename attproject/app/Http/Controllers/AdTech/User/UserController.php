@@ -1,17 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\AdTech\Note;
+namespace App\Http\Controllers\AdTech\User;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\AdTech\VendorList;
-use App\Models\AdTech\TrackerList;
-use App\Models\AdTech\PageSectList;
-use App\Models\AdTech\PageUrlList;
-use App\Models\AdTech\Note;
-use App\Http\Requests\AdTech\NoteRequest;
+use App\Models\User;
+use App\Http\Requests\AdTech\UserRequest;
 
-use App\Repositories\AdTech\NoteRepository;
+use App\Repositories\AdTech\UserRepository;
 use App\Traits\ResponseTrait;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
@@ -32,7 +28,7 @@ use Auth;
  * )
  */
 
-class NoteController extends Controller
+class UserController extends Controller
 {
     /**
      * Response trait to handle return responses.
@@ -42,11 +38,11 @@ class NoteController extends Controller
     /**
      * Tag Repository class.
      *
-     * @var NoteRepository
+     * @var UserRepository
      */
     public $tagsRepository;
 
-    public function __construct(NoteRepository $tagsRepository)
+    public function __construct(UserRepository $tagsRepository)
     {
         $this->middleware('auth:api', ['except' => ['indexAll']]);
         $this->tagsRepository = $tagsRepository;
@@ -252,84 +248,5 @@ class NoteController extends Controller
         }
     }
 
-    public function createOnVendors(Request $request, $itemId): JsonResponse
-    {
-        try {
-            $vendor = VendorList::findOrFail($itemId);
-
-            $note = new Note();
-            $note->noteable_type = VendorList::class;
-            $note->noteable_id = $vendor->id;
-            $note->body = $request->input('body');
-            $note->user_id = Auth::id();
-            $note->save();
-            return $this->responseSuccess($note, 'New Tag Created Successfully !');
-
-        } catch (\Exception $e) {
-            return $this->responseError(null, $e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
-        }
-
-    }
-
-    public function createOnTrackers(Request $request, $itemId): JsonResponse
-    {
-        try {
-            $vendor = TrackerList::findOrFail($itemId);
-
-            $note = new Note();
-            $note->noteable_type = TrackerList::class;
-            $note->noteable_id = $vendor->id;
-            $note->body = $request->input('body');
-            $note->user_id = Auth::id();
-            $note->save();
-            return $this->responseSuccess($note, 'New Tag Created Successfully !');
-
-        } catch (\Exception $e) {
-            return $this->responseError(null, $e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
-        }
-
-    }
-
-    public function createOnPageSect(Request $request, $itemId): JsonResponse
-    {
-        try {
-            $vendor = PageSectList::findOrFail($itemId);
-
-            $note = new Note();
-            $note->noteable_type = PageSectList::class;
-            $note->noteable_id = $vendor->id;
-            $note->body = $request->input('body');
-            $note->user_id = Auth::id();
-            $note->save();
-            return $this->responseSuccess($note, 'New Tag Created Successfully !');
-
-        } catch (\Exception $e) {
-            return $this->responseError(null, $e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
-        }
-
-    }
-
-    public function createOnPageUrls(Request $request, $itemId): JsonResponse
-    {
-        try {
-            $vendor = PageUrlList::findOrFail($itemId);
-
-            $note = new Note();
-            $note->noteable_type = PageUrlList::class;
-            $note->noteable_id = $vendor->id;
-            $note->body = $request->input('body');
-            $note->user_id = Auth::id();
-            $note->save();
-            return $this->responseSuccess($note, 'New Tag Created Successfully !');
-
-        } catch (\Exception $e) {
-            return $this->responseError(null, $e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
-        }
-
-    }
-
-    // Route::post('vendros/{trackerId}/notes',[NoteController::class,'createOnTrackers']);
-    // Route::post('vendros/{pageSectionId}/notes',[NoteController::class,'createOnPageSections']);
-    // Route::post('vendros/{pageUrlId}/notes',[NoteController::class,'createOnPageUrls']);
 
 }

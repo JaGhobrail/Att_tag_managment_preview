@@ -32,11 +32,17 @@ class TagRepository implements CrudInterface
      *
      * @return collections Array of tag Collection
      */
-    public function getAll(): Paginator
+    public function getAll(array $filters=[]): Paginator
     {
-        return Tag::
-            orderBy('id', 'desc')
-            ->paginate(10);
+        $query = Tag::query();
+
+        foreach ($filters as $key => $value) {
+            if ($key === 'dis') {
+                continue;
+            }
+            $query->where($key, $value);
+        }
+        return  $query->orderBy('id', 'desc')->paginate(10);
     }
 
     /**

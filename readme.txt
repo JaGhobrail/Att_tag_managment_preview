@@ -11,3 +11,7 @@ DB_USERNAME=default
 DB_PASSWORD=secret
 
 php artisan migrate:refresh --seed
+
+enbale for morph
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+CREATE EXTENSION IF NOT EXISTS hstore;

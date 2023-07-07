@@ -32,16 +32,6 @@ class VendorList extends Model
     public function drafts(){
         return $this->morphMany(Draft::class ,'draftable');
     }
-    // public function note_list(){
-    //     return $this->morphMany(Note::class ,'noteable');
-    //     //     return $this->morphToMany(
-    //     //     Note::class ,
-    //     //     'noteable',
-    //     //     'noteable_type',
-    //     //     'noteable_id',
-    //     //     'id'
-    //     // );
-    // }
 
     public function note_list()
     {

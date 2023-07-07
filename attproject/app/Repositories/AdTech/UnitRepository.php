@@ -5,14 +5,12 @@ namespace App\Repositories\AdTech;
 use Illuminate\Support\Str;
 use App\Helpers\UploadHelper;
 use App\Interfaces\CrudInterface;
-use App\Models\AdTech\VendorList;
-use App\Models\AdTech\Note;
-use App\Models\AdTech\Draft;
+use App\Models\AdTech\Unit;
 use App\Models\User;
 use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Support\Facades\Auth;
 
-class VendorListRepository implements CrudInterface
+class UnitRepository implements CrudInterface
 {
     /**
      * Authenticated User Instance.
@@ -30,13 +28,13 @@ class VendorListRepository implements CrudInterface
     }
 
     /**
-     * Get All tags.
+     * Get All Unit.
      *
-     * @return collections Array of tag Collection
+     * @return collections Array of Unit Collection
      */
     public function getAll(array $filters=[]): Paginator
     {
-        $query = VendorList::query();
+        $query = Unit::query();
 
         foreach ($filters as $key => $value) {
             if ($key === 'dis') {
@@ -48,29 +46,29 @@ class VendorListRepository implements CrudInterface
     }
 
     /**
-     * Get Paginated tag Data.
+     * Get Paginated note Data.
      *
      * @param int $pageNo
-     * @return collections Array of tag Collection
+     * @return collections Array of note Collection
      */
     public function getPaginatedData($perPage): Paginator
     {
         $perPage = isset($perPage) ? intval($perPage) : 12;
-        return VendorList::orderBy('id', 'desc')
+        return Unit::orderBy('id', 'desc')
             ->paginate($perPage);
     }
 
     /**
-     * Get Searchable tag Data with Pagination.
+     * Get Searchable note Data with Pagination.
      *
      * @param int $pageNo
-     * @return collections Array of tag Collection
+     * @return collections Array of note Collection
      */
-    public function searchtag($keyword, $perPage): Paginator
+    public function searchTag($keyword, $perPage): Paginator
     {
         $perPage = isset($perPage) ? intval($perPage) : 10;
 
-        return VendorList::where('name', 'like', '%' . $keyword . '%')
+        return Unit::where('name', 'like', '%' . $keyword . '%')
             ->orWhere('description', 'like', '%' . $keyword . '%')
             ->orWhere('rate', 'like', '%' . $keyword . '%')
             ->orderBy('id', 'desc')
@@ -78,74 +76,64 @@ class VendorListRepository implements CrudInterface
     }
 
     /**
-     * Create New tag.
+     * Create New note.
      *
      * @param array $data
-     * @return object tag Object
+     * @return object note Object
      */
-    public function create(array $data): VendorList
+    public function create(array $data): Unit
     {
-        return VendorList::create($data);
+        return Unit::create($data);
     }
 
     /**
-     * Delete tag.
+     * Delete note.
      *
      * @param int $id
      * @return boolean true if deleted otherwise false
      */
     public function delete(int $id): bool
     {
-        $tag = VendorList::find($id);
-        if (empty($tag)) {
+        $note = Unit::find($id);
+        if (empty($note)) {
             return false;
         }
 
-        $tag->delete($tag);
+        $note->delete($note);
         return true;
     }
 
     /**
-     * Get tag Detail By ID.
+     * Get note Detail By ID.
      *
      * @param int $id
      * @return void
      */
-    public function getByID(int $id)
-    // : Draft|null
+    public function getByID(int $id): Unit|null
     {
-        $tag = VendorList::find($id);
-        if (is_null($tag)) {
-            return null;
-        }
-        return VendorList::find($id)->note_list;
+        return Unit::find($id);
     }
 
     /**
-     * Update tag By ID.
+     * Update note By ID.
      *
      * @param int $id
      * @param array $data
-     * @return object Updated tag Object
+     * @return object Updated note Object
      */
-    public function update(int $id, array $data): VendorList|null
+    public function update(int $id, array $data): Unit|null
     {
-        $tag = VendorList::find($id);
+        $note = Unit::find($id);
 
 
-        if (is_null($tag)) {
+        if (is_null($note)) {
             return null;
         }
 
         // If everything is OK, then update.
-        $tag->update($data);
+        $note->update($data);
 
-        // Finally return the updated tag.
-        return $this->getByID($tag->id);
-    }
-
-    public function getVendorsName()
-    {
-        return VendorList::pluck('vendor_name')->all();
+        // Finally return the updated note.
+        return $this->getByID($note->id);
     }
 }
