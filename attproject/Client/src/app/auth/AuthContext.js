@@ -6,6 +6,7 @@ import { showMessage } from 'app/store/common/messageSlice';
 import { logoutUser, setUser } from 'app/store/userSlice';
 import jwtService from './services/jwtService';
 import { getVendorNames } from 'app/store/common/sharedSlice';
+import { getUnits } from 'app/store/common/sharedSlice';
 
 const AuthContext = React.createContext();
 
@@ -60,7 +61,8 @@ function AuthProvider({ children }) {
 
             Promise.all([
                 dispatch(setUser(user)),
-                dispatch(getVendorNames())
+                dispatch(getVendorNames()),
+                dispatch(getUnits()),
                 // You can receive data in here before app initialization
             ]).then((values) => {
                 setWaitAuthCheck(false);

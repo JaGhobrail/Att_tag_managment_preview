@@ -247,6 +247,4 @@ class UserController extends Controller
             return $this->responseError(null, $e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
-
-
 }

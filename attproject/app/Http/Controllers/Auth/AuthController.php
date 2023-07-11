@@ -59,7 +59,7 @@ class AuthController extends Controller
         try {
             $credentials = $request->only('email', 'password');
 
-            if ($token = $this->guard()->attempt($credentials)) {
+            if ($token = $this->guard()->attempt($credentials,['expires_in' => 60])) {
                 $data =  $this->respondWithToken($token);
             } else {
                 return $this->responseError(null, 'Invalid Email and Password !', Response::HTTP_UNAUTHORIZED);

@@ -296,6 +296,8 @@ return [
 
         'storage' => Tymon\JWTAuth\Providers\Storage\Illuminate::class,
 
+        Spatie\Permission\PermissionServiceProvider::class,
+
     ],
 
 ];

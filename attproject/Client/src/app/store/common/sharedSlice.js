@@ -8,6 +8,12 @@ export const getVendorNames = createAsyncThunk('shared/getVendors', async () => 
     return data.data
 });
 
+export const getUnits = createAsyncThunk('shared/getUnits', async () => {
+    const response = await axios.get('/api/units');
+    const data = await response.data;
+    return data.data.data
+});
+
 
 
 const initialState = {
@@ -21,6 +27,9 @@ const slice = createSlice({
     extraReducers: {
         [getVendorNames.fulfilled]: (state, action) => {
             state.vendorsName = action.payload
+        },
+        [getUnits.fulfilled]: (state, action) => {
+            state.units = action.payload
         }
     },
 });
@@ -28,5 +37,9 @@ const slice = createSlice({
 
 export const selectVendorsName = ({ common }) => {
     return common.shared.vendorsName
+}
+
+export const selectUnits = ({ common }) => {
+    return common.shared.units
 }
 export default slice.reducer;

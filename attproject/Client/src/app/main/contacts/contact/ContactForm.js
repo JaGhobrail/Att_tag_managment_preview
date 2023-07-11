@@ -216,11 +216,11 @@ const ContactForm = (props) => {
 
                 <Controller
                     control={control}
-                    name="Business units"
+                    name="units"
                     render={({ field: { onChange, value } }) => (
                         <Autocomplete
                             multiple
-                            id="tags"
+                            id="units"
                             className="mt-32"
                             options={tags}
                             disableCloseOnSelect
@@ -241,24 +241,25 @@ const ContactForm = (props) => {
                     )}
                 />
 
+
                 <Controller
                     control={control}
-                    name="title"
+                    name="email"
+
                     render={({ field }) => (
                         <TextField
                             className="mt-32"
                             {...field}
-                            label="Title"
-                            placeholder="Job title"
-                            id="title"
-                            error={!!errors.title}
-                            helperText={errors?.title?.message}
+                            label="Email"
+                            placeholder="Email"
                             variant="outlined"
                             fullWidth
+                            error={!!errors.email}
+                            helperText={errors?.email?.message}
                             InputProps={{
                                 startAdornment: (
                                     <InputAdornment position="start">
-                                        <CommonSvgIcon size={20}>heroicons-solid:briefcase</CommonSvgIcon>
+                                        <CommonSvgIcon size={20}>heroicons-solid:mail</CommonSvgIcon>
                                     </InputAdornment>
                                 ),
                             }}
@@ -268,119 +269,23 @@ const ContactForm = (props) => {
 
                 <Controller
                     control={control}
-                    name="company"
+                    name="password"
                     render={({ field }) => (
                         <TextField
                             className="mt-32"
                             {...field}
-                            label="Company"
-                            placeholder="Company"
-                            id="company"
-                            error={!!errors.company}
-                            helperText={errors?.company?.message}
+                            label="Password"
+                            placeholder="Password"
+                            id="Password"
+                            error={!!errors.password}
+                            helperText={errors?.password?.message}
                             variant="outlined"
                             fullWidth
-                            InputProps={{
-                                startAdornment: (
-                                    <InputAdornment position="start">
-                                        <CommonSvgIcon size={20}>heroicons-solid:office-building</CommonSvgIcon>
-                                    </InputAdornment>
-                                ),
-                            }}
-                        />
-                    )}
-                />
-                <Controller
-                    control={control}
-                    name="emails"
-                    render={({ field }) => <ContactEmailSelector className="mt-32" {...field} />}
-                />
-
-                <Controller
-                    control={control}
-                    name="phoneNumbers"
-                    render={({ field }) => <PhoneNumberSelector className="mt-32" {...field} />}
-                />
-
-                <Controller
-                    control={control}
-                    name="address"
-                    render={({ field }) => (
-                        <TextField
-                            className="mt-32"
-                            {...field}
-                            label="Address"
-                            placeholder="Address"
-                            id="address"
-                            error={!!errors.address}
-                            helperText={errors?.address?.message}
-                            variant="outlined"
-                            fullWidth
+                            type='password'
                             InputProps={{
                                 startAdornment: (
                                     <InputAdornment position="start">
                                         <CommonSvgIcon size={20}>heroicons-solid:location-marker</CommonSvgIcon>
-                                    </InputAdornment>
-                                ),
-                            }}
-                        />
-                    )}
-                />
-                <Controller
-                    control={control}
-                    name="birthday"
-                    render={({ field }) => (
-                        <DateTimePicker
-                            {...field}
-                            className="mt-8 mb-16 w-full"
-                            clearable
-                            showTodayButton
-                            renderInput={(_props) => (
-                                <TextField
-                                    {..._props}
-                                    className="mt-32"
-                                    id="birthday"
-                                    label="Birthday"
-                                    type="date"
-                                    InputLabelProps={{
-                                        shrink: true,
-                                    }}
-                                    variant="outlined"
-                                    fullWidth
-                                    InputProps={{
-                                        startAdornment: (
-                                            <InputAdornment position="start">
-                                                <CommonSvgIcon size={20}>heroicons-solid:cake</CommonSvgIcon>
-                                            </InputAdornment>
-                                        ),
-                                    }}
-                                />
-                            )}
-                        />
-                    )}
-                />
-                <Controller
-                    control={control}
-                    name="notes"
-                    render={({ field }) => (
-                        <TextField
-                            className="mt-32"
-                            {...field}
-                            label="Notes"
-                            placeholder="Notes"
-                            id="notes"
-                            error={!!errors.notes}
-                            helperText={errors?.notes?.message}
-                            variant="outlined"
-                            fullWidth
-                            multiline
-                            minRows={5}
-                            maxRows={10}
-                            InputProps={{
-                                className: 'max-h-min h-min items-start',
-                                startAdornment: (
-                                    <InputAdornment className="mt-16" position="start">
-                                        <CommonSvgIcon size={20}>heroicons-solid:menu-alt-2</CommonSvgIcon>
                                     </InputAdornment>
                                 ),
                             }}
