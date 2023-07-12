@@ -63,6 +63,7 @@ const ContactView = () => {
                                 color: 'text.secondary',
                             }}
                             className="w-128 h-128 text-64 font-bold"
+                            src={contact.avatar}
                             alt={contact.name}
                         >
                             {contact.name.charAt(0)}

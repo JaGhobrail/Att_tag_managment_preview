@@ -8,6 +8,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Spatie\Permission\Traits\HasRoles;
+use App\Models\AdTech\Unit;
+
 
 class User extends Authenticatable implements JWTSubject
 {
@@ -63,8 +65,8 @@ class User extends Authenticatable implements JWTSubject
         return [];
     }
 
-    // public function roles()
-    // {
-    //     return $this->belongsToMany(Role::class);
-    // }
+    public function units()
+    {
+        return $this->belongsToMany(Unit::class);
+    }
 }

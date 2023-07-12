@@ -14,7 +14,9 @@ import Avatar from '@mui/material/Avatar';
 import TextField from '@mui/material/TextField';
 import InputAdornment from '@mui/material/InputAdornment';
 import IconButton from '@mui/material/IconButton';
-
+import Autocomplete from '@mui/material/Autocomplete/Autocomplete';
+import Checkbox from '@mui/material/Checkbox/Checkbox';
+import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import {
     addContact,
     getContact,
@@ -25,7 +27,8 @@ import {
 } from '../store/contactSlice';
 import { selectCountries } from '../store/countriesSlice';
 import { selectTags } from '../store/tagsSlice';
-import { getUnits, selectUnits, getUserRoles, selectUserRoles } from 'app/store/common/sharedSlice';
+import ContactEmailSelector from './email-selector/ContactEmailSelector';
+import PhoneNumberSelector from './phone-number-selector/PhoneNumberSelector';
 
 /**
  * Form Validation Schema
@@ -36,8 +39,6 @@ const schema = yup.object().shape({
 
 const ContactForm = (props) => {
     const contact = useSelector(selectContact);
-    const units = useSelector(selectUnits);
-    const userRoles = useSelector(selectUserRoles);
     const countries = useSelector(selectCountries);
     const tags = useSelector(selectTags);
     const routeParams = useParams();
@@ -59,7 +60,6 @@ const ContactForm = (props) => {
         } else {
             dispatch(getContact(routeParams.id));
         }
-        dispatch(getUserRoles())
     }, [dispatch, routeParams]);
 
     useEffect(() => {
@@ -76,7 +76,7 @@ const ContactForm = (props) => {
     function onSubmit(data) {
         if (routeParams.id === 'new') {
             dispatch(addContact(data)).then(({ payload }) => {
-                // navigate(`/users/${payload.id}`);
+                navigate(`/users/${payload.id}`);
             });
         } else {
             dispatch(updateContact(data));
@@ -216,23 +216,49 @@ const ContactForm = (props) => {
 
                 <Controller
                     control={control}
-                    name="url"
+                    name="Business units"
+                    render={({ field: { onChange, value } }) => (
+                        <Autocomplete
+                            multiple
+                            id="tags"
+                            className="mt-32"
+                            options={tags}
+                            disableCloseOnSelect
+                            getOptionLabel={(option) => option.title}
+                            renderOption={(_props, option, { selected }) => (
+                                <li {..._props}>
+                                    <Checkbox style={{ marginRight: 8 }} checked={selected} />
+                                    {option.title}
+                                </li>
+                            )}
+                            value={value ? value.map((id) => _.find(tags, { id })) : []}
+                            onChange={(event, newValue) => {
+                                onChange(newValue.map((item) => item.id));
+                            }}
+                            fullWidth
+                            renderInput={(params) => <TextField {...params} label="Business units" placeholder="Business units" />}
+                        />
+                    )}
+                />
+
+                <Controller
+                    control={control}
+                    name="title"
                     render={({ field }) => (
                         <TextField
                             className="mt-32"
                             {...field}
-                            label="URL"
-                            placeholder="URL"
-                            id="url"
-                            error={!!errors.url}
-                            helperText={errors?.url?.message}
+                            label="Title"
+                            placeholder="Job title"
+                            id="title"
+                            error={!!errors.title}
+                            helperText={errors?.title?.message}
                             variant="outlined"
-                            required
                             fullWidth
                             InputProps={{
                                 startAdornment: (
                                     <InputAdornment position="start">
-                                        <CommonSvgIcon size={20}>heroicons-solid:user-circle</CommonSvgIcon>
+                                        <CommonSvgIcon size={20}>heroicons-solid:briefcase</CommonSvgIcon>
                                     </InputAdornment>
                                 ),
                             }}
@@ -240,6 +266,127 @@ const ContactForm = (props) => {
                     )}
                 />
 
+                <Controller
+                    control={control}
+                    name="company"
+                    render={({ field }) => (
+                        <TextField
+                            className="mt-32"
+                            {...field}
+                            label="Company"
+                            placeholder="Company"
+                            id="company"
+                            error={!!errors.company}
+                            helperText={errors?.company?.message}
+                            variant="outlined"
+                            fullWidth
+                            InputProps={{
+                                startAdornment: (
+                                    <InputAdornment position="start">
+                                        <CommonSvgIcon size={20}>heroicons-solid:office-building</CommonSvgIcon>
+                                    </InputAdornment>
+                                ),
+                            }}
+                        />
+                    )}
+                />
+                <Controller
+                    control={control}
+                    name="emails"
+                    render={({ field }) => <ContactEmailSelector className="mt-32" {...field} />}
+                />
+
+                <Controller
+                    control={control}
+                    name="phoneNumbers"
+                    render={({ field }) => <PhoneNumberSelector className="mt-32" {...field} />}
+                />
+
+                <Controller
+                    control={control}
+                    name="address"
+                    render={({ field }) => (
+                        <TextField
+                            className="mt-32"
+                            {...field}
+                            label="Address"
+                            placeholder="Address"
+                            id="address"
+                            error={!!errors.address}
+                            helperText={errors?.address?.message}
+                            variant="outlined"
+                            fullWidth
+                            InputProps={{
+                                startAdornment: (
+                                    <InputAdornment position="start">
+                                        <CommonSvgIcon size={20}>heroicons-solid:location-marker</CommonSvgIcon>
+                                    </InputAdornment>
+                                ),
+                            }}
+                        />
+                    )}
+                />
+                <Controller
+                    control={control}
+                    name="birthday"
+                    render={({ field }) => (
+                        <DateTimePicker
+                            {...field}
+                            className="mt-8 mb-16 w-full"
+                            clearable
+                            showTodayButton
+                            renderInput={(_props) => (
+                                <TextField
+                                    {..._props}
+                                    className="mt-32"
+                                    id="birthday"
+                                    label="Birthday"
+                                    type="date"
+                                    InputLabelProps={{
+                                        shrink: true,
+                                    }}
+                                    variant="outlined"
+                                    fullWidth
+                                    InputProps={{
+                                        startAdornment: (
+                                            <InputAdornment position="start">
+                                                <CommonSvgIcon size={20}>heroicons-solid:cake</CommonSvgIcon>
+                                            </InputAdornment>
+                                        ),
+                                    }}
+                                />
+                            )}
+                        />
+                    )}
+                />
+                <Controller
+                    control={control}
+                    name="notes"
+                    render={({ field }) => (
+                        <TextField
+                            className="mt-32"
+                            {...field}
+                            label="Notes"
+                            placeholder="Notes"
+                            id="notes"
+                            error={!!errors.notes}
+                            helperText={errors?.notes?.message}
+                            variant="outlined"
+                            fullWidth
+                            multiline
+                            minRows={5}
+                            maxRows={10}
+                            InputProps={{
+                                className: 'max-h-min h-min items-start',
+                                startAdornment: (
+                                    <InputAdornment className="mt-16" position="start">
+                                        <CommonSvgIcon size={20}>heroicons-solid:menu-alt-2</CommonSvgIcon>
+                                    </InputAdornment>
+                                ),
+                            }}
+                        />
+                    )}
+                />
             </div>
 
             <Box

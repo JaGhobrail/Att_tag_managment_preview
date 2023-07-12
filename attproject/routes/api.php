@@ -47,6 +47,7 @@ Route::group([
 
     Route::group(['middleware' => ['permission:' . PermissionsEnum::MANAGE_USER->value]], function () {
         Route::resource('users', UserController::class);
+        Route::get('user-roles', [UserController::class, 'roles']);
     });
 
     Route::group(['middleware' => ['permission:' . PermissionsEnum::MANAGE_UNIT->value]], function () {

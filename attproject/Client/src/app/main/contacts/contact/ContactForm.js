@@ -16,7 +16,8 @@ import InputAdornment from '@mui/material/InputAdornment';
 import IconButton from '@mui/material/IconButton';
 import Autocomplete from '@mui/material/Autocomplete/Autocomplete';
 import Checkbox from '@mui/material/Checkbox/Checkbox';
-import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
+import { Search } from '@mui/icons-material';
+
 import {
     addContact,
     getContact,
@@ -27,8 +28,7 @@ import {
 } from '../store/contactSlice';
 import { selectCountries } from '../store/countriesSlice';
 import { selectTags } from '../store/tagsSlice';
-import ContactEmailSelector from './email-selector/ContactEmailSelector';
-import PhoneNumberSelector from './phone-number-selector/PhoneNumberSelector';
+import { getUnits, selectUnits, getUserRoles, selectUserRoles } from 'app/store/common/sharedSlice';
 
 /**
  * Form Validation Schema
@@ -39,6 +39,8 @@ const schema = yup.object().shape({
 
 const ContactForm = (props) => {
     const contact = useSelector(selectContact);
+    const units = useSelector(selectUnits);
+    const userRoles = useSelector(selectUserRoles);
     const countries = useSelector(selectCountries);
     const tags = useSelector(selectTags);
     const routeParams = useParams();
@@ -60,6 +62,7 @@ const ContactForm = (props) => {
         } else {
             dispatch(getContact(routeParams.id));
         }
+        dispatch(getUserRoles())
     }, [dispatch, routeParams]);
 
     useEffect(() => {
@@ -76,7 +79,7 @@ const ContactForm = (props) => {
     function onSubmit(data) {
         if (routeParams.id === 'new') {
             dispatch(addContact(data)).then(({ payload }) => {
-                navigate(`/users/${payload.id}`);
+                // navigate(`/users/${payload.id}`);
             });
         } else {
             dispatch(updateContact(data));
@@ -214,33 +217,6 @@ const ContactForm = (props) => {
                     )}
                 />
 
-                <Controller
-                    control={control}
-                    name="units"
-                    render={({ field: { onChange, value } }) => (
-                        <Autocomplete
-                            multiple
-                            id="units"
-                            className="mt-32"
-                            options={tags}
-                            disableCloseOnSelect
-                            getOptionLabel={(option) => option.title}
-                            renderOption={(_props, option, { selected }) => (
-                                <li {..._props}>
-                                    <Checkbox style={{ marginRight: 8 }} checked={selected} />
-                                    {option.title}
-                                </li>
-                            )}
-                            value={value ? value.map((id) => _.find(tags, { id })) : []}
-                            onChange={(event, newValue) => {
-                                onChange(newValue.map((item) => item.id));
-                            }}
-                            fullWidth
-                            renderInput={(params) => <TextField {...params} label="Business units" placeholder="Business units" />}
-                        />
-                    )}
-                />
-
 
                 <Controller
                     control={control}
@@ -285,13 +261,97 @@ const ContactForm = (props) => {
                             InputProps={{
                                 startAdornment: (
                                     <InputAdornment position="start">
-                                        <CommonSvgIcon size={20}>heroicons-solid:location-marker</CommonSvgIcon>
+                                        <CommonSvgIcon size={20}>material-solid:password</CommonSvgIcon>
                                     </InputAdornment>
                                 ),
                             }}
                         />
                     )}
                 />
+
+
+                <Controller
+                    control={control}
+                    name="units"
+                    render={({ field: { onChange, value } }) => (
+                        <Autocomplete
+                            multiple
+                            id="units"
+                            className="mt-32"
+                            options={units}
+                            disableCloseOnSelect
+                            getOptionLabel={(option) => option.name}
+                            renderOption={(_props, option, { selected }) => (
+                                <li {..._props}>
+                                    <Checkbox style={{ marginRight: 8 }} checked={selected} />
+                                    {option.name}
+                                </li>
+                            )}
+                            value={value ? value.map((id) => _.find(units, { id })) : []}
+                            onChange={(event, newValue) => {
+                                onChange(newValue.map((item) => item.id));
+                            }}
+                            fullWidth
+                            renderInput={(params) => <TextField {...params}
+                                InputProps={{
+                                    ...params.InputProps,
+                                    startAdornment: (
+                                        <>
+                                            <InputAdornment position="start">
+                                                <CommonSvgIcon size={20}>material-solid:apartment</CommonSvgIcon>
+                                            </InputAdornment>
+                                            {params.InputProps.startAdornment}
+                                        </>
+                                    ),
+                                }}
+
+                                label="Business units"
+                                placeholder="Business units" />}
+                        />
+                    )}
+                />
+
+                <Controller
+                    control={control}
+                    name="role"
+                    render={({ field: { onChange, value } }) => (
+                        <Autocomplete
+                            id="role"
+                            multiple={false}
+                            className="mt-32"
+                            options={userRoles}
+                            getOptionLabel={(option) => option.name}
+                            renderOption={(_props, option, { selected }) => (
+                                <li {..._props}>
+                                    <Checkbox style={{ marginRight: 8 }} checked={selected} />
+                                    {option.name}
+                                </li>
+                            )}
+                            value={value ? _.find(userRoles, { id: value }) : ''}
+                            onChange={(event, newValue) => {
+                                onChange(newValue.id);
+                            }}
+                            fullWidth
+                            renderInput={(params) => <TextField {...params}
+                                InputProps={{
+                                    ...params.InputProps,
+                                    startAdornment: (
+                                        <>
+                                            <InputAdornment position="start">
+                                                <CommonSvgIcon size={20}>material-solid:verified_user</CommonSvgIcon>
+                                            </InputAdornment>
+                                            {params.InputProps.startAdornment}
+                                        </>
+                                    ),
+                                }}
+
+                                label="User Role"
+                                placeholder="User Role" />}
+                        />
+                    )}
+                />
+
+
             </div>
 
             <Box

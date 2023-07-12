@@ -24,10 +24,10 @@ function ChangeAccount(props) {
 
         <FormControl
             size='small'
-            className="flex justify-start w-40 text-white border-white" variant="outlined">
-            {/* <Select
+            className="flex justify-start w-120 text-white border-white" variant="outlined">
+            <Select
                 style={{}}
-                className='border-white w-40 bg-white overflow-hidden'
+                className='border-white bg-white overflow-hidden'
                 labelId="account-select-label"
                 id="account-select"
                 label=""
@@ -35,16 +35,16 @@ function ChangeAccount(props) {
                 onChange={(event) => { }
                     // setSelectedAccount(event.target.value)
                 }
-                title='Rule'
-                name='Rule'
+                title='Role'
+                name='Role'
             >
 
-                {units.map((acc) => (
-                    <MenuItem className='w-40' value={acc.key} key={acc.key}>
+                {units?.map((acc) => (
+                    <MenuItem className='' value={acc.key} key={acc.key}>
                         {acc.name}
                     </MenuItem>
                 ))}
-            </Select> */}
+            </Select>
         </FormControl>
 
 

@@ -11,11 +11,11 @@ import { addContact, removeContact, updateContact } from './contactSlice';
 export const getContacts = createAsyncThunk(
     'contactsApp/contacts/getContacts',
     async (params, { getState }) => {
-        const response = await axios.get('/api/units');
+        const response = await axios.get('/api/contacts');
 
         const data = await response.data;
 
-        return { data: data.data.data };
+        return { data };
     }
 );
 

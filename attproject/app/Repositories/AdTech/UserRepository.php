@@ -9,6 +9,7 @@ use App\Models\User;
 use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Role;
 
 class UserRepository implements CrudInterface
 {
@@ -42,7 +43,7 @@ class UserRepository implements CrudInterface
             }
             $query->where($key, $value);
         }
-        return  $query->with('roles')->orderBy('id', 'desc')->paginate(10);
+        return  $query->with(['units', 'roles'])->orderBy('id', 'desc')->paginate(10);
     }
 
     /**
@@ -83,12 +84,16 @@ class UserRepository implements CrudInterface
      */
     public function create(array $data): User
     {
-        $data = [
+        $UserData = [
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password'])
         ];
-        return User::create($data);
+        $user = User::create($UserData);
+        $user->units()->sync($data['units']);
+        $role = Role::findById($data['role']);
+        $user->assignRole($role);
+        return $user;
     }
 
     /**

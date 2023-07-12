@@ -12,6 +12,7 @@ use App\Traits\ResponseTrait;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
 use Auth;
+use Spatie\Permission\Models\Role;
 
 /**
  * @OA\Info(
@@ -243,6 +244,16 @@ class UserController extends Controller
             }
 
             return $this->responseSuccess($tag, 'Tag Deleted Successfully !');
+        } catch (\Exception $e) {
+            return $this->responseError(null, $e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    public function roles(): JsonResponse
+    {
+        try {
+            $data = Role::all();
+            return $this->responseSuccess($data, 'Tag List Fetch Successfully !');
         } catch (\Exception $e) {
             return $this->responseError(null, $e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
         }

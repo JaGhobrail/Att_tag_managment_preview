@@ -58,7 +58,7 @@ const navigationConfig = [
         id: 'business units',
         title: 'Business units',
         type: 'item',
-        icon: 'material-solid:security',
+        icon: 'material-solid:apartment',
         url: '/business-units',
         // url: '/user-admin',
     }

@@ -15,8 +15,6 @@ import PageUrlsAppConfig from '../main/page-urls/AppConfig';
 import UsersAppConfig from '../main/contacts/ContactsAppConfig';
 import BusinessUnitsAppConfig from '../main/businessUnits/ContactsAppConfig';
 
-
-
 const routeConfigs = [
     SignOutConfig,
     SignInConfig,

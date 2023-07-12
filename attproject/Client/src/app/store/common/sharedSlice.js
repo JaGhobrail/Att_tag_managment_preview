@@ -14,10 +14,18 @@ export const getUnits = createAsyncThunk('shared/getUnits', async () => {
     return data.data.data
 });
 
+export const getUserRoles = createAsyncThunk('shared/getUserRoles', async () => {
+    const response = await axios.get('/api/user-roles');
+    const data = await response.data;
+    return data.data
+});
+
 
 
 const initialState = {
-    vendorsName: []
+    vendorsName: [],
+    units: [],
+    userRoles: []
 }
 
 const slice = createSlice({
@@ -30,7 +38,12 @@ const slice = createSlice({
         },
         [getUnits.fulfilled]: (state, action) => {
             state.units = action.payload
+        },
+        [getUserRoles.fulfilled]: (state, action) => {
+            state.userRoles = action.payload
         }
+
+
     },
 });
 
@@ -41,5 +54,8 @@ export const selectVendorsName = ({ common }) => {
 
 export const selectUnits = ({ common }) => {
     return common.shared.units
+}
+export const selectUserRoles = ({ common }) => {
+    return common.shared.userRoles
 }
 export default slice.reducer;

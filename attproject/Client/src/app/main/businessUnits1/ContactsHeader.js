@@ -27,7 +27,7 @@ function ContactsHeader(props) {
                     delay={300}
                     className="text-24 md:text-32 font-extrabold tracking-tight leading-none"
                 >
-                    Users
+                    Business Units
                 </Typography>
                 <Typography
                     component={motion.span}
