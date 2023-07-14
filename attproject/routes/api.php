@@ -1,6 +1,7 @@
 <?php
 
 use App\Enums\PermissionsEnum;
+use App\Http\Controllers\AdTech\Draft\DraftController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\AdTech\tags\TagsController;
 use App\Http\Controllers\AdTech\InvestigationSummary\InvestigationSummaryController;
@@ -56,21 +57,30 @@ Route::group([
 
     Route::group(['middleware' => ['permission:' . PermissionsEnum::INVESTIGATE->value]], function () {
 
+        Route::resource('notes', NoteController::class);
+        Route::resource('drafts', DraftController::class);
+
         Route::resource('tags', TagsController::class);
         Route::resource('investigation-summary', InvestigationSummaryController::class);
 
         Route::resource('vendors', VendorListController::class);
         Route::post('vendors/{itemId}/notes', [NoteController::class, 'createOnVendors']);
+        Route::post('vendors/{itemId}/drafts', [DraftController::class, 'createOnVendors']);
+        Route::post('vendors/{itemId}/save-all', [VendorListController::class, 'saveAllDraft']);
         Route::get('vendors-name', [VendorListController::class, 'vendorsName']);
 
         Route::resource('trackers', TrackerListController::class);
         Route::post('trackers/{itemId}/notes', [NoteController::class, 'createOnTrackers']);
+        Route::post('trackers/{itemId}/drafts', [DraftController::class, 'createOntrackers']);
 
         Route::resource('page-urls', PageUrlListController::class);
         Route::post('page-urls/{itemId}/notes', [NoteController::class, 'createOnPageUrls']);
+        Route::post('page-urls/{itemId}/drafts', [DraftController::class, 'createOnPageUrls']);
+
 
 
         Route::resource('page-sections', PageSectListController::class);
         Route::post('page-sections/{itemId}/notes', [NoteController::class, 'createOnPageSect']);
+        Route::post('page-sections/{itemId}/drafts', [DraftController::class, 'createOnPageSect']);
     });
 });

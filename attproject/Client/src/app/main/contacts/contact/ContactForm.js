@@ -79,7 +79,7 @@ const ContactForm = (props) => {
     function onSubmit(data) {
         if (routeParams.id === 'new') {
             dispatch(addContact(data)).then(({ payload }) => {
-                // navigate(`/users/${payload.id}`);
+                navigate(`/users`);
             });
         } else {
             dispatch(updateContact(data));

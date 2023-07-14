@@ -5,13 +5,12 @@ namespace App\Repositories\AdTech;
 use Illuminate\Support\Str;
 use App\Helpers\UploadHelper;
 use App\Interfaces\CrudInterface;
+use App\Models\AdTech\Draft;
 use App\Models\User;
 use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
-use Spatie\Permission\Models\Role;
 
-class UserRepository implements CrudInterface
+class DraftRepository implements CrudInterface
 {
     /**
      * Authenticated User Instance.
@@ -29,13 +28,13 @@ class UserRepository implements CrudInterface
     }
 
     /**
-     * Get All tags.
+     * Get All Draft.
      *
-     * @return collections Array of tag Collection
+     * @return collections Array of Draft Collection
      */
     public function getAll(array $filters = []): Paginator
     {
-        $query = User::query();
+        $query = Draft::query();
 
         foreach ($filters as $key => $value) {
             if ($key === 'dis') {
@@ -43,33 +42,33 @@ class UserRepository implements CrudInterface
             }
             $query->where($key, $value);
         }
-        return  $query->with(['units', 'roles'])->orderBy('id', 'desc')->paginate(10);
+        return  $query->orderBy('id', 'desc')->paginate(10);
     }
 
     /**
-     * Get Paginated tag Data.
+     * Get Paginated draft Data.
      *
      * @param int $pageNo
-     * @return collections Array of tag Collection
+     * @return collections Array of draft Collection
      */
     public function getPaginatedData($perPage): Paginator
     {
         $perPage = isset($perPage) ? intval($perPage) : 12;
-        return User::orderBy('id', 'desc')
+        return Draft::orderBy('id', 'desc')
             ->paginate($perPage);
     }
 
     /**
-     * Get Searchable tag Data with Pagination.
+     * Get Searchable draft Data with Pagination.
      *
      * @param int $pageNo
-     * @return collections Array of tag Collection
+     * @return collections Array of draft Collection
      */
-    public function searchtag($keyword, $perPage): Paginator
+    public function searchTag($keyword, $perPage): Paginator
     {
         $perPage = isset($perPage) ? intval($perPage) : 10;
 
-        return User::where('vendor-name', 'like', '%' . $keyword . '%')
+        return Draft::where('name', 'like', '%' . $keyword . '%')
             ->orWhere('description', 'like', '%' . $keyword . '%')
             ->orWhere('rate', 'like', '%' . $keyword . '%')
             ->orderBy('id', 'desc')
@@ -77,73 +76,64 @@ class UserRepository implements CrudInterface
     }
 
     /**
-     * Create New tag.
+     * Create New draft.
      *
      * @param array $data
-     * @return object tag Object
+     * @return object draft Object
      */
-    public function create(array $data): User
+    public function create(array $data): Draft
     {
-        $UserData = [
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password'])
-        ];
-        $user = User::create($UserData);
-        $user->units()->sync($data['units']);
-        $role = Role::findById($data['role']);
-        $user->assignRole($role);
-        return $user;
+        return Draft::create($data);
     }
 
     /**
-     * Delete tag.
+     * Delete draft.
      *
      * @param int $id
      * @return boolean true if deleted otherwise false
      */
     public function delete(int $id): bool
     {
-        $tag = User::find($id);
-        if (empty($tag)) {
+        $draft = Draft::find($id);
+        if (empty($draft)) {
             return false;
         }
 
-        $tag->delete($tag);
+        $draft->delete($draft);
         return true;
     }
 
     /**
-     * Get tag Detail By ID.
+     * Get draft Detail By ID.
      *
      * @param int $id
      * @return void
      */
-    public function getByID(int $id): User|null
+    public function getByID(int $id): Draft|null
     {
-        return User::with(['roles'])->find($id);
+        return Draft::find($id);
     }
 
     /**
-     * Update tag By ID.
+     * Update draft By ID.
      *
      * @param int $id
      * @param array $data
-     * @return object Updated tag Object
+     * @return object Updated draft Object
      */
-    public function update(int $id, array $data): User|null
+    public function update(int $id, array $data): Draft|null
     {
-        $tag = User::find($id);
+        $draft = Draft::find($id);
 
 
-        if (is_null($tag)) {
+        if (is_null($draft)) {
             return null;
         }
 
         // If everything is OK, then update.
-        $tag->update($data);
+        $draft->update($data);
 
-        // Finally return the updated tag.
-        return $this->getByID($tag->id);
+        // Finally return the updated draft.
+        return $this->getByID($draft->id);
     }
 }

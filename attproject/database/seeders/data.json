@@ -25950,20 +25950,16 @@
     ],
     "units":[
         {
-            "name":"google",
-            "url":"https://google.com"
+            "name":"google"
         },
         {
-            "name":"facebook",
-            "url":"https://facebook.com"
+            "name":"facebook"
         },
         {
-            "name":"att",
-            "url":"https://att.com"
+            "name":"att"
         },
         {
-            "name":"instagram",
-            "url":"https://instagram.com"
+            "name":"instagram"
         }
 
     ]

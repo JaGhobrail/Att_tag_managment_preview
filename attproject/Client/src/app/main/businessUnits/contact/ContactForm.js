@@ -76,7 +76,7 @@ const ContactForm = (props) => {
     function onSubmit(data) {
         if (routeParams.id === 'new') {
             dispatch(addContact(data)).then(({ payload }) => {
-                // navigate(`/users/${payload.id}`);
+                navigate(`/business-units`);
             });
         } else {
             dispatch(updateContact(data));
@@ -85,7 +85,7 @@ const ContactForm = (props) => {
 
     function handleRemoveContact() {
         dispatch(removeContact(contact.id)).then(() => {
-            navigate('/users');
+            navigate('/units');
         });
     }
 
@@ -214,7 +214,7 @@ const ContactForm = (props) => {
                     )}
                 />
 
-                <Controller
+                {/* <Controller
                     control={control}
                     name="url"
                     render={({ field }) => (
@@ -238,7 +238,7 @@ const ContactForm = (props) => {
                             }}
                         />
                     )}
-                />
+                /> */}
 
             </div>
 

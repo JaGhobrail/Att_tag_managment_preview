@@ -8,6 +8,7 @@ import axios from 'axios';
 import CommonUtils from '@common/utils';
 import { addContact, removeContact, updateContact } from './contactSlice';
 
+
 export const getContacts = createAsyncThunk(
     'contactsApp/contacts/getContacts',
     async (params, { getState }) => {

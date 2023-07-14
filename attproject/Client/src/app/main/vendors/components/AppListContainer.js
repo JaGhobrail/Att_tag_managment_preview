@@ -47,8 +47,8 @@ function AppListContainer(props) {
                     </div>
                     <div className='flex justify-center items-center space-x-8 '>
                         <Button disabled={!hasDraftItem} size='small' endIcon={<Download />} color="secondary" variant="contained">export</Button>
-                        <Button disabled={!hasDraftItem} onClick={() => dispatch(saveAll())} size='small' endIcon={<Save />} color="secondary" variant="contained">Saved</Button>
-                        <Button disabled={!hasDraftItem} onClick={() => setShowClearDialog(true)} size='small' endIcon={<Delete />} color="secondary" variant="contained">Clear All</Button>
+                        <Button onClick={() => dispatch(saveAll())} size='small' endIcon={<Save />} color="secondary" variant="contained">Saved</Button>
+                        <Button onClick={() => setShowClearDialog(true)} size='small' endIcon={<Delete />} color="secondary" variant="contained">Clear All</Button>
 
                         <DateTimePicker
                             className='w-full md:w-auto'
@@ -104,7 +104,7 @@ function AppListContainer(props) {
                     }} autoFocus>No</Button>
                     <Button onClick={() => {
                         setShowClearDialog(false)
-                        dispatch(getItems())
+                        dispatch(clearAll())
                     }} >Yes</Button>
                 </DialogActions>
             </Dialog>

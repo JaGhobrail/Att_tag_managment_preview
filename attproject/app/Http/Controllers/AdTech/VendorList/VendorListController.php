@@ -246,7 +246,7 @@ class VendorListController extends Controller
         }
     }
 
-        /**
+    /**
      * @OA\GET(
      *     path="/api/tags",
      *     tags={"Tags"},
@@ -264,6 +264,25 @@ class VendorListController extends Controller
         try {
             $data = $this->repository->getVendorsName();
             return $this->responseSuccess($data, 'Tag List Fetched Successfully !');
+        } catch (\Exception $e) {
+            return $this->responseError(null, $e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    // public function saveAll(): JsonResponse
+    // {
+    //     try {
+    //         $data = $this->repository->saveAll();
+    //         return $this->responseSuccess($data, 'Tag Updated Successfully !');
+    //     } catch (\Exception $e) {
+    //         return $this->responseError(null, $e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
+    //     }
+    // }
+    public function saveAll(): JsonResponse
+    {
+        try {
+            $data = $this->repository->saveAllDraft($itemId);
+            return $this->responseSuccess($data, 'Tag Updated Successfully !');
         } catch (\Exception $e) {
             return $this->responseError(null, $e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
         }

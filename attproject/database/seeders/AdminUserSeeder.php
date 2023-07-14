@@ -21,6 +21,7 @@ class AdminUserSeeder extends Seeder
             'name' => 'Admin User',
             'email' => 'admin@att.com',
             'password' => bcrypt('12345678'),
+            'color' => "#2196F3",
         ]);
 
         $superAdminUser->assignRole($superAdminRole);

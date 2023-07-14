@@ -34,7 +34,7 @@ class VendorListRepository implements CrudInterface
      *
      * @return collections Array of tag Collection
      */
-    public function getAll(array $filters=[]): Paginator
+    public function getAll(array $filters = []): Paginator
     {
         $query = VendorList::query();
 
@@ -44,7 +44,7 @@ class VendorListRepository implements CrudInterface
             }
             $query->where($key, $value);
         }
-        return  $query->orderBy('id', 'desc')->paginate(10);
+        return  $query->with(['drafts', 'note_list', 'drafts.user', 'note_list.user', 'note_list.user.roles', 'drafts.user.roles'])->orderBy('id', 'desc')->paginate(10);
     }
 
     /**
@@ -147,5 +147,18 @@ class VendorListRepository implements CrudInterface
     public function getVendorsName()
     {
         return VendorList::pluck('vendor_name')->all();
+    }
+
+    public function saveAllDraft(int $itemId)
+    {
+        // $vendor = VendorList::find($id);
+        // if (is_null($tag)) {
+        //     return null;
+        // }
+        // $draft=$vendor->drafts()->first();
+        // $draft->body
+        // $vendor->update($)
+
+        return VendorList::find($itemId)->drafts()->delete();
     }
 }

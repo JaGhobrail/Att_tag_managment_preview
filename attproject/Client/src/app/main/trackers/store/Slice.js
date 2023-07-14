@@ -9,23 +9,26 @@ export const getItems = createAsyncThunk('trackersApp/getItems', async (params) 
 });
 
 
-export const insertDraft = createAsyncThunk('trackersApp/insertDraft', async ({ data, itemId }) => {
-    // const response = await axios.get('/api/vendors');
-    // const data = await response.data;
 
-    // return { data: data, currentPage: 1, totalPage: data?.length / 10, date: '43343' };
-    return { itemId, data }
+export const insertDraft = createAsyncThunk('trackersApp/insertDraft', async ({ data, itemId }) => {
+    const response = await axios.post(`/api/trackers/${itemId}/drafts`, data);
+    return { itemId, data: response.data.data };
 });
 
 export const insertNote = createAsyncThunk('trackersApp/insertNote', async ({ data, itemId }) => {
-    console.log('trackersApp/insertNote', data);
-    // const response = await axios.get('/api/vendors');
-    // const data = await response.data;
-
-    // return { data: data, currentPage: 1, totalPage: data?.length / 10, date: '43343' };
-    return { itemId, data }
+    const response = await axios.post(`/api/trackers/${itemId}/notes`, data);
+    return { itemId, data: response.data.data };
 });
 
+export const deleteNote = createAsyncThunk('trackersApp/deleteNote', async ({ id, itemId }) => {
+    await axios.delete(`/api/notes/${id}`);
+    return { id, itemId };
+});
+
+export const deleteDraft = createAsyncThunk('trackersApp/deleteDraft', async ({ id, itemId }) => {
+    await axios.delete(`/api/drafts/${id}`);
+    return { id, itemId };
+});
 
 
 const itemAdapter = createEntityAdapter({
@@ -55,24 +58,29 @@ const slice = createSlice({
             state.date = action.payload.date
         },
         [insertDraft.fulfilled]: (state, action) => {
-            state.hasDraftItem = true
-            const draftList = state.entities[action.payload.itemId].draftList
-            state.entities[action.payload.itemId].result = action.payload.data.result
-            state.entities[action.payload.itemId].changeResult = true
-            if (!draftList)
-                state.entities[action.payload.itemId].draftList = [action.payload.data]
+            const drafts = state.entities[action.payload.itemId].drafts
+            if (!drafts)
+                state.entities[action.payload.itemId].drafts = [action.payload.data]
             else
-                state.entities[action.payload.itemId].draftList = [action.payload.data, ...draftList]
+                state.entities[action.payload.itemId].drafts = [action.payload.data, ...drafts]
+
+        },
+        [deleteDraft.fulfilled]: (state, action) => {
+            const drafts = state.entities[action.payload.itemId].drafts
+            const newList = drafts.filter(item => item.id != action.payload.id)
+            state.entities[action.payload.itemId].drafts = newList
         },
         [insertNote.fulfilled]: (state, action) => {
-            state.hasDraftItem = true
-            const noteList = state.entities[action.payload.itemId].noteList
-            state.entities[action.payload.itemId].changeNotes = true
-            state.entities[action.payload.itemId].notes = action.payload.data.notes
+            const noteList = state.entities[action.payload.itemId].note_list
             if (!noteList)
-                state.entities[action.payload.itemId].noteList = [action.payload.data]
+                state.entities[action.payload.itemId].note_list = [action.payload.data]
             else
-                state.entities[action.payload.itemId].noteList = [action.payload.data, ...noteList]
+                state.entities[action.payload.itemId].note_list = [action.payload.data, ...noteList]
+        },
+        [deleteNote.fulfilled]: (state, action) => {
+            const noteList = state.entities[action.payload.itemId].note_list
+            const newList = noteList.filter(item => item.id != action.payload.id)
+            state.entities[action.payload.itemId].note_list = newList
         },
     },
 });

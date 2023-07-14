@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('body');
             $table->foreignId('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->string('tracker_domain')->nullable();
+            $table->string('domain')->nullable();
             $table->morphs('noteable');
             $table->timestamps();
         });

@@ -18,7 +18,8 @@ function ContactListItem(props) {
                 to={`/users/${contact.id}`}
             >
                 <ListItemAvatar>
-                    <Avatar alt={contact.name} src={contact.avatar} />
+                    <Avatar alt={contact.name} src={contact.avatar}
+                        sx={{ bgcolor: contact.color ? contact.color : '' }} />
                 </ListItemAvatar>
                 <ListItemText
                     classes={{ root: 'm-0', primary: 'font-medium leading-5 truncate' }}
@@ -29,9 +30,8 @@ function ContactListItem(props) {
                                 className="inline"
                                 component="span"
                                 variant="body2"
-                                color="text.secondary"
-                            >
-                                {contact.title}
+                                color="text.secondary">
+                                {contact.roles[0]?.name}
                             </Typography>
                         </>
                     }

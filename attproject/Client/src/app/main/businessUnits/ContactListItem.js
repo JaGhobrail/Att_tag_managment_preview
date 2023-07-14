@@ -12,7 +12,6 @@ function ContactListItem(props) {
         <>
             <ListItem
                 className="px-32 py-16"
-                sx={{ bgcolor: 'background.paper' }}
                 button
                 component={NavLinkAdapter}
                 to={`/users/${contact.id}`}

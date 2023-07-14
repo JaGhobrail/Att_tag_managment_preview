@@ -63,9 +63,9 @@ const ContactView = () => {
                                 color: 'text.secondary',
                             }}
                             className="w-128 h-128 text-64 font-bold"
-                            alt={contact.name}
+                            alt={contact?.name}
                         >
-                            {contact.name.charAt(0)}
+                            {contact?.name?.charAt(0)}
                         </Avatar>
                         <div className="flex items-center ml-auto mb-4">
                             <Button variant="contained" color="secondary" component={NavLinkAdapter} to="edit">
@@ -75,130 +75,21 @@ const ContactView = () => {
                         </div>
                     </div>
 
-                    <Typography className="mt-12 text-4xl font-bold truncate">{contact.name}</Typography>
-
-                    <div className="flex flex-wrap items-center mt-8">
-                        {contact.tags.map((id) => (
-                            <Chip
-                                key={id}
-                                label={_.find(tags, { id }).title}
-                                className="mr-12 mb-12"
-                                size="small"
-                            />
-                        ))}
-                    </div>
+                    <Typography className="mt-12 text-4xl font-bold truncate">{contact?.name}</Typography>
 
                     <Divider className="mt-16 mb-24" />
 
                     <div className="flex flex-col space-y-32">
-                        {contact.title && (
+                        {contact?.email && (
                             <div className="flex items-center">
                                 <CommonSvgIcon>heroicons-outline:briefcase</CommonSvgIcon>
-                                <div className="ml-24 leading-6">{contact.title}</div>
+                                <div className="ml-24 leading-6">{contact?.email}</div>
                             </div>
                         )}
-
-                        {contact.company && (
+                        {contact?.roles[0] && (
                             <div className="flex items-center">
-                                <CommonSvgIcon>heroicons-outline:office-building</CommonSvgIcon>
-                                <div className="ml-24 leading-6">{contact.company}</div>
-                            </div>
-                        )}
-
-                        {contact.emails.length && contact.emails.some((item) => item.email.length > 0) && (
-                            <div className="flex">
-                                <CommonSvgIcon>heroicons-outline:mail</CommonSvgIcon>
-                                <div className="min-w-0 ml-24 space-y-4">
-                                    {contact.emails.map(
-                                        (item) =>
-                                            item.email !== '' && (
-                                                <div className="flex items-center leading-6" key={item.email}>
-                                                    <a
-                                                        className="hover:underline text-primary-500"
-                                                        href={`mailto: ${item.email}`}
-                                                        target="_blank"
-                                                        rel="noreferrer"
-                                                    >
-                                                        {item.email}
-                                                    </a>
-                                                    {item.label && (
-                                                        <>
-                                                            <Typography className="text-md truncate" color="text.secondary">
-                                                                <span className="mx-8">&bull;</span>
-                                                                <span className="font-medium">{item.label}</span>
-                                                            </Typography>
-                                                        </>
-                                                    )}
-                                                </div>
-                                            )
-                                    )}
-                                </div>
-                            </div>
-                        )}
-
-                        {contact.phoneNumbers.length &&
-                            contact.phoneNumbers.some((item) => item.phoneNumber.length > 0) && (
-                                <div className="flex">
-                                    <CommonSvgIcon>heroicons-outline:phone</CommonSvgIcon>
-                                    <div className="min-w-0 ml-24 space-y-4">
-                                        {contact.phoneNumbers.map(
-                                            (item, index) =>
-                                                item.phoneNumber !== '' && (
-                                                    <div className="flex items-center leading-6" key={index}>
-                                                        <Box
-                                                            className="hidden sm:flex w-24 h-16 overflow-hidden"
-                                                            sx={{
-                                                                background:
-                                                                    "url('/assets/images/apps/contacts/flags.png') no-repeat 0 0",
-                                                                backgroundSize: '24px 3876px',
-                                                                backgroundPosition: getCountryByIso(item.country)?.flagImagePos,
-                                                            }}
-                                                        />
-
-                                                        <div className="sm:ml-12 font-mono">
-                                                            {getCountryByIso(item.country)?.code}
-                                                        </div>
-
-                                                        <div className="ml-10 font-mono">{item.phoneNumber}</div>
-
-                                                        {item.label && (
-                                                            <>
-                                                                <Typography className="text-md truncate" color="text.secondary">
-                                                                    <span className="mx-8">&bull;</span>
-                                                                    <span className="font-medium">{item.label}</span>
-                                                                </Typography>
-                                                            </>
-                                                        )}
-                                                    </div>
-                                                )
-                                        )}
-                                    </div>
-                                </div>
-                            )}
-
-                        {contact.address && (
-                            <div className="flex items-center">
-                                <CommonSvgIcon>heroicons-outline:location-marker</CommonSvgIcon>
-                                <div className="ml-24 leading-6">{contact.address}</div>
-                            </div>
-                        )}
-
-                        {contact.birthday && (
-                            <div className="flex items-center">
-                                <CommonSvgIcon>heroicons-outline:cake</CommonSvgIcon>
-                                <div className="ml-24 leading-6">
-                                    {format(new Date(contact.birthday), 'MMMM d, y')}
-                                </div>
-                            </div>
-                        )}
-
-                        {contact.notes && (
-                            <div className="flex">
-                                <CommonSvgIcon>heroicons-outline:menu-alt-2</CommonSvgIcon>
-                                <div
-                                    className="max-w-none ml-24 prose dark:prose-invert"
-                                    dangerouslySetInnerHTML={{ __html: contact.notes }}
-                                />
+                                <CommonSvgIcon>heroicons-outline:briefcase</CommonSvgIcon>
+                                <div className="ml-24 leading-6">{contact?.roles[0]?.name}</div>
                             </div>
                         )}
                     </div>
