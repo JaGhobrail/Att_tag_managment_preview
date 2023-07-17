@@ -29,19 +29,15 @@ export const deleteDraft = createAsyncThunk('vendorsApp/deleteDraft', async ({ i
     return { id, itemId };
 });
 
-export const clearAll = createAsyncThunk('vendorsApp/clearAll', async () => {
-    return { remove: 'all' }
-});
-
-// export const saveAll = createAsyncThunk('vendorsApp/saveAll', async () => {
-//     return true
-// });
-
-export const saveAll = createAsyncThunk('vendorsApp/saveAll', async () => {
-    const response = await axios.post(`/api/vendors/save-all`);
+export const saveAllDrafts = createAsyncThunk('vendorsApp/saveAllDrafts', async () => {
+    const response = await axios.post(`/api/vendors/save-all-drafts`);
     return response.data
 });
 
+export const clearAllDrafts = createAsyncThunk('vendorsApp/clearAllDrafts', async () => {
+    const response = await axios.post(`/api/vendors/clear-all-drafts`);
+    return response.data
+});
 
 
 const itemAdapter = createEntityAdapter({
@@ -62,11 +58,7 @@ const slice = createSlice({
     initialState: initialState,
     reducers: {},
     extraReducers: {
-        [clearAll.fulfilled]: (state, action) => {
-            state.hasDraftItem = false
-            itemAdapter.removeAll(state)
-        },
-        [saveAll.fulfilled]: (state, action) => {
+        [saveAllDrafts.fulfilled]: (state, action) => {
             state.ids.map(id => {
                 state.entities[id].changeResult = false
                 state.entities[id].draftList = []

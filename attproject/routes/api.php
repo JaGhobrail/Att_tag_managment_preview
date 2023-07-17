@@ -66,7 +66,8 @@ Route::group([
         Route::resource('vendors', VendorListController::class);
         Route::post('vendors/{itemId}/notes', [NoteController::class, 'createOnVendors']);
         Route::post('vendors/{itemId}/drafts', [DraftController::class, 'createOnVendors']);
-        Route::post('vendors/{itemId}/save-all', [VendorListController::class, 'saveAllDraft']);
+        Route::post('vendors/save-all-drafts', [VendorListController::class, 'saveAllDrafts']);
+        Route::post('vendors/clear-all-drafts', [VendorListController::class, 'clearAllDrafts']);
         Route::get('vendors-name', [VendorListController::class, 'vendorsName']);
 
         Route::resource('trackers', TrackerListController::class);
@@ -75,7 +76,7 @@ Route::group([
 
         Route::resource('page-urls', PageUrlListController::class);
         Route::post('page-urls/{itemId}/notes', [NoteController::class, 'createOnPageUrls']);
-        Route::post('page-urls/{itemId}/drafts', [DraftController::class, 'createOnPageUrls']);
+        Route::post('page-urls/{itemId3}/drafts', [DraftController::class, 'createOnPageUrls']);
 
 
 

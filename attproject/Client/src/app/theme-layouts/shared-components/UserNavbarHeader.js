@@ -57,6 +57,9 @@ function UserNavbarHeader(props) {
             <Typography className="email text-13 whitespace-nowrap font-medium" color="text.secondary">
                 {user.data.email}
             </Typography>
+            {/* <Typography className="email text-13 whitespace-nowrap font-medium" color="text.secondary">
+                {user.data.roles[0]?.name}
+            </Typography> */}
 
         </Root>
     );

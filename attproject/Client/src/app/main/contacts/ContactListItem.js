@@ -26,13 +26,18 @@ function ContactListItem(props) {
                     primary={contact.name}
                     secondary={
                         <>
-                            <Typography
-                                className="inline"
-                                component="span"
-                                variant="body2"
-                                color="text.secondary">
-                                {contact.roles[0]?.name}
-                            </Typography>
+                            {
+                                contact?.roles?.map(item => (
+                                    <Typography
+                                        className="inline mx-2"
+                                        component="span"
+                                        variant="body2"
+                                        color="text.secondary">
+                                        {item?.name}
+                                    </Typography>)
+                                )
+                            }
+
                         </>
                     }
                 />

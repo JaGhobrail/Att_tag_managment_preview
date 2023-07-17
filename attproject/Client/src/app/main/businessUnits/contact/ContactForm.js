@@ -23,9 +23,7 @@ import {
     selectContact,
     updateContact,
 } from '../store/contactSlice';
-import { selectCountries } from '../store/countriesSlice';
-import { selectTags } from '../store/tagsSlice';
-import { getUnits, selectUnits, getUserRoles, selectUserRoles } from 'app/store/common/sharedSlice';
+import { getUnits, selectUnits, selectUserRoles } from 'app/store/common/sharedSlice';
 
 /**
  * Form Validation Schema
@@ -38,8 +36,6 @@ const ContactForm = (props) => {
     const contact = useSelector(selectContact);
     const units = useSelector(selectUnits);
     const userRoles = useSelector(selectUserRoles);
-    const countries = useSelector(selectCountries);
-    const tags = useSelector(selectTags);
     const routeParams = useParams();
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -59,16 +55,12 @@ const ContactForm = (props) => {
         } else {
             dispatch(getContact(routeParams.id));
         }
-        dispatch(getUserRoles())
     }, [dispatch, routeParams]);
 
     useEffect(() => {
         reset({ ...contact });
     }, [contact, reset]);
 
-    function getCountryByIso(iso) {
-        return countries.find((country) => country.iso === iso);
-    }
 
     /**
      * Form Submit

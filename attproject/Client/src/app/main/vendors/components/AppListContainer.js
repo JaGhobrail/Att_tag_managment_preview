@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, IconButton, TableContainer, TablePagination, TextField } from '@mui/material';
 import { DateTimePicker } from '@mui/x-date-pickers';
 import { Download, Edit, Web, Link, Save, Delete, LocalOfferOutlined } from '@mui/icons-material';
-import { clearAll, getItems, saveAll, selectAllItems, selectCurrentPage, selectHasDraftItem, selectPerPage, selectTotalPage } from '../store/Slice';
+import { clearAllDrafts, getItems, saveAllDrafts, selectAllItems, selectCurrentPage, selectHasDraftItem, selectPerPage, selectTotalPage } from '../store/Slice';
 import AppList from './AppList';
 import { object } from 'prop-types';
 
@@ -23,6 +23,27 @@ function AppListContainer(props) {
 
     const [selectedMonth, setSelectedMonth] = useState()
     const [showClearDialog, setShowClearDialog] = useState(false)
+
+    const _clearAllDrafts = async () => {
+        try {
+            await dispatch(clearAllDrafts())
+            setShowClearDialog(false)
+            dispatch(getItems())
+        } catch (error) {
+
+        }
+
+    }
+
+    const _saveAllDrafts = async () => {
+        try {
+            await dispatch(saveAllDrafts())
+            dispatch(getItems())
+        } catch (error) {
+
+        }
+
+    }
 
     useEffect(() => {
         if (selectedMonth) {
@@ -47,7 +68,7 @@ function AppListContainer(props) {
                     </div>
                     <div className='flex justify-center items-center space-x-8 '>
                         <Button disabled={!hasDraftItem} size='small' endIcon={<Download />} color="secondary" variant="contained">export</Button>
-                        <Button onClick={() => dispatch(saveAll())} size='small' endIcon={<Save />} color="secondary" variant="contained">Saved</Button>
+                        <Button onClick={_saveAllDrafts} size='small' endIcon={<Save />} color="secondary" variant="contained">Saved</Button>
                         <Button onClick={() => setShowClearDialog(true)} size='small' endIcon={<Delete />} color="secondary" variant="contained">Clear All</Button>
 
                         <DateTimePicker
@@ -102,10 +123,7 @@ function AppListContainer(props) {
                     <Button onClick={() => {
                         setShowClearDialog(false)
                     }} autoFocus>No</Button>
-                    <Button onClick={() => {
-                        setShowClearDialog(false)
-                        dispatch(clearAll())
-                    }} >Yes</Button>
+                    <Button onClick={_clearAllDrafts} >Yes</Button>
                 </DialogActions>
             </Dialog>
         </>

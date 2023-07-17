@@ -13,7 +13,7 @@ function ContactsSidebarContent(props) {
                 className="absolute top-0 right-0 my-16 mx-32 z-10 text-primary"
                 sx={{ color: 'white' }}
                 component={NavLinkAdapter}
-                to="/users"
+                to="/business-units"
                 size="large"
                 color='secondary'
             >

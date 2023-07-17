@@ -30,12 +30,25 @@ export default function SelectDialog(props) {
     const dispatch = useDispatch()
     const [openDialog, setOpenDialog] = useState(false)
     const getResult = () => {
-        if (item.drafts[0]?.body) {
+        if (item?.drafts[0]?.body) {
+            console.log('====================================');
+            console.log(item?.drafts[0]);
+            console.log('====================================');
             const json = JSON.parse(item.drafts[0]?.body)
             return json.result
         }
         return item.result
     }
+
+    const getClasses = () => {
+
+        if (item?.drafts[0]) {
+            return item?.drafts[0].user.color
+        }
+        return ''
+    }
+
+
     const [selectedResult, setSelectedResult] = useState(getResult())
 
     function handleOpenDialog() {
@@ -83,7 +96,8 @@ export default function SelectDialog(props) {
             <TextField
                 onClick={handleOpenDialog}
                 value={selectedResult}
-                className={item.changeResult ? 'bg-yellow' : ''}
+                style={{ backgroundColor: getClasses() }}
+                // className={item.changeResult ? 'bg-yellow' : ''}
                 InputProps={{
                     readOnly: true,
                     endAdornment: (
@@ -124,9 +138,6 @@ export default function SelectDialog(props) {
 
                     {item?.drafts?.map(drft => {
                         const dObj = JSON.parse(drft.body)
-                        // console.log('====================================');
-                        // console.log(drft.body);
-                        // console.log('====================================');
 
                         return (<Paper className='rounded-8 p-8 my-16 space-y-16'>
                             <UserCard user={drft.user} updated_at={drft.updated_at} />

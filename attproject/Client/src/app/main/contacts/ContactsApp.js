@@ -10,8 +10,6 @@ import ContactsSidebarContent from './ContactsSidebarContent';
 import ContactsHeader from './ContactsHeader';
 import ContactsList from './ContactsList';
 import reducer from './store';
-import { getTags } from './store/tagsSlice';
-import { getCountries } from './store/countriesSlice';
 import { getContacts } from './store/contactsSlice';
 
 const Root = styled(CommonPageSimple)(({ theme }) => ({
@@ -29,8 +27,6 @@ function ContactsApp(props) {
 
     useDeepCompareEffect(() => {
         dispatch(getContacts());
-        dispatch(getCountries());
-        dispatch(getTags());
     }, [dispatch]);
 
     useEffect(() => {

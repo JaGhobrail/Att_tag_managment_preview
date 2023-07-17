@@ -269,19 +269,20 @@ class VendorListController extends Controller
         }
     }
 
-    // public function saveAll(): JsonResponse
-    // {
-    //     try {
-    //         $data = $this->repository->saveAll();
-    //         return $this->responseSuccess($data, 'Tag Updated Successfully !');
-    //     } catch (\Exception $e) {
-    //         return $this->responseError(null, $e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
-    //     }
-    // }
-    public function saveAll(): JsonResponse
+    public function saveAllDrafts(): JsonResponse
     {
         try {
-            $data = $this->repository->saveAllDraft($itemId);
+            $data = $this->repository->saveAllDrafts();
+            return $this->responseSuccess($data, 'Tag Updated Successfully !');
+        } catch (\Exception $e) {
+            return $this->responseError(null, $e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    public function clearAllDrafts(): JsonResponse
+    {
+        try {
+            $data = $this->repository->clearAllDrafts();
             return $this->responseSuccess($data, 'Tag Updated Successfully !');
         } catch (\Exception $e) {
             return $this->responseError(null, $e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);

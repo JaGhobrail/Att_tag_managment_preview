@@ -149,16 +149,41 @@ class VendorListRepository implements CrudInterface
         return VendorList::pluck('vendor_name')->all();
     }
 
-    public function saveAllDraft(int $itemId)
+    public function saveAllDrafts()
     {
-        // $vendor = VendorList::find($id);
-        // if (is_null($tag)) {
-        //     return null;
-        // }
-        // $draft=$vendor->drafts()->first();
-        // $draft->body
-        // $vendor->update($)
+        // $vendors = VendorList::whereHas('drafts')->with('drafts');
+        // $userId = Auth::id(); // Assuming you're using Laravel's authentication system
 
-        return VendorList::find($itemId)->drafts()->delete();
+        // $vendorsWithYourDrafts = $vendorsWithDrafts->whereHas('drafts', function ($query) use ($userId) {
+        //     $query->where('user_id', $userId);
+        // })->get();
+
+        $vendors = VendorList::has('drafts')->get();
+        foreach ($vendors as $vendor) {
+            $latestDraft = $vendor->drafts()->latest('created_at')->first();
+            if ($latestDraft) {
+                $body =  json_decode($latestDraft->body, true);
+                $vendor->result = $body['result'];
+                $vendor->save();
+                $vendor->drafts()->delete();
+            }
+        }
+        return $vendors;
+    }
+
+    public function clearAllDrafts()
+    {
+        // $vendors = VendorList::whereHas('drafts')->with('drafts');
+        // $userId = Auth::id(); // Assuming you're using Laravel's authentication system
+
+        // $vendorsWithYourDrafts = $vendorsWithDrafts->whereHas('drafts', function ($query) use ($userId) {
+        //     $query->where('user_id', $userId);
+        // })->get();
+
+        $vendors = VendorList::with('drafts')->get();
+        foreach ($vendors as $vendor) {
+            $vendor->drafts()->delete();
+        }
+        return $vendors;
     }
 }
