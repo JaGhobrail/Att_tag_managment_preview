@@ -43,11 +43,11 @@ const navigationConfig = [
         title: 'DB Admin',
         type: 'item',
         icon: 'heroicons-solid:database',
-        url: '/dashboard',
+        url: '/db-admin',
         // url: '/db-admin',
     },
     {
-        id: 'user-admin',
+        id: 'users',
         title: 'Users',
         type: 'item',
         icon: 'material-solid:security',
@@ -55,7 +55,7 @@ const navigationConfig = [
         // url: '/user-admin',
     },
     {
-        id: 'business units',
+        id: 'business-units',
         title: 'Business units',
         type: 'item',
         icon: 'material-solid:apartment',

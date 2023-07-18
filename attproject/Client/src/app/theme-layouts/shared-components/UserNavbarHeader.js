@@ -36,7 +36,7 @@ function UserNavbarHeader(props) {
                     //   backgroundColor: 'background.paper',
                     //   color: 'text.secondary',
                     // }}
-                    sx={{ bgcolor: user.color ? user.color : '' }}
+                    sx={{ bgcolor: user.data.color ? user.data.color : '' }}
                     className="md:mx-4 text-black"
                 >{user.data.name[0]}</Avatar>
                 {/* <Avatar

@@ -41,7 +41,7 @@ function UserMenu(props) {
                     </Typography>
                 </div>
                 <Avatar
-                    sx={{ bgcolor: user.color ? user.color : '' }}
+                    sx={{ bgcolor: user.data.color ? user.data.color : '' }}
                     className="md:mx-4 text-black">{user.data.name[0]}</Avatar>
                 {/* {user.data.photoURL ? (
           <Avatar className="md:mx-4" alt="user photo" src={user.data.photoURL} />
