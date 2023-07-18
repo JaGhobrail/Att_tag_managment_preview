@@ -84,11 +84,14 @@ class UserRepository implements CrudInterface
      */
     public function create(array $data): User
     {
+
         $UserData = [
             'name' => $data['name'],
             'email' => $data['email'],
+            'color' => $data['color'],
             'password' => Hash::make($data['password'])
         ];
+
         $user = User::create($UserData);
         $user->units()->sync($data['units']);
         $role = Role::findById($data['role']);

@@ -18,7 +18,7 @@ const Root = styled(CommonPageSimple)(({ theme }) => ({
     },
 }));
 
-function ContactsApp(props) {
+function UsersApp(props) {
     const dispatch = useDispatch();
     const pageLayout = useRef(null);
     const routeParams = useParams();
@@ -47,4 +47,4 @@ function ContactsApp(props) {
     );
 }
 
-export default withReducer('contactsApp', reducer)(ContactsApp);
+export default withReducer('usersApp', reducer)(UsersApp);

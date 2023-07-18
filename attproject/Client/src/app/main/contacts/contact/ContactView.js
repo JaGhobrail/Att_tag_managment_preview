@@ -13,13 +13,9 @@ import Box from '@mui/system/Box';
 import format from 'date-fns/format';
 import _ from '@lodash';
 import { getContact, selectContact } from '../store/contactSlice';
-import { selectCountries } from '../store/countriesSlice';
-import { selectTags } from '../store/tagsSlice';
 
 const ContactView = () => {
     const contact = useSelector(selectContact);
-    const countries = useSelector(selectCountries);
-    const tags = useSelector(selectTags);
     const routeParams = useParams();
     const dispatch = useDispatch();
 
@@ -27,9 +23,6 @@ const ContactView = () => {
         dispatch(getContact(routeParams.id));
     }, [dispatch, routeParams]);
 
-    function getCountryByIso(iso) {
-        return countries.find((country) => country.iso === iso);
-    }
 
     if (!contact) {
         return <CommonLoading />;

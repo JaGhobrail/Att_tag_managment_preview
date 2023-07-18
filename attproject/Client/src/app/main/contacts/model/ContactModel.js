@@ -7,6 +7,7 @@ const ContactModel = (data) =>
         password: '',
         role: '',
         units: [],
+        color: ''
     });
 
 export default ContactModel;

@@ -10,7 +10,7 @@ import { addContact, removeContact, updateContact } from './contactSlice';
 
 
 export const getContacts = createAsyncThunk(
-    'contactsApp/contacts/getContacts',
+    'usersApp/contacts/getContacts',
     async (params, { getState }) => {
         const response = await axios.get('/api/users');
 
@@ -22,10 +22,10 @@ export const getContacts = createAsyncThunk(
 
 const contactsAdapter = createEntityAdapter({});
 
-export const selectSearchText = ({ contactsApp }) => contactsApp.contacts.searchText;
+export const selectSearchText = ({ usersApp }) => usersApp.users.searchText;
 
 export const { selectAll: selectContacts, selectById: selectContactsById } =
-    contactsAdapter.getSelectors((state) => state.contactsApp.contacts);
+    contactsAdapter.getSelectors((state) => state.usersApp.users);
 
 export const selectFilteredContacts = createSelector(
     [selectContacts, selectSearchText],
@@ -56,7 +56,7 @@ export const selectGroupedFilteredContacts = createSelector(
 );
 
 const contactsSlice = createSlice({
-    name: 'contactsApp/contacts',
+    name: 'usersApp/contacts',
     initialState: contactsAdapter.getInitialState({
         searchText: '',
     }),

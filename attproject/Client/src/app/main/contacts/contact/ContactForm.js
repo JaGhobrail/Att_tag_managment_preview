@@ -16,7 +16,6 @@ import InputAdornment from '@mui/material/InputAdornment';
 import IconButton from '@mui/material/IconButton';
 import Autocomplete from '@mui/material/Autocomplete/Autocomplete';
 import Checkbox from '@mui/material/Checkbox/Checkbox';
-import { Search } from '@mui/icons-material';
 
 import {
     addContact,
@@ -26,10 +25,8 @@ import {
     selectContact,
     updateContact,
 } from '../store/contactSlice';
-import { selectCountries } from '../store/countriesSlice';
-import { selectTags } from '../store/tagsSlice';
 import { getUnits, selectUnits, getUserRoles, selectUserRoles } from 'app/store/common/sharedSlice';
-
+import { userColors } from '@common/colors/userColors';
 /**
  * Form Validation Schema
  */
@@ -41,8 +38,6 @@ const ContactForm = (props) => {
     const contact = useSelector(selectContact);
     const units = useSelector(selectUnits);
     const userRoles = useSelector(selectUserRoles);
-    const countries = useSelector(selectCountries);
-    const tags = useSelector(selectTags);
     const routeParams = useParams();
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -69,9 +64,6 @@ const ContactForm = (props) => {
         reset({ ...contact });
     }, [contact, reset]);
 
-    function getCountryByIso(iso) {
-        return countries.find((country) => country.iso === iso);
-    }
 
     /**
      * Form Submit
@@ -266,6 +258,40 @@ const ContactForm = (props) => {
                                 ),
                             }}
                         />
+                    )}
+                />
+                <Controller
+                    control={control}
+                    name="color"
+                    render={({ field }) => (
+                        <>
+                            <div className='flex space-x-1 mt-32'>
+                                {
+                                    userColors.map(item => {
+                                        return <Avatar onClick={() => field.onChange(item)} style={{ backgroundColor: item }} />
+                                    })
+                                }
+                            </div>
+                            <TextField
+                                className="mt-32"
+                                style={{ backgroundColor: field.value }}
+                                {...field}
+                                label="Color"
+                                placeholder="color"
+                                id="color"
+                                error={!!errors.color}
+                                helperText={errors?.color?.message}
+                                variant="outlined"
+                                fullWidth
+                                InputProps={{
+                                    startAdornment: (
+                                        <InputAdornment position="start">
+                                            <CommonSvgIcon size={20}>material-solid:password</CommonSvgIcon>
+                                        </InputAdornment>
+                                    ),
+                                }}
+                            />
+                        </>
                     )}
                 />
 
