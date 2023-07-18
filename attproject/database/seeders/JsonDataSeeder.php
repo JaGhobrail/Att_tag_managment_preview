@@ -46,15 +46,15 @@ class JsonDataSeeder extends Seeder
         foreach ($pageUrlList as $item) {
             PageUrlList::create($item);
         }
-        foreach ($users as $item) {
-            $user = new User();
-            $user->name = $item['name'];
-            $user->email = $item['email'];
-            $user->color = $item['color'];
-            $user->password = Hash::make($item['password']);
-            $user->save();
-            // User::create($item);
-        }
+        // foreach ($users as $item) {
+        //     $user = new User();
+        //     $user->name = $item['name'];
+        //     $user->email = $item['email'];
+        //     $user->color = $item['color'];
+        //     $user->password = Hash::make($item['password']);
+        //     $user->save();
+        //     // User::create($item);
+        // }
         foreach ($units as $item) {
 
             Unit::create($item);

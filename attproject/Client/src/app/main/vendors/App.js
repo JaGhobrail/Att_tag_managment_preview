@@ -8,10 +8,10 @@ import reducer from './store';
 import { selectAllItems, getItems } from './store/Slice';
 import AppHeader from './AppHeader';
 import AppListContainer from './components/AppListContainer';
+import AppConfig from './AppConfig';
 
 function App() {
     const items = useSelector(selectAllItems);
-
     return (
         <CommonPageSimple
             header={<AppHeader />}
@@ -49,4 +49,4 @@ function App() {
     );
 }
 
-export default withReducer('vendorsApp', reducer)(App);
+export default withReducer(AppConfig.settings.store, reducer)(App);

@@ -1,17 +1,18 @@
 <?php
 
 use App\Enums\PermissionsEnum;
-use App\Http\Controllers\AdTech\Draft\DraftController;
 use App\Http\Controllers\Auth\AuthController;
-use App\Http\Controllers\AdTech\tags\TagsController;
-use App\Http\Controllers\AdTech\InvestigationSummary\InvestigationSummaryController;
-use App\Http\Controllers\AdTech\PageUrlList\PageUrlListController;
-use App\Http\Controllers\AdTech\PageSectList\PageSectListController;
-use App\Http\Controllers\AdTech\TrackerList\TrackerListController;
-use App\Http\Controllers\AdTech\VendorList\VendorListController;
-use App\Http\Controllers\AdTech\Unit\UnitController;
-use App\Http\Controllers\AdTech\Note\NoteController;
-use App\Http\Controllers\AdTech\User\UserController;
+use App\Http\Controllers\AdTech\TagsController;
+use App\Http\Controllers\AdTech\InvestigationSummaryController;
+use App\Http\Controllers\AdTech\VendorListController;
+use App\Http\Controllers\AdTech\TrackerListController;
+use App\Http\Controllers\AdTech\PageUrlListController;
+use App\Http\Controllers\AdTech\PageSectListController;
+
+use App\Http\Controllers\AdTech\UnitController;
+use App\Http\Controllers\AdTech\NoteController;
+use App\Http\Controllers\AdTech\DraftController;
+use App\Http\Controllers\AdTech\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -70,18 +71,25 @@ Route::group([
         Route::post('vendors/clear-all-drafts', [VendorListController::class, 'clearAllDrafts']);
         Route::get('vendors-name', [VendorListController::class, 'vendorsName']);
 
+
         Route::resource('trackers', TrackerListController::class);
         Route::post('trackers/{itemId}/notes', [NoteController::class, 'createOnTrackers']);
         Route::post('trackers/{itemId}/drafts', [DraftController::class, 'createOntrackers']);
+        Route::post('trackers/save-all-drafts', [TrackerListController::class, 'saveAllDrafts']);
+        Route::post('trackers/clear-all-drafts', [TrackerListController::class, 'clearAllDrafts']);
+
 
         Route::resource('page-urls', PageUrlListController::class);
         Route::post('page-urls/{itemId}/notes', [NoteController::class, 'createOnPageUrls']);
-        Route::post('page-urls/{itemId3}/drafts', [DraftController::class, 'createOnPageUrls']);
-
+        Route::post('page-urls/{itemId}/drafts', [DraftController::class, 'createOnPageUrls']);
+        Route::post('page-urls/save-all-drafts', [PageUrlListController::class, 'saveAllDrafts']);
+        Route::post('page-urls/clear-all-drafts', [PageUrlListController::class, 'clearAllDrafts']);
 
 
         Route::resource('page-sections', PageSectListController::class);
         Route::post('page-sections/{itemId}/notes', [NoteController::class, 'createOnPageSect']);
         Route::post('page-sections/{itemId}/drafts', [DraftController::class, 'createOnPageSect']);
+        Route::post('page-sections/save-all-drafts', [PageSectListController::class, 'saveAllDrafts']);
+        Route::post('page-sections/clear-all-drafts', [PageSectListController::class, 'clearAllDrafts']);
     });
 });

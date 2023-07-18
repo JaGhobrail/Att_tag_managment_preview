@@ -2,7 +2,7 @@ import { combineReducers } from '@reduxjs/toolkit';
 import trackersApp from './Slice';
 
 const reducer = combineReducers({
-  trackersApp,
+    trackersApp,
 });
 
 export default reducer;

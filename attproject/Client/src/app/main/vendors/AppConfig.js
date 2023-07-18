@@ -2,18 +2,21 @@ import { lazy } from 'react';
 
 const App = lazy(() => import('./App'));
 
+
 const AppConfig = {
-  settings: {
-    layout: {
-      config: {},
+    settings: {
+        name: 'Vendors',
+        store: 'vendorsApp',
+        layout: {
+            config: {},
+        },
     },
-  },
-  routes: [
-    {
-      path: '/vendors',
-      element: <App />,
-    },
-  ],
+    routes: [
+        {
+            path: '/vendors',
+            element: <App />,
+        },
+    ],
 };
 
 export default AppConfig;

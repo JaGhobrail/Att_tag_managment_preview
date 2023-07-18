@@ -5,27 +5,39 @@ import { uniqueId } from 'lodash';
 export const getItems = createAsyncThunk('pageUrlsApp/getItems', async (params) => {
     const response = await axios.get('/api/page-urls', { params });
     const data = await response.data;
-    return { data: data.data.data, currentPage: 1, totalPage: 10, date: '43343' };
+    return { data: data.data.data, currentPage: 1, totalPage: 100, date: '43343' };
 });
 
 
 export const insertDraft = createAsyncThunk('pageUrlsApp/insertDraft', async ({ data, itemId }) => {
-    // const response = await axios.get('/api/vendors');
-    // const data = await response.data;
-
-    // return { data: data, currentPage: 1, totalPage: data?.length / 10, date: '43343' };
-    return { itemId, data }
+    const response = await axios.post(`/api/page-urls/${itemId}/drafts`, data);
+    return { itemId, data: response.data.data };
 });
 
 export const insertNote = createAsyncThunk('pageUrlsApp/insertNote', async ({ data, itemId }) => {
-    console.log('pageUrlsApp/insertNote', data);
-    // const response = await axios.get('/api/vendors');
-    // const data = await response.data;
-
-    // return { data: data, currentPage: 1, totalPage: data?.length / 10, date: '43343' };
-    return { itemId, data }
+    const response = await axios.post(`/api/page-urls/${itemId}/notes`, data);
+    return { itemId, data: response.data.data };
 });
 
+export const deleteNote = createAsyncThunk('pageUrlsApp/deleteNote', async ({ id, itemId }) => {
+    await axios.delete(`/api/notes/${id}`);
+    return { id, itemId };
+});
+
+export const deleteDraft = createAsyncThunk('pageUrlsApp/deleteDraft', async ({ id, itemId }) => {
+    await axios.delete(`/api/drafts/${id}`);
+    return { id, itemId };
+});
+
+export const saveAllDrafts = createAsyncThunk('pageUrlsApp/saveAllDrafts', async () => {
+    const response = await axios.post(`/api/page-urls/save-all-drafts`);
+    return response.data
+});
+
+export const clearAllDrafts = createAsyncThunk('pageUrlsApp/clearAllDrafts', async () => {
+    const response = await axios.post(`/api/page-urls/clear-all-drafts`);
+    return response.data
+});
 
 
 const itemAdapter = createEntityAdapter({
@@ -46,33 +58,47 @@ const slice = createSlice({
     initialState: initialState,
     reducers: {},
     extraReducers: {
-        [getItems.fulfilled]: (state, action) => {
-            const newList = action.payload.data.map((item, index) => { return { ...item, id: index } })
+        [saveAllDrafts.fulfilled]: (state, action) => {
+            state.ids.map(id => {
+                state.entities[id].changeResult = false
+                state.entities[id].draftList = []
+            })
+        },
+        [getItems.pending]: (state, action) => {
             itemAdapter.removeAll(state)
+        },
+        [getItems.fulfilled]: (state, action) => {
+            const newList = action.payload.data
             itemAdapter.addMany(state, newList)
             state.currentPage = action.payload.currentPage
             state.totalPage = action.payload.totalPage
             state.date = action.payload.date
+
         },
         [insertDraft.fulfilled]: (state, action) => {
-            state.hasDraftItem = true
-            const draftList = state.entities[action.payload.itemId].draftList
-            state.entities[action.payload.itemId].result = action.payload.data.result
-            state.entities[action.payload.itemId].changeResult = true
-            if (!draftList)
-                state.entities[action.payload.itemId].draftList = [action.payload.data]
+            const drafts = state.entities[action.payload.itemId].drafts
+            if (!drafts)
+                state.entities[action.payload.itemId].drafts = [action.payload.data]
             else
-                state.entities[action.payload.itemId].draftList = [action.payload.data, ...draftList]
+                state.entities[action.payload.itemId].drafts = [action.payload.data, ...drafts]
+
+        },
+        [deleteDraft.fulfilled]: (state, action) => {
+            const drafts = state.entities[action.payload.itemId].drafts
+            const newList = drafts.filter(item => item.id != action.payload.id)
+            state.entities[action.payload.itemId].drafts = newList
         },
         [insertNote.fulfilled]: (state, action) => {
-            state.hasDraftItem = true
-            const noteList = state.entities[action.payload.itemId].noteList
-            state.entities[action.payload.itemId].changeNotes = true
-            state.entities[action.payload.itemId].notes = action.payload.data.notes
+            const noteList = state.entities[action.payload.itemId].note_list
             if (!noteList)
-                state.entities[action.payload.itemId].noteList = [action.payload.data]
+                state.entities[action.payload.itemId].note_list = [action.payload.data]
             else
-                state.entities[action.payload.itemId].noteList = [action.payload.data, ...noteList]
+                state.entities[action.payload.itemId].note_list = [action.payload.data, ...noteList]
+        },
+        [deleteNote.fulfilled]: (state, action) => {
+            const noteList = state.entities[action.payload.itemId].note_list
+            const newList = noteList.filter(item => item.id != action.payload.id)
+            state.entities[action.payload.itemId].note_list = newList
         },
     },
 });

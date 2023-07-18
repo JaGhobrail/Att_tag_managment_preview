@@ -2,8 +2,6 @@
 
 namespace App\Repositories\AdTech;
 
-use Illuminate\Support\Str;
-use App\Helpers\UploadHelper;
 use App\Interfaces\CrudInterface;
 use App\Models\AdTech\PageSectList;
 use App\Models\User;
@@ -28,11 +26,11 @@ class PageSectListRepository implements CrudInterface
     }
 
     /**
-     * Get All tags.
+     * Get All items.
      *
-     * @return collections Array of tag Collection
+     * @return collections Array of item Collection
      */
-    public function getAll(array $filters=[]): Paginator
+    public function getAll(array $filters = []): Paginator
     {
         $query = PageSectList::query();
 
@@ -42,14 +40,14 @@ class PageSectListRepository implements CrudInterface
             }
             $query->where($key, $value);
         }
-        return  $query->orderBy('id', 'desc')->paginate(10);
+        return  $query->with(['drafts', 'note_list', 'drafts.user', 'note_list.user', 'note_list.user.roles', 'drafts.user.roles'])->orderBy('id', 'desc')->paginate(10);
     }
 
     /**
-     * Get Paginated tag Data.
+     * Get Paginated item Data.
      *
      * @param int $pageNo
-     * @return collections Array of tag Collection
+     * @return collections Array of item Collection
      */
     public function getPaginatedData($perPage): Paginator
     {
@@ -59,12 +57,12 @@ class PageSectListRepository implements CrudInterface
     }
 
     /**
-     * Get Searchable tag Data with Pagination.
+     * Get Searchable item Data with Pagination.
      *
      * @param int $pageNo
-     * @return collections Array of tag Collection
+     * @return collections Array of item Collection
      */
-    public function searchtag($keyword, $perPage): Paginator
+    public function searchitem($keyword, $perPage): Paginator
     {
         $perPage = isset($perPage) ? intval($perPage) : 10;
 
@@ -76,64 +74,93 @@ class PageSectListRepository implements CrudInterface
     }
 
     /**
-     * Create New tag.
+     * Create New item.
      *
      * @param array $data
-     * @return object tag Object
+     * @return object item Object
      */
-    public function create(array $data): Tag
+    public function create(array $data): PageSectList
     {
         return PageSectList::create($data);
     }
 
     /**
-     * Delete tag.
+     * Delete item.
      *
      * @param int $id
      * @return boolean true if deleted otherwise false
      */
     public function delete(int $id): bool
     {
-        $tag = PageSectList::find($id);
-        if (empty($tag)) {
+        $item = PageSectList::find($id);
+        if (empty($item)) {
             return false;
         }
 
-        $tag->delete($tag);
+        $item->delete($item);
         return true;
     }
 
     /**
-     * Get tag Detail By ID.
+     * Get item Detail By ID.
      *
      * @param int $id
      * @return void
      */
-    public function getByID(int $id): Tag|null
+    public function getByID(int $id)
+    // : Draft|null
     {
-        return Tag::find($id);
+        $item = PageSectList::find($id);
+        if (is_null($item)) {
+            return null;
+        }
+        return PageSectList::find($id)->note_list;
     }
 
     /**
-     * Update tag By ID.
+     * Update item By ID.
      *
      * @param int $id
      * @param array $data
-     * @return object Updated tag Object
+     * @return object Updated item Object
      */
     public function update(int $id, array $data): PageSectList|null
     {
-        $tag = PageSectList::find($id);
+        $item = PageSectList::find($id);
 
 
-        if (is_null($tag)) {
+        if (is_null($item)) {
             return null;
         }
 
         // If everything is OK, then update.
-        $tag->update($data);
+        $item->update($data);
 
-        // Finally return the updated tag.
-        return $this->getByID($tag->id);
+        // Finally return the updated item.
+        return $this->getByID($item->id);
+    }
+
+    public function saveAllDrafts()
+    {
+        $items = PageSectList::has('drafts')->get();
+        foreach ($items as $item) {
+            $latestDraft = $item->drafts()->latest('created_at')->first();
+            if ($latestDraft) {
+                $body =  json_decode($latestDraft->body, true);
+                $item->result = $body['result'];
+                $item->save();
+                $item->drafts()->delete();
+            }
+        }
+        return $items;
+    }
+
+    public function clearAllDrafts()
+    {
+        $items = PageSectList::with('drafts')->get();
+        foreach ($items as $item) {
+            $item->drafts()->delete();
+        }
+        return $items;
     }
 }

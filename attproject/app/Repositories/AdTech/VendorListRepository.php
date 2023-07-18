@@ -2,12 +2,8 @@
 
 namespace App\Repositories\AdTech;
 
-use Illuminate\Support\Str;
-use App\Helpers\UploadHelper;
 use App\Interfaces\CrudInterface;
 use App\Models\AdTech\VendorList;
-use App\Models\AdTech\Note;
-use App\Models\AdTech\Draft;
 use App\Models\User;
 use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Support\Facades\Auth;
@@ -30,9 +26,9 @@ class VendorListRepository implements CrudInterface
     }
 
     /**
-     * Get All tags.
+     * Get All items.
      *
-     * @return collections Array of tag Collection
+     * @return collections Array of item Collection
      */
     public function getAll(array $filters = []): Paginator
     {
@@ -48,10 +44,10 @@ class VendorListRepository implements CrudInterface
     }
 
     /**
-     * Get Paginated tag Data.
+     * Get Paginated item Data.
      *
      * @param int $pageNo
-     * @return collections Array of tag Collection
+     * @return collections Array of item Collection
      */
     public function getPaginatedData($perPage): Paginator
     {
@@ -61,12 +57,12 @@ class VendorListRepository implements CrudInterface
     }
 
     /**
-     * Get Searchable tag Data with Pagination.
+     * Get Searchable item Data with Pagination.
      *
      * @param int $pageNo
-     * @return collections Array of tag Collection
+     * @return collections Array of item Collection
      */
-    public function searchtag($keyword, $perPage): Paginator
+    public function searchitem($keyword, $perPage): Paginator
     {
         $perPage = isset($perPage) ? intval($perPage) : 10;
 
@@ -78,10 +74,10 @@ class VendorListRepository implements CrudInterface
     }
 
     /**
-     * Create New tag.
+     * Create New item.
      *
      * @param array $data
-     * @return object tag Object
+     * @return object item Object
      */
     public function create(array $data): VendorList
     {
@@ -89,24 +85,24 @@ class VendorListRepository implements CrudInterface
     }
 
     /**
-     * Delete tag.
+     * Delete item.
      *
      * @param int $id
      * @return boolean true if deleted otherwise false
      */
     public function delete(int $id): bool
     {
-        $tag = VendorList::find($id);
-        if (empty($tag)) {
+        $item = VendorList::find($id);
+        if (empty($item)) {
             return false;
         }
 
-        $tag->delete($tag);
+        $item->delete($item);
         return true;
     }
 
     /**
-     * Get tag Detail By ID.
+     * Get item Detail By ID.
      *
      * @param int $id
      * @return void
@@ -114,34 +110,34 @@ class VendorListRepository implements CrudInterface
     public function getByID(int $id)
     // : Draft|null
     {
-        $tag = VendorList::find($id);
-        if (is_null($tag)) {
+        $item = VendorList::find($id);
+        if (is_null($item)) {
             return null;
         }
         return VendorList::find($id)->note_list;
     }
 
     /**
-     * Update tag By ID.
+     * Update item By ID.
      *
      * @param int $id
      * @param array $data
-     * @return object Updated tag Object
+     * @return object Updated item Object
      */
     public function update(int $id, array $data): VendorList|null
     {
-        $tag = VendorList::find($id);
+        $item = VendorList::find($id);
 
 
-        if (is_null($tag)) {
+        if (is_null($item)) {
             return null;
         }
 
         // If everything is OK, then update.
-        $tag->update($data);
+        $item->update($data);
 
-        // Finally return the updated tag.
-        return $this->getByID($tag->id);
+        // Finally return the updated item.
+        return $this->getByID($item->id);
     }
 
     public function getVendorsName()
@@ -151,39 +147,25 @@ class VendorListRepository implements CrudInterface
 
     public function saveAllDrafts()
     {
-        // $vendors = VendorList::whereHas('drafts')->with('drafts');
-        // $userId = Auth::id(); // Assuming you're using Laravel's authentication system
-
-        // $vendorsWithYourDrafts = $vendorsWithDrafts->whereHas('drafts', function ($query) use ($userId) {
-        //     $query->where('user_id', $userId);
-        // })->get();
-
-        $vendors = VendorList::has('drafts')->get();
-        foreach ($vendors as $vendor) {
-            $latestDraft = $vendor->drafts()->latest('created_at')->first();
+        $items = VendorList::has('drafts')->get();
+        foreach ($items as $item) {
+            $latestDraft = $item->drafts()->latest('created_at')->first();
             if ($latestDraft) {
                 $body =  json_decode($latestDraft->body, true);
-                $vendor->result = $body['result'];
-                $vendor->save();
-                $vendor->drafts()->delete();
+                $item->result = $body['result'];
+                $item->save();
+                $item->drafts()->delete();
             }
         }
-        return $vendors;
+        return $items;
     }
 
     public function clearAllDrafts()
     {
-        // $vendors = VendorList::whereHas('drafts')->with('drafts');
-        // $userId = Auth::id(); // Assuming you're using Laravel's authentication system
-
-        // $vendorsWithYourDrafts = $vendorsWithDrafts->whereHas('drafts', function ($query) use ($userId) {
-        //     $query->where('user_id', $userId);
-        // })->get();
-
-        $vendors = VendorList::with('drafts')->get();
-        foreach ($vendors as $vendor) {
-            $vendor->drafts()->delete();
+        $items = VendorList::with('drafts')->get();
+        foreach ($items as $item) {
+            $item->drafts()->delete();
         }
-        return $vendors;
+        return $items;
     }
 }

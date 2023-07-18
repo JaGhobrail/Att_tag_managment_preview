@@ -5,9 +5,8 @@ import { uniqueId } from 'lodash';
 export const getItems = createAsyncThunk('trackersApp/getItems', async (params) => {
     const response = await axios.get('/api/trackers', { params });
     const data = await response.data;
-    return { data: data.data.data, currentPage: 1, totalPage: 10, date: '43343' };
+    return { data: data.data.data, currentPage: 1, totalPage: 100, date: '43343' };
 });
-
 
 
 export const insertDraft = createAsyncThunk('trackersApp/insertDraft', async ({ data, itemId }) => {
@@ -30,6 +29,16 @@ export const deleteDraft = createAsyncThunk('trackersApp/deleteDraft', async ({ 
     return { id, itemId };
 });
 
+export const saveAllDrafts = createAsyncThunk('trackersApp/saveAllDrafts', async () => {
+    const response = await axios.post(`/api/trackers/save-all-drafts`);
+    return response.data
+});
+
+export const clearAllDrafts = createAsyncThunk('trackersApp/clearAllDrafts', async () => {
+    const response = await axios.post(`/api/trackers/clear-all-drafts`);
+    return response.data
+});
+
 
 const itemAdapter = createEntityAdapter({
     selectId: (item) => item.id,
@@ -49,13 +58,22 @@ const slice = createSlice({
     initialState: initialState,
     reducers: {},
     extraReducers: {
-        [getItems.fulfilled]: (state, action) => {
-            const newList = action.payload.data.map((item, index) => { return { ...item, id: index } })
+        [saveAllDrafts.fulfilled]: (state, action) => {
+            state.ids.map(id => {
+                state.entities[id].changeResult = false
+                state.entities[id].draftList = []
+            })
+        },
+        [getItems.pending]: (state, action) => {
             itemAdapter.removeAll(state)
+        },
+        [getItems.fulfilled]: (state, action) => {
+            const newList = action.payload.data
             itemAdapter.addMany(state, newList)
             state.currentPage = action.payload.currentPage
             state.totalPage = action.payload.totalPage
             state.date = action.payload.date
+
         },
         [insertDraft.fulfilled]: (state, action) => {
             const drafts = state.entities[action.payload.itemId].drafts

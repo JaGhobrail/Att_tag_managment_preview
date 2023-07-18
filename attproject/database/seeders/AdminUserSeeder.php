@@ -22,19 +22,19 @@ class AdminUserSeeder extends Seeder
             'name' => 'Admin User',
             'email' => 'admin@att.com',
             'password' => bcrypt('12345678'),
-            'color' => "#2196F3",
+            'color' => "#FFC107",
         ]);
         $user1 = User::create([
             'name' => 'User1',
             'email' => 'user1@att.com',
             'password' => bcrypt('12345678'),
-            'color' => "#FFEB3B",
+            'color' => "#E91E63",
         ]);
         $user2 = User::create([
             'name' => 'User2',
             'email' => 'user2@att.com',
             'password' => bcrypt('12345678'),
-            'color' => "#F44336",
+            'color' => "#2196F3",
         ]);
         $user1->assignRole($investRole);
         $user2->assignRole($investRole);

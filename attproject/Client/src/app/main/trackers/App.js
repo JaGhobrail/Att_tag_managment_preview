@@ -5,14 +5,13 @@ import _ from '@lodash';
 import CommonPageSimple from '@common/core/CommonPageSimple';
 import { motion } from 'framer-motion';
 import reducer from './store';
-import { selectAllItems, getItems, getVendors } from './store/Slice';
+import { selectAllItems, getItems } from './store/Slice';
 import AppHeader from './AppHeader';
-import AppConfig from './AppConfig';
 import AppListContainer from './components/AppListContainer';
+import AppConfig from './AppConfig';
 
 function App() {
     const items = useSelector(selectAllItems);
-
     return (
         <CommonPageSimple
             header={<AppHeader />}
@@ -33,6 +32,7 @@ function App() {
                         };
 
                         return (
+                            //   !_.isEmpty(items) && (
                             <motion.div className="w-full" variants={container} initial="hidden" animate="show">
                                 <div className="grid grid-cols-1 gap-y-32 w-full mt-32">
                                     <motion.div variants={item}>
@@ -41,6 +41,7 @@ function App() {
                                 </div>
                             </motion.div>
                         )
+                        // );
                     }, [items])}
                 </div>
             }

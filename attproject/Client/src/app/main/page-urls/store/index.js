@@ -2,7 +2,7 @@ import { combineReducers } from '@reduxjs/toolkit';
 import pageUrlsApp from './Slice';
 
 const reducer = combineReducers({
-    pageUrlsApp
+    pageUrlsApp,
 });
 
 export default reducer;

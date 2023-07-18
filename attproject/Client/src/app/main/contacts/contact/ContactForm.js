@@ -273,7 +273,7 @@ const ContactForm = (props) => {
                                 }
                             </div>
                             <TextField
-                                className="mt-32"
+                                className="mt-32 bg-opacity-10"
                                 style={{ backgroundColor: field.value }}
                                 {...field}
                                 label="Color"

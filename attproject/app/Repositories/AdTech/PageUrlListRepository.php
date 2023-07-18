@@ -2,8 +2,6 @@
 
 namespace App\Repositories\AdTech;
 
-use Illuminate\Support\Str;
-use App\Helpers\UploadHelper;
 use App\Interfaces\CrudInterface;
 use App\Models\AdTech\PageUrlList;
 use App\Models\User;
@@ -28,11 +26,11 @@ class PageUrlListRepository implements CrudInterface
     }
 
     /**
-     * Get All tags.
+     * Get All items.
      *
-     * @return collections Array of tag Collection
+     * @return collections Array of item Collection
      */
-    public function getAll(array $filters=[]): Paginator
+    public function getAll(array $filters = []): Paginator
     {
         $query = PageUrlList::query();
 
@@ -42,14 +40,14 @@ class PageUrlListRepository implements CrudInterface
             }
             $query->where($key, $value);
         }
-        return  $query->orderBy('id', 'desc')->paginate(10);
+        return  $query->with(['drafts', 'note_list', 'drafts.user', 'note_list.user', 'note_list.user.roles', 'drafts.user.roles'])->orderBy('id', 'desc')->paginate(10);
     }
 
     /**
-     * Get Paginated tag Data.
+     * Get Paginated item Data.
      *
      * @param int $pageNo
-     * @return collections Array of tag Collection
+     * @return collections Array of item Collection
      */
     public function getPaginatedData($perPage): Paginator
     {
@@ -59,16 +57,16 @@ class PageUrlListRepository implements CrudInterface
     }
 
     /**
-     * Get Searchable tag Data with Pagination.
+     * Get Searchable item Data with Pagination.
      *
      * @param int $pageNo
-     * @return collections Array of tag Collection
+     * @return collections Array of item Collection
      */
-    public function searchtag($keyword, $perPage): Paginator
+    public function searchitem($keyword, $perPage): Paginator
     {
         $perPage = isset($perPage) ? intval($perPage) : 10;
 
-        return PageUrlList::where('vendor-name', 'like', '%' . $keyword . '%')
+        return PageUrlList::where('name', 'like', '%' . $keyword . '%')
             ->orWhere('description', 'like', '%' . $keyword . '%')
             ->orWhere('rate', 'like', '%' . $keyword . '%')
             ->orderBy('id', 'desc')
@@ -76,64 +74,93 @@ class PageUrlListRepository implements CrudInterface
     }
 
     /**
-     * Create New tag.
+     * Create New item.
      *
      * @param array $data
-     * @return object tag Object
+     * @return object item Object
      */
-    public function create(array $data): Tag
+    public function create(array $data): PageUrlList
     {
         return PageUrlList::create($data);
     }
 
     /**
-     * Delete tag.
+     * Delete item.
      *
      * @param int $id
      * @return boolean true if deleted otherwise false
      */
     public function delete(int $id): bool
     {
-        $tag = PageUrlList::find($id);
-        if (empty($tag)) {
+        $item = PageUrlList::find($id);
+        if (empty($item)) {
             return false;
         }
 
-        $tag->delete($tag);
+        $item->delete($item);
         return true;
     }
 
     /**
-     * Get tag Detail By ID.
+     * Get item Detail By ID.
      *
      * @param int $id
      * @return void
      */
-    public function getByID(int $id): Tag|null
+    public function getByID(int $id)
+    // : Draft|null
     {
-        return Tag::find($id);
+        $item = PageUrlList::find($id);
+        if (is_null($item)) {
+            return null;
+        }
+        return PageUrlList::find($id)->note_list;
     }
 
     /**
-     * Update tag By ID.
+     * Update item By ID.
      *
      * @param int $id
      * @param array $data
-     * @return object Updated tag Object
+     * @return object Updated item Object
      */
     public function update(int $id, array $data): PageUrlList|null
     {
-        $tag = PageUrlList::find($id);
+        $item = PageUrlList::find($id);
 
 
-        if (is_null($tag)) {
+        if (is_null($item)) {
             return null;
         }
 
         // If everything is OK, then update.
-        $tag->update($data);
+        $item->update($data);
 
-        // Finally return the updated tag.
-        return $this->getByID($tag->id);
+        // Finally return the updated item.
+        return $this->getByID($item->id);
+    }
+
+    public function saveAllDrafts()
+    {
+        $items = PageUrlList::has('drafts')->get();
+        foreach ($items as $item) {
+            $latestDraft = $item->drafts()->latest('created_at')->first();
+            if ($latestDraft) {
+                $body =  json_decode($latestDraft->body, true);
+                $item->result = $body['result'];
+                $item->save();
+                $item->drafts()->delete();
+            }
+        }
+        return $items;
+    }
+
+    public function clearAllDrafts()
+    {
+        $items = PageUrlList::with('drafts')->get();
+        foreach ($items as $item) {
+            $item->drafts()->delete();
+        }
+        return $items;
     }
 }
