@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
+// use App\Models\User;
 use App\Repositories\AuthRepository;
 use App\Traits\ResponseTrait;
 use Illuminate\Http\JsonResponse;
@@ -60,7 +61,10 @@ class AuthController extends Controller
             $credentials = $request->only('email', 'password');
 
             if ($token = $this->guard()->attempt($credentials, ['expires_in' => 60])) {
+
                 $data =  $this->respondWithToken($token);
+                // $user = User::with(['roles'])->find($data->id);
+
             } else {
                 return $this->responseError(null, 'Invalid Email and Password !', Response::HTTP_UNAUTHORIZED);
             }
@@ -122,8 +126,10 @@ class AuthController extends Controller
     public function me(): JsonResponse
     {
         try {
-            $data = $this->guard()->user();
-            return $this->responseSuccess($data, 'Profile Fetched Successfully !');
+            $user = $this->guard()->user();
+            $user['roles'] =  $user->roles;
+            // $user = User::with(['roles'])->find($data->id);
+            return $this->responseSuccess($user, 'Profile Fetched Successfully !');
         } catch (\Exception $e) {
             return $this->responseError(null, $e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
         }
@@ -181,11 +187,14 @@ class AuthController extends Controller
      */
     protected function respondWithToken($token): array
     {
+        $user = $this->guard()->user();
+        $user['roles'] = $user->roles;
         $data = [[
             'access_token' => $token,
             'token_type' => 'bearer',
             'expires_in' => $this->guard()->factory()->getTTL() * 60 * 24 * 30, // 43200 Minutes = 30 Days
-            'user' => $this->guard()->user()
+            // 'user' => $this->guard()->user()
+            'user' =>  $user
         ]];
         return $data[0];
     }

@@ -7,6 +7,7 @@ const navigationConfig = [
         type: 'item',
         icon: 'material-solid:space_dashboard',
         url: '/dashboard',
+        auth: authRoles.INVESTIGATOR
     },
     {
         id: 'vendors',
@@ -14,7 +15,7 @@ const navigationConfig = [
         type: 'item',
         icon: 'material-solid:store_mall_directory',
         url: '/vendors',
-        auth: authRoles.staff
+        auth: authRoles.INVESTIGATOR
     },
 
     {
@@ -23,6 +24,7 @@ const navigationConfig = [
         type: 'item',
         icon: 'material-solid:my_location',
         url: '/trackers',
+        auth: authRoles.INVESTIGATOR
     },
     {
         id: 'page-sections',
@@ -30,6 +32,7 @@ const navigationConfig = [
         type: 'item',
         icon: 'material-solid:pie_chart',
         url: '/page-sections',
+        auth: authRoles.INVESTIGATOR
     },
     {
         id: 'page-urls',
@@ -37,6 +40,7 @@ const navigationConfig = [
         type: 'item',
         icon: 'heroicons-solid:external-link',
         url: '/page-urls',
+        auth: authRoles.INVESTIGATOR
     },
     {
         id: 'db-admin',
@@ -45,6 +49,7 @@ const navigationConfig = [
         icon: 'heroicons-solid:database',
         url: '/db-admin',
         // url: '/db-admin',
+        auth: authRoles.SUPER_ADMIN
     },
     {
         id: 'users',
@@ -53,6 +58,7 @@ const navigationConfig = [
         icon: 'material-solid:security',
         url: '/users',
         // url: '/user-admin',
+        auth: authRoles.UNIT_ADMIN
     },
     {
         id: 'business-units',
@@ -61,6 +67,7 @@ const navigationConfig = [
         icon: 'material-solid:apartment',
         url: '/business-units',
         // url: '/user-admin',
+        auth: authRoles.SUPER_ADMIN
     }
     // ,
     // {

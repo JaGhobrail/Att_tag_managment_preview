@@ -14,6 +14,7 @@ import PageSectionsAppConfig from '../main/page-sections/AppConfig';
 import PageUrlsAppConfig from '../main/page-urls/AppConfig';
 import UsersAppConfig from '../main/contacts/ContactsAppConfig';
 import BusinessUnitsAppConfig from '../main/businessUnits/ContactsAppConfig';
+import { authRoles } from '../auth';
 
 const routeConfigs = [
     SignOutConfig,
@@ -34,7 +35,8 @@ const routes = [
     {
         path: '/',
         element: <Navigate to="/dashboard" />,
-        auth: settingsConfig.defaultAuth,
+        auth: [authRoles.INVESTIGATOR]
+        // settingsConfig.defaultAuth,
     },
     {
         path: 'loading',

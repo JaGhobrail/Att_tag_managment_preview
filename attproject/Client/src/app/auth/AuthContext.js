@@ -60,7 +60,7 @@ function AuthProvider({ children }) {
             }
 
             Promise.all([
-                dispatch(setUser(user)),
+                dispatch(setUser({ ...user, loginRedirectUrl: '/dashboard' })),
                 dispatch(getVendorNames()),
                 dispatch(getUnits()),
                 // You can receive data in here before app initialization
