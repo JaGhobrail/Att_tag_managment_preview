@@ -11,12 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('unit_user', function (Blueprint $table) {
+        Schema::create('business_unit_user', function (Blueprint $table) {
             $table->foreignId('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreignId('unit_id');
-            $table->foreign('unit_id')->references('id')->on('units')->onDelete('cascade');
-            $table->primary(['user_id', 'unit_id']);
+            $table->foreignId('business_unit_id');
+            $table->foreign('business_unit_id')->references('id')->on('business_units')->onDelete('cascade');
+            $table->primary(['user_id', 'business_unit_id']);
             $table->timestamps();
         });
     }
@@ -27,5 +27,6 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('unit_user');
+        Schema::dropIfExists('business_unit_user');
     }
 };

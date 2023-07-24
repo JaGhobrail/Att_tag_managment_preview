@@ -30,6 +30,7 @@ class AdminUserSeeder extends Seeder
             'password' => bcrypt('12345678'),
             'color' => "#E91E63",
         ]);
+        $user1->business_units()->sync([1, 2]);
         $user2 = User::create([
             'name' => 'User2',
             'email' => 'user2@att.com',
@@ -39,5 +40,6 @@ class AdminUserSeeder extends Seeder
         $user1->assignRole($investRole);
         $user2->assignRole($investRole);
         $superAdminUser->assignRole($superAdminRole);
+        $user2->business_units()->sync([2, 3]);
     }
 }

@@ -43,7 +43,7 @@ class UserRepository implements CrudInterface
             }
             $query->where($key, $value);
         }
-        return  $query->with(['units', 'roles'])->orderBy('id', 'desc')->paginate(10);
+        return  $query->with(['business_units', 'roles'])->orderBy('id', 'desc')->paginate(10);
     }
 
     /**
@@ -93,7 +93,7 @@ class UserRepository implements CrudInterface
         ];
 
         $user = User::create($UserData);
-        $user->units()->sync($data['units']);
+        $user->business_units()->sync($data['business_units']);
         $role = Role::findById($data['role']);
         $user->assignRole($role);
         return $user;
@@ -124,7 +124,7 @@ class UserRepository implements CrudInterface
      */
     public function getByID(int $id): User|null
     {
-        return User::with(['roles'])->find($id);
+        return User::with(['roles', 'business_units'])->find($id);
     }
 
     /**

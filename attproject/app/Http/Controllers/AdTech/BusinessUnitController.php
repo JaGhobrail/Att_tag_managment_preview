@@ -4,10 +4,10 @@ namespace App\Http\Controllers\AdTech;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\AdTech\Unit;
+use App\Models\AdTech\BusinessUnit;
 use App\Http\Requests\AdTech\UnitRequest;
 
-use App\Repositories\AdTech\UnitRepository;
+use App\Repositories\AdTech\BusinessUnitRepository;
 use App\Traits\ResponseTrait;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
@@ -28,7 +28,7 @@ use Auth;
  * )
  */
 
-class UnitController extends Controller
+class BusinessUnitController extends Controller
 {
     /**
      * Response trait to handle return responses.
@@ -38,11 +38,11 @@ class UnitController extends Controller
     /**
      * Tag Repository class.
      *
-     * @var UnitRepository
+     * @var BusinessUnitRepository
      */
     public $tagsRepository;
 
-    public function __construct(UnitRepository $tagsRepository)
+    public function __construct(BusinessUnitRepository $tagsRepository)
     {
         $this->middleware('auth:api', ['except' => ['indexAll']]);
         $this->tagsRepository = $tagsRepository;

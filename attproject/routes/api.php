@@ -9,7 +9,7 @@ use App\Http\Controllers\AdTech\TrackerListController;
 use App\Http\Controllers\AdTech\PageUrlListController;
 use App\Http\Controllers\AdTech\PageSectListController;
 
-use App\Http\Controllers\AdTech\UnitController;
+use App\Http\Controllers\AdTech\BusinessUnitController;
 use App\Http\Controllers\AdTech\NoteController;
 use App\Http\Controllers\AdTech\DraftController;
 use App\Http\Controllers\AdTech\UserController;
@@ -53,7 +53,7 @@ Route::group([
     });
 
     Route::group(['middleware' => ['permission:' . PermissionsEnum::MANAGE_UNIT->value]], function () {
-        Route::resource('units', UnitController::class);
+        Route::resource('units', BusinessUnitController::class);
     });
 
     Route::group(['middleware' => ['permission:' . PermissionsEnum::INVESTIGATE->value]], function () {

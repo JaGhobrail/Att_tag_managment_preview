@@ -10,7 +10,7 @@ use App\Models\AdTech\VendorList;
 use App\Models\AdTech\TrackerList;
 use App\Models\AdTech\PageSectList;
 use App\Models\AdTech\PageUrlList;
-use App\Models\AdTech\Unit;
+use App\Models\AdTech\BusinessUnit;
 use App\Models\User;
 
 class JsonDataSeeder extends Seeder
@@ -24,7 +24,7 @@ class JsonDataSeeder extends Seeder
         $data = json_decode($json, true);
 
         $users = $data["users"];
-        $units = $data["units"];
+        $units = $data["business_unit"];
         $vendors = $data["vendors"];
         $trackers = $data["trackers"];
         $pageSctions = $data["pagesecttions"];
@@ -57,7 +57,7 @@ class JsonDataSeeder extends Seeder
         // }
         foreach ($units as $item) {
 
-            Unit::create($item);
+            BusinessUnit::create($item);
         }
     }
 }

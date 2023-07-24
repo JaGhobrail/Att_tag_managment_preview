@@ -5,12 +5,12 @@ namespace App\Repositories\AdTech;
 use Illuminate\Support\Str;
 use App\Helpers\UploadHelper;
 use App\Interfaces\CrudInterface;
-use App\Models\AdTech\Unit;
+use App\Models\AdTech\BusinessUnit;
 use App\Models\User;
 use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Support\Facades\Auth;
 
-class UnitRepository implements CrudInterface
+class BusinessUnitRepository implements CrudInterface
 {
     /**
      * Authenticated User Instance.
@@ -28,13 +28,13 @@ class UnitRepository implements CrudInterface
     }
 
     /**
-     * Get All Unit.
+     * Get All BusinessUnit.
      *
-     * @return collections Array of Unit Collection
+     * @return collections Array of BusinessUnit Collection
      */
-    public function getAll(array $filters=[]): Paginator
+    public function getAll(array $filters = []): Paginator
     {
-        $query = Unit::query();
+        $query = BusinessUnit::query();
 
         foreach ($filters as $key => $value) {
             if ($key === 'dis') {
@@ -54,7 +54,7 @@ class UnitRepository implements CrudInterface
     public function getPaginatedData($perPage): Paginator
     {
         $perPage = isset($perPage) ? intval($perPage) : 12;
-        return Unit::orderBy('id', 'desc')
+        return BusinessUnit::orderBy('id', 'desc')
             ->paginate($perPage);
     }
 
@@ -68,7 +68,7 @@ class UnitRepository implements CrudInterface
     {
         $perPage = isset($perPage) ? intval($perPage) : 10;
 
-        return Unit::where('name', 'like', '%' . $keyword . '%')
+        return BusinessUnit::where('name', 'like', '%' . $keyword . '%')
             ->orWhere('description', 'like', '%' . $keyword . '%')
             ->orWhere('rate', 'like', '%' . $keyword . '%')
             ->orderBy('id', 'desc')
@@ -81,9 +81,9 @@ class UnitRepository implements CrudInterface
      * @param array $data
      * @return object note Object
      */
-    public function create(array $data): Unit
+    public function create(array $data): BusinessUnit
     {
-        return Unit::create($data);
+        return BusinessUnit::create($data);
     }
 
     /**
@@ -94,7 +94,7 @@ class UnitRepository implements CrudInterface
      */
     public function delete(int $id): bool
     {
-        $note = Unit::find($id);
+        $note = BusinessUnit::find($id);
         if (empty($note)) {
             return false;
         }
@@ -109,9 +109,9 @@ class UnitRepository implements CrudInterface
      * @param int $id
      * @return void
      */
-    public function getByID(int $id): Unit|null
+    public function getByID(int $id): BusinessUnit|null
     {
-        return Unit::find($id);
+        return BusinessUnit::find($id);
     }
 
     /**
@@ -121,9 +121,9 @@ class UnitRepository implements CrudInterface
      * @param array $data
      * @return object Updated note Object
      */
-    public function update(int $id, array $data): Unit|null
+    public function update(int $id, array $data): BusinessUnit|null
     {
-        $note = Unit::find($id);
+        $note = BusinessUnit::find($id);
 
 
         if (is_null($note)) {
