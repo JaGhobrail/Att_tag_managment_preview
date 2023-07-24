@@ -12,6 +12,7 @@ import VendorsAppConfig from '../main/vendors/AppConfig';
 import TrackersAppConfig from '../main/trackers/AppConfig';
 import PageSectionsAppConfig from '../main/page-sections/AppConfig';
 import PageUrlsAppConfig from '../main/page-urls/AppConfig';
+import DbAdminAppConfig from '../main/db-admin/AppConfig';
 import UsersAppConfig from '../main/contacts/ContactsAppConfig';
 import BusinessUnitsAppConfig from '../main/businessUnits/ContactsAppConfig';
 import { authRoles } from '../auth';
@@ -26,6 +27,7 @@ const routeConfigs = [
     PageSectionsAppConfig,
     PageUrlsAppConfig,
     UsersAppConfig,
+    DbAdminAppConfig,
     VendorsAppConfigTemp,
     BusinessUnitsAppConfig
 ];
