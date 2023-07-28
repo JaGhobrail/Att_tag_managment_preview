@@ -98,12 +98,19 @@ export default function SelectDialog(props) {
     }
 
     useEffect(() => {
-        dispatch(getPageDomainNames())
-    }, [])
+        if (selectedResult == "Request" || selectedResult == "Remove" || selectedResult == "Approve") {
+            dispatch(getPageDomainNames())
+            dispatch(getPageSectionsNames())
+        }
+
+    }, [selectedResult])
 
     useEffect(() => {
-        dispatch(getPageSectionsNames())
-    }, [])
+        if ((selectedResult == "Request" || selectedResult == "Remove" || selectedResult == "Approve") && (selectedDomain)) {
+            dispatch(getPageSectionsNames({ tracker_domain: selectedDomain }))
+        }
+
+    }, [selectedDomain])
 
 
 

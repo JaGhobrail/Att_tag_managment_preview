@@ -44,12 +44,12 @@ export const clearAllDrafts = createAsyncThunk('trackersApp/clearAllDrafts', asy
 
 
 export const getPageDomainNames = createAsyncThunk('trackersApp/getPageDomainNames', async () => {
-    const response = await axios.post(`/api/tracker-domain-name`);
+    const response = await axios.get(`/api/tracker-domain-name`);
     return response.data.data
 });
 
-export const getPageSectionsNames = createAsyncThunk('trackersApp/getPageSectionsNames', async () => {
-    const response = await axios.post(`/api/page-domain-name`);
+export const getPageSectionsNames = createAsyncThunk('trackersApp/getPageSectionsNames', async (tracker_domain) => {
+    const response = await axios.get(`/api/page-domain-name`, { params: { tracker_domain } });
     return response.data.data
 });
 
