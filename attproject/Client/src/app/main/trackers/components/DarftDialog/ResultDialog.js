@@ -50,6 +50,12 @@ export default function SelectDialog(props) {
 
 
     const [selectedResult, setSelectedResult] = useState(getResult())
+    const [approvedItems, setApprovedItems] = useState(["TMCR", "DCM"])
+    const [selectdApproved, setSelectdApproved] = useState(approvedItems[0])
+    const [tmcrItems, setTmcrItems] = useState(["Facebook", "WKRP News NYC", "New York Times", "NYCORP Inc."])
+    const [selectedTmcr, setSelectedTmcr] = useState()
+    const [selectedDomain, setSelectedDomain] = useState(item.tracker_domain)
+    const [selectedPageSection, setSelectedPageSection] = useState(item.page_section)
 
     function handleOpenDialog() {
         setOpenDialog(true);
@@ -134,6 +140,22 @@ export default function SelectDialog(props) {
                 <DialogContent classes={{ root: 'p-16 pb-0 sm:p-32 sm:pb-0' }}>
                     <Paper className='rounded-8 p-8 my-16 space-y-16 shadow-0'>
                         <SelectResult selectedResult={selectedResult} setSelectedResult={setSelectedResult} />
+                        {/* items = [], selectedDomin, setSelectedDomin */}
+                        {/* const items = ['Investigate', 'Request', 'Remove', 'Approve', 'Functional'] */}
+
+                        {(selectedResult == "Approve") &&
+                            <>
+                                <SelectDomain items={approvedItems} title="Add To Existing" selectedDomin={selectdApproved} setSelectedDomin={setSelectdApproved} />
+                                {selectdApproved == "TMCR" && <SelectDomain items={tmcrItems} title="TMCR" selectedDomin={selectedTmcr} setSelectedDomin={setSelectedTmcr} />}
+                            </>
+                        }
+
+                        {(selectedResult == "Request" || selectedResult == "Remove" || selectedResult == "Approve") &&
+                            <>
+                                <SelectDomain items={[item.tracker_domain]} title="Domain (s)" selectedDomin={selectedDomain} setSelectedDomin={setSelectedDomain} />
+                                <SelectDomain items={[item.page_section]} title="Page Sections" selectedDomin={selectedPageSection} setSelectedDomin={setSelectedPageSection} />
+                            </>
+                        }
                     </Paper>
 
                     {item?.drafts?.map(drft => {

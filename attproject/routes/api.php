@@ -78,6 +78,11 @@ Route::group([
         Route::post('trackers/save-all-drafts', [TrackerListController::class, 'saveAllDrafts']);
         Route::post('trackers/clear-all-drafts', [TrackerListController::class, 'clearAllDrafts']);
 
+        Route::get('tracker-domain-name', [PageSectListController::class, 'getTrackerDomainNames']);
+        Route::get('page-domain-name', [PageSectListController::class, 'getPageSectionsNames']);
+
+
+
 
         Route::resource('page-urls', PageUrlListController::class);
         Route::post('page-urls/{itemId}/notes', [NoteController::class, 'createOnPageUrls']);

@@ -42,12 +42,12 @@ function AppList(props) {
                         <TableCell
                             size='small'
                             style={{ minWidth: 120 }}>
-                            VENDOR PARENT
+                            VENDOR NAME
                         </TableCell>
                         <TableCell
                             size='small'
                             style={{ minWidth: 120 }}>
-                            VENDOR NAME
+                            TRACKER DOMAIN
                         </TableCell>
                         <TableCell
                             size='small'
@@ -81,8 +81,8 @@ function AppList(props) {
                                     className='even:bg-grey-100'
                                     tabIndex={-1}
                                     key={item.id} >
-                                    <TableCell size='small' style={{ minWidth: 120 }} key={'vendor_parent'}>{item.vendor_parent}</TableCell>
-                                    <TableCell size='small' style={{ minWidth: 120 }} key={'vendor_name'}>{item.vendor_name}</TableCell>
+                                    <TableCell size='small' style={{ minWidth: 120 }} key={'vendor_parent'}>{item.vendor_name}</TableCell>
+                                    <TableCell size='small' style={{ minWidth: 120 }} key={'tracker_domain'}>{item.tracker_domain}</TableCell>
                                     <TableCell size='small' style={{ maxWidth: 150 }} key={'result'}>
                                         <ResultDialog item={item} />
                                     </TableCell>

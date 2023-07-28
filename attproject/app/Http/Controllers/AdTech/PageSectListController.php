@@ -278,4 +278,25 @@ class PageSectListController extends Controller
             return $this->responseError(null, $e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
+
+    public function getTrackerDomainNames(): JsonResponse
+    {
+        try {
+            $data = $this->repository->getTrackerDomainNames();
+            return $this->responseSuccess($data, 'Item List Fetched Successfully !');
+        } catch (\Exception $e) {
+            return $this->responseError(null, $e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    public function getPageSectionsNames(Request $request): JsonResponse
+    {
+        try {
+            $trackerDomain = $request->query('tracker_domain');;
+            $data = $this->repository->getPageSectionsNames($trackerDomain);
+            return $this->responseSuccess($data, 'Item List Fetched Successfully !');
+        } catch (\Exception $e) {
+            return $this->responseError(null, $e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+    }
 }

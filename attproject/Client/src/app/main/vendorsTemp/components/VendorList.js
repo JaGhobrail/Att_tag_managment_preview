@@ -71,8 +71,8 @@ function OverViewInvestigateWidget(props) {
           </Typography>
         </div>
         <div className='flex justify-center items-center space-x-8 '>
-          <Button size='small' endIcon={<Download />} color="secondary" variant="contained">export</Button>
-          <Button size='small' endIcon={<Save />} color="secondary" variant="contained">Saved</Button>
+          <Button size='small' endIcon={<Download />} color="secondary" variant="contained">Export</Button>
+          <Button size='small' endIcon={<Save />} color="secondary" variant="contained">Save</Button>
           <Button size='small' endIcon={<Delete />} color="secondary" variant="contained">Clear All</Button>
 
           <DateTimePicker

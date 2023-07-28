@@ -1,7 +1,7 @@
 import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 import React, { useState } from 'react';
 
-function SelectDomain(props) {
+function TrackerDialog(props) {
     const { items = [], selectedDomin, setSelectedDomin, title = "Domain (s)" } = props
     return (
         <FormControl
@@ -11,8 +11,8 @@ function SelectDomain(props) {
             <Select
                 labelId="account-select-label"
                 id="Domain-select"
-                label={title}
-                title={title}
+                label="Domain (s)"
+                title='Domain (s)'
                 value={selectedDomin}
                 onChange={(event) => setSelectedDomin(event.target.value)}
             >

@@ -51,8 +51,8 @@ function AppListContainer(props) {
                         </Typography>
                     </div>
                     <div className='flex justify-center items-center space-x-8 '>
-                        <Button disabled={!hasDraftItem} size='small' endIcon={<Download />} color="secondary" variant="contained">export</Button>
-                        <Button disabled={!hasDraftItem} onClick={() => dispatch(getItems())} size='small' endIcon={<Save />} color="secondary" variant="contained">Saved</Button>
+                        <Button disabled={!hasDraftItem} size='small' endIcon={<Download />} color="secondary" variant="contained">Export</Button>
+                        <Button disabled={!hasDraftItem} onClick={() => dispatch(getItems())} size='small' endIcon={<Save />} color="secondary" variant="contained">Save</Button>
                         <Button disabled={!hasDraftItem} onClick={() => setShowClearDialog(true)} size='small' endIcon={<Delete />} color="secondary" variant="contained">Clear All</Button>
                         <CommonSelect
                             items={vendorsName ?? []}

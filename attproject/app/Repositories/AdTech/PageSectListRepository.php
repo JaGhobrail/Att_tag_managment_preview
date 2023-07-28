@@ -163,4 +163,31 @@ class PageSectListRepository implements CrudInterface
         }
         return $items;
     }
+
+    // $table->string('tracker_domain')->index('idx_ri1p_tracker_domain');
+    // $table->string('page_section')->index('idx_ri1p_page_section');
+
+    public function getTrackerDomainNames()
+    {
+        // return PageSectList::pluck('tracker_domain')->unique();
+        return PageSectList::pluck('tracker_domain')->all();
+    }
+
+
+
+    // public function getPageSectionsNames($trackerDomain)
+    // {
+    //     // return PageSectList::where('tracker_domain', $trackerDomain)->unique()->pluck('page_section')->all();
+    //     return PageSectList::where('tracker_domain', $trackerDomain)->pluck('page_section')->all();
+    // }
+
+    public function getPageSectionsNames($trackerDomain)
+    {
+        $query = PageSectList::query();
+
+        if ($trackerDomain) {
+            $query->where('tracker_domain', $trackerDomain);
+        }
+        return  $query->pluck('page_section')->all();
+    }
 }
