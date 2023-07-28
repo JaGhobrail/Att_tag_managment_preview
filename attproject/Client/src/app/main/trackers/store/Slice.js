@@ -39,6 +39,20 @@ export const clearAllDrafts = createAsyncThunk('trackersApp/clearAllDrafts', asy
     return response.data
 });
 
+// Route::get('tracker-domain-name', [PageSectListController::class, 'getTrackerDomainNames']);
+// Route::get('page-domain-name', [PageSectListController::class, 'getPageSectionsNames']);
+
+
+export const getPageDomainNames = createAsyncThunk('trackersApp/getPageDomainNames', async () => {
+    const response = await axios.post(`/api/tracker-domain-name`);
+    return response.data.data
+});
+
+export const getPageSectionsNames = createAsyncThunk('trackersApp/getPageSectionsNames', async () => {
+    const response = await axios.post(`/api/page-domain-name`);
+    return response.data.data
+});
+
 
 const itemAdapter = createEntityAdapter({
     selectId: (item) => item.id,
@@ -50,7 +64,10 @@ const initialState = itemAdapter.getInitialState({
     totalPage: 0,
     currentPage: 0,
     date: null,
-    hasDraftItem: false
+    hasDraftItem: false,
+    pageSectionsNames: [],
+    pageDomainNames: []
+
 })
 
 const slice = createSlice({
@@ -100,6 +117,16 @@ const slice = createSlice({
             const newList = noteList.filter(item => item.id != action.payload.id)
             state.entities[action.payload.itemId].note_list = newList
         },
+        [getPageDomainNames.fulfilled]: (state, action) => {
+            state.pageDomainNames = action.payload
+        },
+        [getPageSectionsNames.fulfilled]: (state, action) => {
+            state.pageSectionsNames = action.payload
+        }
+
+
+        // getPageSectionsNames
+        // pageDomainNames
     },
 });
 
@@ -121,5 +148,16 @@ export const selectPerPage = ({ trackersApp }) => {
 export const selectHasDraftItem = ({ trackersApp }) => {
     return trackersApp.trackersApp.hasDraftItem
 };
+export const select = ({ trackersApp }) => {
+    return trackersApp.trackersApp.hasDraftItem
+};
+
+export const selectPageSectionsNames = ({ trackersApp }) => {
+    return trackersApp.trackersApp.pageSectionsNames
+};
+export const selectPageDomainNames = ({ trackersApp }) => {
+    return trackersApp.trackersApp.pageDomainNames
+};
+
 
 export default slice.reducer;

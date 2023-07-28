@@ -21,14 +21,16 @@ import { ArrowDownward, ArrowDownwardOutlined, ArrowDropDown, CopyAll, Delete, E
 import UserCard from './UserCard';
 import SelectResult from './SelectResult';
 import SelectDomain from './SelectDomain';
-import { useDispatch } from 'react-redux';
-import { deleteDraft, deleteNote, insertDraft } from '../../store/Slice';
+import { useDispatch, useSelector } from 'react-redux';
+import { deleteDraft, deleteNote, getPageDomainNames, getPageSectionsNames, insertDraft, selectPageDomainNames, selectPageSectionsNames } from '../../store/Slice';
 
 
 export default function SelectDialog(props) {
     const { item } = props;
     const dispatch = useDispatch()
     const [openDialog, setOpenDialog] = useState(false)
+    const pageDomainNames = useSelector(selectPageDomainNames)
+    const pageSectionsNames = useSelector(selectPageSectionsNames)
     const getResult = () => {
         if (item?.drafts[0]?.body) {
             console.log('====================================');
@@ -95,6 +97,15 @@ export default function SelectDialog(props) {
         return false
     }
 
+    useEffect(() => {
+        dispatch(getPageDomainNames())
+    }, [])
+
+    useEffect(() => {
+        dispatch(getPageSectionsNames())
+    }, [])
+
+
 
 
     return (
@@ -152,8 +163,8 @@ export default function SelectDialog(props) {
 
                         {(selectedResult == "Request" || selectedResult == "Remove" || selectedResult == "Approve") &&
                             <>
-                                <SelectDomain items={[item.tracker_domain]} title="Domain (s)" selectedDomin={selectedDomain} setSelectedDomin={setSelectedDomain} />
-                                <SelectDomain items={[item.page_section]} title="Page Sections" selectedDomin={selectedPageSection} setSelectedDomin={setSelectedPageSection} />
+                                <SelectDomain items={pageDomainNames} title="Domain (s)" selectedDomin={selectedDomain} setSelectedDomin={setSelectedDomain} />
+                                <SelectDomain items={pageSectionsNames} title="Page Sections" selectedDomin={selectedPageSection} setSelectedDomin={setSelectedPageSection} />
                             </>
                         }
                     </Paper>
