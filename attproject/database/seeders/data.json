@@ -522,6 +522,97 @@
       "tot_pages": 216
      }
     ],
+    "tmcr_domains":[
+        {
+        "tmcr_id": 1,
+        "tmcr_name": "tmcr_name",
+        "vendor_name": "Google",
+        "tmcr_expected":"tmcr_expected",
+        "tmcr_state":"tmcr_state",
+        "as_of_date": "06\/05\/2023",
+        "tag_beacon": 0,
+        "tag_script": 0,
+        "tag_other": 0,
+        "tag_cookie": 3,
+        "tracker_domain": "ade.googlesyndication.com",
+        "tracker_root": "googlesyndication.com",
+        "tmcr_dom_ne":"tmcr_dom_ne"
+    },
+    {
+        "tmcr_id": 1,
+        "tmcr_name": "tmcr_name",
+        "vendor_name": "arkoselabs.com",
+        "tmcr_expected":"tmcr_expected",
+        "tmcr_state":"tmcr_state",
+        "as_of_date": "06\/05\/2023",
+        "tag_beacon": 0,
+        "tag_script": 0,
+        "tag_other": 0,
+        "tag_cookie": 3,
+        "tracker_domain": "ade.googlesyndication.com",
+        "tracker_root": "googlesyndication.com",
+        "tmcr_dom_ne":"tmcr_dom_ne"
+    },
+    {
+        "tmcr_id": 1,
+        "tmcr_name": "tmcr_name",
+        "vendor_name": "BidSwitch",
+        "tmcr_expected":"tmcr_expected",
+        "tmcr_state":"tmcr_state",
+        "as_of_date": "06\/05\/2023",
+        "tag_beacon": 0,
+        "tag_script": 0,
+        "tag_other": 0,
+        "tag_cookie": 3,
+        "tracker_domain": "ade.googlesyndication.com",
+        "tracker_root": "googlesyndication.com",
+        "tmcr_dom_ne":"tmcr_dom_ne"
+    }
+    ],
+    "tmcr_pages":[
+        {
+        "tmcr_id": 1,
+        "tmcr_name": "tmcr_name",
+        "vendor_name": "Google",
+        "tmcr_expected":"tmcr_expected",
+        "tmcr_state":"tmcr_state",
+        "tmcr_as_of_date": "06\/05\/2023",
+        "business_unit":"googlesyndication.com",
+        "scan_domain": "ade.googlesyndication.com",
+        "page_root": "googlesyndication.com",
+        "page_domain":"page_domain",
+        "page_section":"page_section",
+        "page_url":"page_url"
+    },
+    {
+        "tmcr_id": 1,
+        "tmcr_name": "tmcr_name",
+        "vendor_name": "arkoselabs.com",
+        "tmcr_expected":"tmcr_expected",
+        "tmcr_state":"tmcr_state",
+        "tmcr_as_of_date": "06\/05\/2023",
+        "business_unit":"googlesyndication.com",
+        "scan_domain": "ade.googlesyndication.com",
+        "page_root": "googlesyndication.com",
+        "page_domain":"page_domain",
+        "page_section":"page_section",
+        "page_url":"page_url"
+    },
+    {
+        "tmcr_id": 1,
+        "tmcr_name": "tmcr_name",
+        "vendor_name": "BidSwitch",
+        "tmcr_expected":"tmcr_expected",
+        "tmcr_as_of_date":"tmcr_state",
+        "as_of_date": "06\/05\/2023",
+        "business_unit":"googlesyndication.com",
+        "scan_domain": "ade.googlesyndication.com",
+        "page_root": "googlesyndication.com",
+        "page_domain":"page_domain",
+        "page_section":"page_section",
+        "page_url":"page_url"
+    }
+    ],
     "trackers":[
      {
       "as_of_date": "06\/05\/2023",

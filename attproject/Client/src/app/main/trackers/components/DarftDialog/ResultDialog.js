@@ -1,28 +1,21 @@
-import { yupResolver } from '@hookform/resolvers/yup';
 import AppBar from '@mui/material/AppBar';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
-import IconButton from '@mui/material/IconButton';
 import TextField from '@mui/material/TextField';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import { useEffect, useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import { Controller, useForm } from 'react-hook-form';
-import * as yup from 'yup';
 import _ from '@lodash';
-import WYSIWYGEditor from 'app/shared-components/WYSIWYGEditor';
-import clsx from 'clsx';
-import CommonSvgIcon from '@common/core/CommonSvgIcon';
-import { InputAdornment, Paper, Select } from '@mui/material';
-import { ArrowDownward, ArrowDownwardOutlined, ArrowDropDown, CopyAll, Delete, Edit } from '@mui/icons-material';
+import { InputAdornment, Paper } from '@mui/material';
+import { ArrowDropDown, Delete } from '@mui/icons-material';
 import UserCard from './UserCard';
 import SelectResult from './SelectResult';
 import SelectDomain from './SelectDomain';
 import { useDispatch, useSelector } from 'react-redux';
-import { deleteDraft, deleteNote, getPageDomainNames, getPageSectionsNames, insertDraft, selectPageDomainNames, selectPageSectionsNames } from '../../store/Slice';
+import { deleteDraft, getPageDomainNames, getPageSectionsNames, insertDraft, selectPageDomainNames, selectPageSectionsNames } from '../../store/Slice';
+import MultiSelect from './MultiSelect';
 
 
 export default function SelectDialog(props) {
@@ -31,11 +24,9 @@ export default function SelectDialog(props) {
     const [openDialog, setOpenDialog] = useState(false)
     const pageDomainNames = useSelector(selectPageDomainNames)
     const pageSectionsNames = useSelector(selectPageSectionsNames)
+
     const getResult = () => {
         if (item?.drafts[0]?.body) {
-            console.log('====================================');
-            console.log(item?.drafts[0]);
-            console.log('====================================');
             const json = JSON.parse(item.drafts[0]?.body)
             return json.result
         }
@@ -55,9 +46,10 @@ export default function SelectDialog(props) {
     const [approvedItems, setApprovedItems] = useState(["TMCR", "DCM"])
     const [selectdApproved, setSelectdApproved] = useState(approvedItems[0])
     const [tmcrItems, setTmcrItems] = useState(["Facebook", "WKRP News NYC", "New York Times", "NYCORP Inc."])
-    const [selectedTmcr, setSelectedTmcr] = useState()
-    const [selectedDomain, setSelectedDomain] = useState(item.tracker_domain)
-    const [selectedPageSection, setSelectedPageSection] = useState(item.page_section)
+    // const [tmcrItems, setTmcrItems] = useState([{ id: "1", name: "Facebook" }, { id: "2", name: "WKRP News NYC" }, { id: "3", name: "New York Times" }, { id: "4", name: "NYCORP Inc." }])
+    const [selectedTmcr, setSelectedTmcr] = useState([])
+    const [selectedDomain, setSelectedDomain] = useState([])
+    const [selectedPageSection, setSelectedPageSection] = useState([])
 
     function handleOpenDialog() {
         setOpenDialog(true);
@@ -107,7 +99,9 @@ export default function SelectDialog(props) {
 
     useEffect(() => {
         if ((selectedResult == "Request" || selectedResult == "Remove" || selectedResult == "Approve") && (selectedDomain)) {
-            dispatch(getPageSectionsNames({ tracker_domain: selectedDomain }))
+            // dispatch(getPageSectionsNames({ tracker_domain: selectedDomain }))
+            dispatch(getPageSectionsNames())
+
         }
 
     }, [selectedDomain])
@@ -156,22 +150,20 @@ export default function SelectDialog(props) {
                 </AppBar>
 
                 <DialogContent classes={{ root: 'p-16 pb-0 sm:p-32 sm:pb-0' }}>
+
                     <Paper className='rounded-8 p-8 my-16 space-y-16 shadow-0'>
                         <SelectResult selectedResult={selectedResult} setSelectedResult={setSelectedResult} />
-                        {/* items = [], selectedDomin, setSelectedDomin */}
-                        {/* const items = ['Investigate', 'Request', 'Remove', 'Approve', 'Functional'] */}
-
                         {(selectedResult == "Approve") &&
                             <>
                                 <SelectDomain items={approvedItems} title="Add To Existing" selectedDomin={selectdApproved} setSelectedDomin={setSelectdApproved} />
-                                {selectdApproved == "TMCR" && <SelectDomain items={tmcrItems} title="TMCR" selectedDomin={selectedTmcr} setSelectedDomin={setSelectedTmcr} />}
+                                {selectdApproved == "TMCR" && <MultiSelect items={tmcrItems} title="TMCR" selectedItem={selectedTmcr} setSelectedItem={setSelectedTmcr} />}
                             </>
                         }
 
                         {(selectedResult == "Request" || selectedResult == "Remove" || selectedResult == "Approve") &&
                             <>
-                                <SelectDomain items={pageDomainNames} title="Domain (s)" selectedDomin={selectedDomain} setSelectedDomin={setSelectedDomain} />
-                                <SelectDomain items={pageSectionsNames} title="Page Sections" selectedDomin={selectedPageSection} setSelectedDomin={setSelectedPageSection} />
+                                <MultiSelect items={pageDomainNames} title="Domain (s)" selectedItem={selectedDomain} setSelectedItem={setSelectedDomain} />
+                                <MultiSelect items={pageSectionsNames} title="Page Sections" selectedItem={selectedPageSection} setSelectedItem={setSelectedPageSection} />
                             </>
                         }
                     </Paper>

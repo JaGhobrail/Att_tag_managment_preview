@@ -29,6 +29,8 @@ class JsonDataSeeder extends Seeder
         $trackers = $data["trackers"];
         $pageSctions = $data["pagesecttions"];
         $pageUrlList = $data["pageurls"];
+        $tmcrDomains = $data["tmcr_domains"];
+        $tmcrPages = $data["tmcr_pages"];
 
         // foreach ($users as &$item) {
         //         $item['password'] = Hash::make("12345678");

@@ -169,8 +169,8 @@ class PageSectListRepository implements CrudInterface
 
     public function getTrackerDomainNames()
     {
-        // return PageSectList::pluck('tracker_domain')->unique();
-        return PageSectList::pluck('tracker_domain')->all();
+        return PageSectList::pluck('tracker_domain')->unique();
+        // return PageSectList::pluck('tracker_domain')->all();
     }
 
 
