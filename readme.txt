@@ -1,3 +1,9 @@
+![photo_5792069686115024972_y](https://github.com/user-attachments/assets/a0d04429-c7aa-459b-8a50-c923526161b0)
+![photo_5792069686115024983_y](https://github.com/user-attachments/assets/21f9b3fd-9ca7-4fd5-8340-a33b04dd796c)
+![photo_6039534040874336988_y](https://github.com/user-attachments/assets/3ba2d2ad-51f1-4a5c-b893-7351185b6978)
+
+
+
 cd laradock
 docker-compose up -d nginx postgres pgadmin workspace
 
